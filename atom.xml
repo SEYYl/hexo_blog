@@ -125,46 +125,6 @@
   </entry>
   
   <entry>
-    <title>win10专业版激活</title>
-    <link href="https://blog.helijike.eu.org/posts/e86019d.html"/>
-    <id>https://blog.helijike.eu.org/posts/e86019d.html</id>
-    <published>2026-04-16T13:57:56.000Z</published>
-    <updated>2026-05-18T16:45:06.245Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="win10专业版激活"><a href="#win10专业版激活" class="headerlink" title="win10专业版激活"></a><strong>win10专业版激活</strong></h1><h6 id="1-首先，我们先查看一下Win10正式专业版系统的激活状态：-点击桌面左下角的“Windows”按钮，从打开的扩展面板中依次点击“设置”-“更新和安全”，并切换到“激活”选项卡，在此就可以查看到当前系统的激活状态。如图，Win10正式专业版当前未激活"><a href="#1-首先，我们先查看一下Win10正式专业版系统的激活状态：-点击桌面左下角的“Windows”按钮，从打开的扩展面板中依次点击“设置”-“更新和安全”，并切换到“激活”选项卡，在此就可以查看到当前系统的激活状态。如图，Win10正式专业版当前未激活" class="headerlink" title="1.首先，我们先查看一下Win10正式专业版系统的激活状态：  点击桌面左下角的“Windows”按钮，从打开的扩展面板中依次点击“设置”-“更新和安全”，并切换到“激活”选项卡，在此就可以查看到当前系统的激活状态。如图，Win10正式专业版当前未激活"></a>1.首先，我们先查看一下Win10正式专业版系统的激活状态：  点击桌面左下角的“Windows”按钮，从打开的扩展面板中依次点击“设置”-“更新和安全”，并切换到“激活”选项卡，在此就可以查看到当前系统的激活状态。如图，Win10正式专业版当前未激活</h6><h6 id="2-接下来在桌面左下角的“cortana”搜索框中输入“CMD”，待出现“命令提示符”工具时，右击选择“以管理员身份”运行。"><a href="#2-接下来在桌面左下角的“cortana”搜索框中输入“CMD”，待出现“命令提示符”工具时，右击选择“以管理员身份”运行。" class="headerlink" title="2.接下来在桌面左下角的“cortana”搜索框中输入“CMD”，待出现“命令提示符”工具时，右击选择“以管理员身份”运行。"></a>2.接下来在桌面左下角的“cortana”搜索框中输入“CMD”，待出现“命令提示符”工具时，右击选择“以管理员身份”运行。</h6><h6 id="3-此时将“以管理员身份”打开“MSDOS”窗口，在此界面中，依次输出以下命令："><a href="#3-此时将“以管理员身份”打开“MSDOS”窗口，在此界面中，依次输出以下命令：" class="headerlink" title="3.此时将“以管理员身份”打开“MSDOS”窗口，在此界面中，依次输出以下命令："></a>3.此时将“以管理员身份”打开“MSDOS”窗口，在此界面中，依次输出以下命令：</h6><h6 id="slmgr-vbs-upk-复制以上命令，并在MSDOW窗口中右击以粘贴此命令，按回车进行确定。"><a href="#slmgr-vbs-upk-复制以上命令，并在MSDOW窗口中右击以粘贴此命令，按回车进行确定。" class="headerlink" title="slmgr.vbs /upk  复制以上命令，并在MSDOW窗口中右击以粘贴此命令，按回车进行确定。"></a>slmgr.vbs /upk  复制以上命令，并在MSDOW窗口中右击以粘贴此命令，按回车进行确定。</h6><h6 id="此时弹出窗口显未“已成功卸载了产品密钥”。"><a href="#此时弹出窗口显未“已成功卸载了产品密钥”。" class="headerlink" title="# 此时弹出窗口显未“已成功卸载了产品密钥”。"></a># 此时弹出窗口显未“已成功卸载了产品密钥”。</h6><h6 id="4-接着输入以下命令："><a href="#4-接着输入以下命令：" class="headerlink" title="4.接着输入以下命令："></a>4.接着输入以下命令：</h6><h6 id="slmgr-ipk-W269N-WFGWX-YVC9B-4J6C9-T83GX"><a href="#slmgr-ipk-W269N-WFGWX-YVC9B-4J6C9-T83GX" class="headerlink" title="# slmgr /ipk W269N-WFGWX-YVC9B-4J6C9-T83GX"></a># slmgr /ipk W269N-WFGWX-YVC9B-4J6C9-T83GX</h6><h6 id="弹出窗口提示：“成功的安装了产品密钥”。"><a href="#弹出窗口提示：“成功的安装了产品密钥”。" class="headerlink" title="# 弹出窗口提示：“成功的安装了产品密钥”。"></a># 弹出窗口提示：“成功的安装了产品密钥”。</h6><h6 id="5-继续输入以下命令："><a href="#5-继续输入以下命令：" class="headerlink" title="# 5.继续输入以下命令："></a># 5.继续输入以下命令：</h6><h6 id="slmgr-skms-zh-us-to"><a href="#slmgr-skms-zh-us-to" class="headerlink" title="# slmgr /skms zh.us.to"></a># slmgr /skms zh.us.to</h6><h6 id="弹出窗口提示：“密钥管理服务计算机名成功的设置为zh-us-to”。"><a href="#弹出窗口提示：“密钥管理服务计算机名成功的设置为zh-us-to”。" class="headerlink" title="# 弹出窗口提示：“密钥管理服务计算机名成功的设置为zh.us.to”。"></a># 弹出窗口提示：“密钥管理服务计算机名成功的设置为zh.us.to”。</h6><h6 id="6-接下来输入以下命令："><a href="#6-接下来输入以下命令：" class="headerlink" title="# 6.接下来输入以下命令："></a># 6.接下来输入以下命令：</h6><h6 id="slmgr-ato"><a href="#slmgr-ato" class="headerlink" title="# slmgr /ato"></a># slmgr /ato</h6><h6 id="此时将弹出窗口提示：“成功的激活了产品”。"><a href="#此时将弹出窗口提示：“成功的激活了产品”。" class="headerlink" title="# 此时将弹出窗口提示：“成功的激活了产品”。"></a># 此时将弹出窗口提示：“成功的激活了产品”。</h6><h6 id="7-最后就可以再次查看当前Win10正式专业版系统的激活状态啦。如图所示，表明已成功激活Win10正式专业版系统。"><a href="#7-最后就可以再次查看当前Win10正式专业版系统的激活状态啦。如图所示，表明已成功激活Win10正式专业版系统。" class="headerlink" title="# 7.最后就可以再次查看当前Win10正式专业版系统的激活状态啦。如图所示，表明已成功激活Win10正式专业版系统。"></a># 7.最后就可以再次查看当前Win10正式专业版系统的激活状态啦。如图所示，表明已成功激活Win10正式专业版系统。</h6>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;win10专业版激活&quot;&gt;&lt;a href=&quot;#win10专业版激活&quot; class=&quot;headerlink&quot; title=&quot;win10专业版激活&quot;&gt;&lt;/a&gt;&lt;strong&gt;win10专业版激活&lt;/strong&gt;&lt;/h1&gt;&lt;h6 id=&quot;1-首先，我们先查看一下Win1</summary>
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>同一台电脑管理多个ssh</title>
-    <link href="https://blog.helijike.eu.org/posts/undefined.html"/>
-    <id>https://blog.helijike.eu.org/posts/undefined.html</id>
-    <published>2026-04-16T13:54:24.000Z</published>
-    <updated>2026-05-18T16:42:50.774Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="同一台电脑管理多个SSH-key"><a href="#同一台电脑管理多个SSH-key" class="headerlink" title="同一台电脑管理多个SSH key"></a>同一台电脑管理多个SSH key</h1><h2 id="SSH-key生成"><a href="#SSH-key生成" class="headerlink" title="SSH key生成"></a>SSH key生成</h2><h4 id="ssh-key生成"><a href="#ssh-key生成" class="headerlink" title="ssh key生成"></a>ssh key生成</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;xxx@xxx.com&quot; </span><br></pre></td></tr></table></figure><p>此时会提示保存key的名字及路径，我们只需要自定义key的名字（路径）即可。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Enter file in which to save the key (/Users/caichenghan/.ssh/id_rsa): </span><br></pre></td></tr></table></figure><h4 id="填写自定义路径"><a href="#填写自定义路径" class="headerlink" title="填写自定义路径"></a>填写自定义路径</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Users/caichenghan/.ssh/id_rsa_github </span><br></pre></td></tr></table></figure><p>输入密码生成 <code>ssh key</code> ，可直接按Enter进入生成。</p><h4 id="查看生成的ssh-key"><a href="#查看生成的ssh-key" class="headerlink" title="查看生成的ssh key"></a>查看生成的ssh key</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /Users/caichenghan/.ssh</span><br><span class="line">ls </span><br></pre></td></tr></table></figure><p>目录下会多出2个文件，分别为 <code>id_rsa_github</code> 、 <code>id_rsa_github.pub</code> ，前者为私钥，后者为公钥，我们只需要把公钥上传到github账户的公钥管理中即可。</p><p>我们还可以使用Finder查看该路径：Finder-&gt;右键-&gt;前往文件夹-&gt; <code>~/.ssh</code></p><h4 id="查看公钥"><a href="#查看公钥" class="headerlink" title="查看公钥"></a>查看公钥</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat ~/.ssh/id_rsa_github.pub </span><br></pre></td></tr></table></figure><p>可查看名为 <code>id_rsa_github.pub</code> 的公钥，将其复制下来。</p><h2 id="公钥管理"><a href="#公钥管理" class="headerlink" title="公钥管理"></a>公钥管理</h2><p>打开<code>Github</code>或者<code>自己的git管理页</code>面，在<code>个人中心</code>找到<code>公钥管理</code>，添加制作的公钥，保存。</p><h2 id="ssh-key-配置文件制作"><a href="#ssh-key-配置文件制作" class="headerlink" title="ssh key 配置文件制作"></a>ssh key 配置文件制作</h2><h4 id="配置文件制作"><a href="#配置文件制作" class="headerlink" title="配置文件制作"></a>配置文件制作</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.ssh/config </span><br></pre></td></tr></table></figure><h4 id="配置-github-的ssh-key"><a href="#配置-github-的ssh-key" class="headerlink" title="配置 github 的ssh key"></a>配置 <code>github</code> 的ssh key</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># github</span><br><span class="line">Host github.com</span><br><span class="line">HostName github.com</span><br><span class="line">PreferredAuthentications publickey</span><br><span class="line">IdentityFile ~/.ssh/id_rsa_github</span><br><span class="line"></span><br><span class="line"># oschina</span><br><span class="line">Host gitee.com</span><br><span class="line">HostName gitee.com</span><br><span class="line">PreferredAuthentications publickey</span><br><span class="line">IdentityFile ~/.ssh/id_rsa_gitee</span><br><span class="line"></span><br><span class="line"># 其它</span><br><span class="line">... </span><br></pre></td></tr></table></figure><p>其中 <code>Host</code> 为站点； <code>HostName</code> 为站点名； <code>PreferredAuthentications</code> 为优先使用公钥连接； <code>IdentityFile</code> ，私钥路径。</p><p>如果站点为 <code>ip地址</code> ，则用 <code>ip地址</code> 代替 <code>域名</code> 即可。</p><h4 id="账户验证"><a href="#账户验证" class="headerlink" title="账户验证"></a>账户验证</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com </span><br></pre></td></tr></table></figure><p>格式为<code>git@域名</code></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hi xxx! You&#x27;ve successfully ... </span><br></pre></td></tr></table></figure><p>配置成功</p><p>如果有如下提示</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">The authenticity of host &#x27;github.com (52.74.223.119)&#x27; can&#x27;t be established.</span><br><span class="line">RSA key fingerprint is SHA256:nThbg6kXUpJWGl7E1IGOCspRomTxdCARLviKw6E5SY8.</span><br><span class="line">Are you sure you want to continue connecting (yes/no)? </span><br></pre></td></tr></table></figure><p>键入<code>yes</code>即可。</p><p>如果仍旧报错，可删除 <code>~/.ssh</code> 目录下的 <code>known_host</code> 文件里对应的站点公钥信息，然后重新账户验证。</p><p>同理，我们还可以继续添加其它账号的 <code>ssh key</code> ，这样就可以同一台电脑，使用多个 <code>ssh key</code> 免密码的git操作了。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;同一台电脑管理多个SSH-key&quot;&gt;&lt;a href=&quot;#同一台电脑管理多个SSH-key&quot; class=&quot;headerlink&quot; title=&quot;同一台电脑管理多个SSH key&quot;&gt;&lt;/a&gt;同一台电脑管理多个SSH key&lt;/h1&gt;&lt;h2 id=&quot;SSH-key生成</summary>
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
     <title>记一次惊心动魄的 Hexo 博客部署踩坑实录（上）</title>
     <link href="https://blog.helijike.eu.org/posts/4168ed28.html"/>
     <id>https://blog.helijike.eu.org/posts/4168ed28.html</id>
@@ -566,6 +526,68 @@
     <category term="shields" scheme="https://blog.helijike.eu.org/tags/shields/"/>
     
     <category term="github" scheme="https://blog.helijike.eu.org/tags/github/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Butterfly主题第三方文章</title>
+    <link href="https://blog.helijike.eu.org/posts/f1068b53.html"/>
+    <id>https://blog.helijike.eu.org/posts/f1068b53.html</id>
+    <published>2023-01-25T11:52:55.000Z</published>
+    <updated>2026-05-18T16:42:59.037Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Butterfly主题第三方资源汇总"><a href="#Butterfly主题第三方资源汇总" class="headerlink" title="Butterfly主题第三方资源汇总"></a>Butterfly主题第三方资源汇总</h2><p>这是一个关于 Butterfly 主题魔改资源的时间轴记录。</p><hr><h3 id="2023-1-30-双栏布局首页卡片魔改教程"><a href="#2023-1-30-双栏布局首页卡片魔改教程" class="headerlink" title="2023-1-30 双栏布局首页卡片魔改教程"></a>2023-1-30 双栏布局首页卡片魔改教程</h3><p><a href="https://akilar.top/posts/d6b69c49/">双栏布局首页卡片魔改教程</a></p><hr><h3 id="2023-1-30-Butterfly魔改关于页面"><a href="#2023-1-30-Butterfly魔改关于页面" class="headerlink" title="2023-1-30 Butterfly魔改关于页面"></a>2023-1-30 Butterfly魔改关于页面</h3><p><a href="https://anzhiy.cn/posts/e62b.html">Butterfly魔改关于页面</a></p><hr><h3 id="2023-1-27-Hexo的Butterfly魔改：随机网页跳转"><a href="#2023-1-27-Hexo的Butterfly魔改：随机网页跳转" class="headerlink" title="2023-1-27 Hexo的Butterfly魔改：随机网页跳转"></a>2023-1-27 Hexo的Butterfly魔改：随机网页跳转</h3><p><a href="https://blog.zhheo.com/p/c116857c.html">Hexo的Butterfly魔改：随机网页跳转</a></p><hr><h3 id="2023-1-26-给butterfly添加侧边栏电子钟"><a href="#2023-1-26-给butterfly添加侧边栏电子钟" class="headerlink" title="2023-1-26 给butterfly添加侧边栏电子钟"></a>2023-1-26 给butterfly添加侧边栏电子钟</h3><ul><li>参考：<a href="https://anzhiy.cn/posts/fc18.html">https://anzhiy.cn/posts/fc18.html</a></li><li>参考视频：<a href="https://www.bilibili.com/video/BV1MB4y147FW/">https://www.bilibili.com/video/BV1MB4y147FW/</a></li></ul><hr><h3 id="2023-1-26-自动部署-指令"><a href="#2023-1-26-自动部署-指令" class="headerlink" title="2023-1-26 自动部署+指令"></a>2023-1-26 自动部署+指令</h3><h4 id="使用-Github-Action-实现全自动部署"><a href="#使用-Github-Action-实现全自动部署" class="headerlink" title="使用 Github Action 实现全自动部署"></a>使用 Github Action 实现全自动部署</h4><ul><li>参考：<a href="https://anzhiy.cn/posts/asdx.html">https://anzhiy.cn/posts/asdx.html</a></li><li>参考视频：<a href="https://www.bilibili.com/video/BV19P41157no/">https://www.bilibili.com/video/BV19P41157no/</a></li></ul><p><strong>提交了第一次以后，之后每次提交都可以按照以下步骤来执行：</strong></p><ol><li><code>git add .</code></li><li><code>git commit -m &quot;github action update(填你的提交信息)&quot;</code></li><li><code>git push</code></li></ol><hr><h3 id="2023-1-26-PWA实现方法加视频"><a href="#2023-1-26-PWA实现方法加视频" class="headerlink" title="2023-1-26 PWA实现方法加视频"></a>2023-1-26 PWA实现方法加视频</h3><p><a href="https://akilar.top/posts/8f31c3d0/">Butterfly主题的PWA实现方案</a></p><p><strong>视频PWA视频链接：</strong> <a href="https://www.bilibili.com/video/BV1PY4y1F748/">https://www.bilibili.com/video/BV1PY4y1F748/</a></p><hr><h3 id="2023-1-25-外挂标签的使用"><a href="#2023-1-25-外挂标签的使用" class="headerlink" title="2023-1-25 外挂标签的使用"></a>2023-1-25 外挂标签的使用</h3><p><a href="https://akilar.top/posts/615e2dec/">外挂标签的使用</a></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;Butterfly主题第三方资源汇总&quot;&gt;&lt;a href=&quot;#Butterfly主题第三方资源汇总&quot; class=&quot;headerlink&quot; title=&quot;Butterfly主题第三方资源汇总&quot;&gt;&lt;/a&gt;Butterfly主题第三方资源汇总&lt;/h2&gt;&lt;p&gt;这是一个关于</summary>
+      
+    
+    
+    
+    <category term="资源" scheme="https://blog.helijike.eu.org/categories/%E8%B5%84%E6%BA%90/"/>
+    
+    <category term="Hexo" scheme="https://blog.helijike.eu.org/categories/%E8%B5%84%E6%BA%90/Hexo/"/>
+    
+    
+    <category term="hexo" scheme="https://blog.helijike.eu.org/tags/hexo/"/>
+    
+    <category term="butterfly" scheme="https://blog.helijike.eu.org/tags/butterfly/"/>
+    
+    <category term="主题" scheme="https://blog.helijike.eu.org/tags/%E4%B8%BB%E9%A2%98/"/>
+    
+    <category term="资源" scheme="https://blog.helijike.eu.org/tags/%E8%B5%84%E6%BA%90/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>刷入第三方Recovery教程</title>
+    <link href="https://blog.helijike.eu.org/posts/2e9081ea.html"/>
+    <id>https://blog.helijike.eu.org/posts/2e9081ea.html</id>
+    <published>2023-01-25T04:19:20.000Z</published>
+    <updated>2026-05-18T16:42:59.037Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="刷入第三方Rrecovery教程（本人手机魅族x8，应该其他机型也适应）"><a href="#刷入第三方Rrecovery教程（本人手机魅族x8，应该其他机型也适应）" class="headerlink" title="刷入第三方Rrecovery教程（本人手机魅族x8，应该其他机型也适应）"></a>刷入第三方Rrecovery教程（本人手机魅族x8，应该其他机型也适应）</h1><h2 id="注意：要解锁BL锁！要解锁BL锁！要解锁BL锁！-重要的事说三遍"><a href="#注意：要解锁BL锁！要解锁BL锁！要解锁BL锁！-重要的事说三遍" class="headerlink" title="(注意：要解锁BL锁！要解锁BL锁！要解锁BL锁！ 重要的事说三遍)"></a>(注意：要解锁BL锁！要解锁BL锁！要解锁BL锁！ 重要的事说三遍)</h2><ul><li><h5 id="准备需要的软件"><a href="#准备需要的软件" class="headerlink" title="准备需要的软件"></a>准备需要的软件</h5><ol><li>搞机助手   <a href="https://wwqn.lanzoul.com/i2n6Q0jctbtg">软件</a> （密码:hq61）</li><li>下载第三方TWRP <a href="[Devices (twrp.me">TWRP官网</a>](<a href="https://twrp.me/Devices/">https://twrp.me/Devices/</a>))   <a href="https://wwqn.lanzoul.com/iAxqj0jcupgd">点击直接下</a>（密码:2kfu）  </li></ol></li></ul><pre><code>##### 第一步打开搞机助手并连接上手机(需要打开usb调试模式)![img](https://s2.loli.net/2022/12/25/kvtC23WzTyVSmfJ.png)</code></pre><h6 id="选择扩展——安装安卓驱动-也可以直接下载安卓驱动-点击下载-密码-554x"><a href="#选择扩展——安装安卓驱动-也可以直接下载安卓驱动-点击下载-密码-554x" class="headerlink" title="选择扩展——安装安卓驱动  也可以直接下载安卓驱动 点击下载 (密码:554x)"></a>选择扩展——安装安卓驱动  也可以直接下载安卓驱动 <a href="https://wwqn.lanzoul.com/itKoO0jcx50f">点击下载</a> (密码:554x)</h6><p><img src="https://s2.loli.net/2022/12/25/qvb2uYhxO68tUpJ.png" alt="img"></p><h6 id="安装完以后就可以执行第二步了。"><a href="#安装完以后就可以执行第二步了。" class="headerlink" title="安装完以后就可以执行第二步了。"></a>安装完以后就可以执行第二步了。</h6><h5 id="第二步打开下载好的第三方TWRP-点击直接下（密码-2kfu）"><a href="#第二步打开下载好的第三方TWRP-点击直接下（密码-2kfu）" class="headerlink" title="第二步打开下载好的第三方TWRP  点击直接下（密码:2kfu）"></a>第二步打开下载好的第三方TWRP  <a href="https://wwqn.lanzoul.com/iAxqj0jcupgd">点击直接下</a>（密码:2kfu）</h5><p><img src="https://s2.loli.net/2022/12/25/9yUH6wgltOXeCFa.png" alt=""></p><h6 id="打开以解压的压缩包-注意：手机要进入Fastboot，然后用数据线连接电脑，运行一键输入工具"><a href="#打开以解压的压缩包-注意：手机要进入Fastboot，然后用数据线连接电脑，运行一键输入工具" class="headerlink" title="打开以解压的压缩包(注意：手机要进入Fastboot，然后用数据线连接电脑，运行一键输入工具)"></a>打开以解压的压缩包(注意：手机要进入Fastboot，然后用数据线连接电脑，运行一键输入工具)</h6><p><img src="https://s2.loli.net/2022/12/25/Utwsa17Gq6xSXhK.png" alt=""></p><h6 id="选择fastboot模式，再按Enter"><a href="#选择fastboot模式，再按Enter" class="headerlink" title="选择fastboot模式，再按Enter"></a>选择fastboot模式，再按Enter</h6><p><img src="https://s2.loli.net/2022/12/25/KPIjdRAFvQLaWio.png" alt="img"></p><h6 id="出现如下页面说明就成功了"><a href="#出现如下页面说明就成功了" class="headerlink" title="出现如下页面说明就成功了"></a>出现如下页面说明就成功了</h6><p><img src="https://s2.loli.net/2022/12/25/BJ1WcUAzVu3Mwlm.png" alt="img"></p><h3 id="第二种刷入Recovery（直接上视频）"><a href="#第二种刷入Recovery（直接上视频）" class="headerlink" title="第二种刷入Recovery（直接上视频）"></a>第二种刷入Recovery（直接上视频）</h3><p><a href="E:\boke\source\img\搞机助手刷rec.mp4">视频链接</a></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;刷入第三方Rrecovery教程（本人手机魅族x8，应该其他机型也适应）&quot;&gt;&lt;a href=&quot;#刷入第三方Rrecovery教程（本人手机魅族x8，应该其他机型也适应）&quot; class=&quot;headerlink&quot; title=&quot;刷入第三方Rrecovery教程（本人手</summary>
+      
+    
+    
+    
+    <category term="教程" scheme="https://blog.helijike.eu.org/categories/%E6%95%99%E7%A8%8B/"/>
+    
+    <category term="Android" scheme="https://blog.helijike.eu.org/categories/%E6%95%99%E7%A8%8B/Android/"/>
+    
+    
+    <category term="android" scheme="https://blog.helijike.eu.org/tags/android/"/>
+    
+    <category term="recovery" scheme="https://blog.helijike.eu.org/tags/recovery/"/>
+    
+    <category term="twrp" scheme="https://blog.helijike.eu.org/tags/twrp/"/>
     
   </entry>
   
