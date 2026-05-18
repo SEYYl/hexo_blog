@@ -11,15 +11,6 @@
   </url>
   
   <url>
-    <loc>https://blog.helijike.eu.org/posts/2e3cdad1.html</loc>
-    
-    <lastmod>2026-05-18</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.helijike.eu.org/manifest.json</loc>
     
     <lastmod>2026-05-18</lastmod>
@@ -137,7 +128,7 @@
   </url>
   
   <url>
-    <loc>https://blog.helijike.eu.org/about/index.html</loc>
+    <loc>https://blog.helijike.eu.org/categories/index.html</loc>
     
     <lastmod>2026-05-18</lastmod>
     
@@ -146,7 +137,7 @@
   </url>
   
   <url>
-    <loc>https://blog.helijike.eu.org/categories/index.html</loc>
+    <loc>https://blog.helijike.eu.org/about/index.html</loc>
     
     <lastmod>2026-05-18</lastmod>
     
@@ -763,14 +754,14 @@
   </url>
   
   <url>
-    <loc>https://blog.helijike.eu.org/categories/%E6%95%99%E7%A8%8B/Hexo/</loc>
+    <loc>https://blog.helijike.eu.org/categories/%E6%95%99%E7%A8%8B/%E5%B7%A5%E5%85%B7/</loc>
     <lastmod>2026-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://blog.helijike.eu.org/categories/%E6%95%99%E7%A8%8B/%E5%B7%A5%E5%85%B7/</loc>
+    <loc>https://blog.helijike.eu.org/categories/%E6%95%99%E7%A8%8B/Hexo/</loc>
     <lastmod>2026-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -784,14 +775,14 @@
   </url>
   
   <url>
-    <loc>https://blog.helijike.eu.org/categories/%E6%95%99%E7%A8%8B/Linux/</loc>
+    <loc>https://blog.helijike.eu.org/categories/%E5%85%A5%E9%97%A8/</loc>
     <lastmod>2026-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://blog.helijike.eu.org/categories/%E5%85%A5%E9%97%A8/</loc>
+    <loc>https://blog.helijike.eu.org/categories/%E6%95%99%E7%A8%8B/Linux/</loc>
     <lastmod>2026-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -833,14 +824,14 @@
   </url>
   
   <url>
-    <loc>https://blog.helijike.eu.org/categories/%E8%B5%84%E6%BA%90/Hexo/</loc>
+    <loc>https://blog.helijike.eu.org/categories/%E6%95%99%E7%A8%8B/%E6%9C%8D%E5%8A%A1%E5%99%A8/</loc>
     <lastmod>2026-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://blog.helijike.eu.org/categories/%E6%95%99%E7%A8%8B/%E6%9C%8D%E5%8A%A1%E5%99%A8/</loc>
+    <loc>https://blog.helijike.eu.org/categories/%E8%B5%84%E6%BA%90/Hexo/</loc>
     <lastmod>2026-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
