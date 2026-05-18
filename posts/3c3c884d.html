@@ -1,0 +1,281 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>建站教程一（hexo零基础建站） | 白鲸</title><noscript>开启JavaScript才能访问本站哦~</noscript><link rel="icon" href="/img/pwa/favicon.png"><link rel="stylesheet" href="/css/index.css?v=3.0.21"><link rel="canonical" href="https://blogog.top/posts/3c3c884d.html"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css"><!-- Feature-specific CSS--><!-- aplayer--><!-- swiper--><!-- fancybox ui--><!-- katex--><!-- Open Graph--><meta name="description" content="1.事前准备 GitHub（必须，你需要注册一个GitHub帐号） Cloudflare（非必须，你需要注册一个Cloudflare帐号，这样你就可以将博客部署在CF的CDN里加速，但是你也可以直接使用GitHub.io分配的域名） 2.软件支持 安装Git（必须） 安装Node.js（必须） V"><!-- pwa--><meta name="apple-mobile-web-app-capable" content="白鲸"><meta name="theme-color" content="var(--efu-main)"><meta name="apple-mobile-web-app-status-bar-style" content="var(--efu-main)"><link rel="bookmark" href="/img/pwa/favicon.png"><link rel="apple-touch-icon" href="/img/pwa/favicon.png" sizes="180x180"><script>console.log(' %c Solitude %c ' + '3.0.21' + ' %c https://github.com/everfu/hexo-theme-solitude',
+    'background:#35495e ; padding: 1px; border-radius: 3px 0 0 3px;  color: #fff',
+    'background:#ff9a9a ; padding: 1px; border-radius: 0 3px 3px 0;  color: #fff',
+    'background:unset ; padding: 1px; border-radius: 0 3px 3px 0;  color: #fff')
+</script><script>(()=>{
+        const saveToLocal = {
+            set: function setWithExpiry(key, value, ttl) {
+                if (ttl === 0)
+                    return
+                const now = new Date()
+                const expiryDay = ttl * 86400000
+                const item = {
+                    value: value,
+                    expiry: now.getTime() + expiryDay
+                }
+                localStorage.setItem(key, JSON.stringify(item))
+            },
+            get: function getWithExpiry(key) {
+                const itemStr = localStorage.getItem(key)
+
+                if (!itemStr) {
+                    return undefined
+                }
+                const item = JSON.parse(itemStr)
+                const now = new Date()
+
+                if (now.getTime() > item.expiry) {
+                    localStorage.removeItem(key)
+                    return undefined
+                }
+                return item.value
+            }
+        };
+        window.utils = {
+            saveToLocal: saveToLocal,
+            getCSS: (url, id = false) => new Promise((resolve, reject) => {
+              const link = document.createElement('link')
+              link.rel = 'stylesheet'
+              link.href = url
+              if (id) link.id = id
+              link.onerror = reject
+              link.onload = link.onreadystatechange = function() {
+                const loadState = this.readyState
+                if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+                link.onload = link.onreadystatechange = null
+                resolve()
+              }
+              document.head.appendChild(link)
+            }),
+            getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+              const script = document.createElement('script')
+              script.src = url
+              script.async = true
+              script.onerror = reject
+              script.onload = script.onreadystatechange = function() {
+                const loadState = this.readyState
+                if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+                script.onload = script.onreadystatechange = null
+                resolve()
+              }
+
+              Object.keys(attr).forEach(key => {
+                script.setAttribute(key, attr[key])
+              })
+
+              document.head.appendChild(script)
+            }),
+            addGlobalFn: (key, fn, name = false, parent = window) => {
+                const globalFn = parent.globalFn || {}
+                const keyObj = globalFn[key] || {}
+
+                if (name && keyObj[name]) return
+
+                name = name || Object.keys(keyObj).length
+                keyObj[name] = fn
+                globalFn[key] = keyObj
+                parent.globalFn = globalFn
+            },
+            addEventListenerPjax: (ele, event, fn, option = false) => {
+              ele.addEventListener(event, fn, option)
+              utils.addGlobalFn('pjax', () => {
+                  ele.removeEventListener(event, fn, option)
+              })
+            },
+            diffDateFormat: (selector) => {
+                selector.forEach(item => {
+                    const date = new Date(item.getAttribute('datetime') || item.textContent);
+                    item.textContent = (date.getMonth() + 1).toString()+'/'+date.getDate().toString();
+                });
+            },
+        }
+    })()</script><!-- theme--><script>initTheme = () => {
+    let isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const cachedMode = utils.saveToLocal.get('theme');
+    if (cachedMode === undefined) {
+        const nowMode =
+            isDarkMode ? 'dark' : 'light'
+        document.documentElement.setAttribute('data-theme', nowMode);
+    } else {
+        document.documentElement.setAttribute('data-theme', cachedMode);
+    }
+    typeof rm === 'object' && rm.mode(cachedMode === 'dark' && isDarkMode)
+}
+initTheme()</script><script>const GLOBAL_CONFIG = {
+    root: '/',
+    algolia: undefined,
+    localsearch: undefined,
+    runtime: '2023-04-20 00:00:00',
+    lazyload: {
+        enable: false,
+        error: '/img/error_load.avif'
+    },
+    copyright: false,
+    highlight: {"limit":200,"expand":true,"copy":true,"syntax":"highlight.js"},
+    randomlink: false,
+    lang: {"theme":{"dark":"已切换至深色模式","light":"已切换至浅色模式"},"copy":{"success":"复制成功","error":"复制失败"},"backtop":"返回顶部","time":{"day":"天前","hour":"小时前","just":"刚刚","min":"分钟前","month":"个月前"},"day":" 天","f12":"开发者模式已打开，请遵循GPL协议。","totalk":"无需删除空行，直接输入评论即可"},
+    aside: {
+        state: {
+            morning: "✨ 早上好，新的一天开始了",
+            noon: "🍲 午餐时间",
+            afternoon: "🌞 下午好",
+            night: "早点休息",
+            goodnight: "晚安 😴",
+        },
+        witty_words: [],
+        witty_comment: {
+            prefix: '好久不见，',
+            back: '欢迎再次回来，',
+        },
+    },
+    covercolor: {
+        enable: false
+    },
+    comment: false,
+    lightbox: 'null',
+    right_menu: false,
+    translate: {"translateDelay":0,"defaultEncoding":2},
+    lure: false,
+    expire: false,
+};</script><script id="config-diff">var PAGE_CONFIG = {
+    is_post: true,
+    is_page: false,
+    is_home: false,
+    page: '',
+    toc: true,
+    comment: false,
+    ai_text: false,
+    color: false,
+}</script><meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="白鲸" type="application/atom+xml">
+</head><body id="body"><div id="console"><div class="close-btn" onclick="sco.hideConsole()"><i class="solitude fas fa-xmark"></i></div><div class="console-card-group"><div class="console-card-group-right"><div class="console-card tags" onclick="sco.hideConsole()"><div class="card-content"><div class="author-content-item-tips">标签</div><div class="author-content-item-title">寻找感兴趣的领域</div></div><div class="card-tag-cloud"><a href="/tags/hexo/">hexo<sup>8</sup></a><a href="/tags/powershell/">powershell<sup>1</sup></a><a href="/tags/%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/">问题解决<sup>1</sup></a><a href="/tags/alist/">alist<sup>1</sup></a><a href="/tags/%E4%BA%91%E7%9B%98/">云盘<sup>1</sup></a><a href="/tags/%E6%8C%82%E8%BD%BD/">挂载<sup>1</sup></a><a href="/tags/linux/">linux<sup>2</sup></a><a href="/tags/%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/">基础命令<sup>1</sup></a><a href="/tags/%E6%95%99%E7%A8%8B/">教程<sup>2</sup></a><a href="/tags/obsidian/">obsidian<sup>1</sup></a><a href="/tags/git/">git<sup>2</sup></a><a href="/tags/%E5%90%8C%E6%AD%A5/">同步<sup>1</sup></a><a href="/tags/%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/">软件安装<sup>1</sup></a><a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/">服务器<sup>1</sup></a><a href="/tags/typora/">typora<sup>1</sup></a><a href="/tags/markdown/">markdown<sup>1</sup></a><a href="/tags/%E5%B7%A5%E5%85%B7/">工具<sup>1</sup></a><a href="/tags/butterfly/">butterfly<sup>1</sup></a><a href="/tags/%E4%B8%BB%E9%A2%98/">主题<sup>2</sup></a><a href="/tags/%E8%B5%84%E6%BA%90/">资源<sup>1</sup></a><a href="/tags/%E5%85%A5%E9%97%A8/">入门<sup>1</sup></a><a href="/tags/windows/">windows<sup>2</sup></a><a href="/tags/win10/">win10<sup>1</sup></a><a href="/tags/%E6%BF%80%E6%B4%BB/">激活<sup>1</sup></a><a href="/tags/CachyOS/">CachyOS<sup>1</sup></a><a href="/tags/%E8%BE%93%E5%85%A5%E6%B3%95/">输入法<sup>1</sup></a><a href="/tags/%E5%9F%9F%E5%90%8D/">域名<sup>1</sup></a><a href="/tags/freenom/">freenom<sup>1</sup></a><a href="/tags/cloudflare/">cloudflare<sup>1</sup></a><a href="/tags/android/">android<sup>1</sup></a><a href="/tags/recovery/">recovery<sup>1</sup></a><a href="/tags/twrp/">twrp<sup>1</sup></a><a href="/tags/%E5%BB%BA%E7%AB%99/">建站<sup>3</sup></a><a href="/tags/WordPress/">WordPress<sup>1</sup></a><a href="/tags/%E5%91%BD%E4%BB%A4/">命令<sup>1</sup></a><a href="/tags/%E9%80%9F%E6%9F%A5/">速查<sup>1</sup></a><a href="/tags/manjaro/">manjaro<sup>1</sup></a><a href="/tags/%E5%8F%8C%E7%B3%BB%E7%BB%9F/">双系统<sup>1</sup></a><a href="/tags/ssh/">ssh<sup>1</sup></a><a href="/tags/%E5%AF%86%E9%92%A5/">密钥<sup>1</sup></a><a href="/tags/%E5%AE%9D%E5%A1%94/">宝塔<sup>1</sup></a><a href="/tags/1Panel/">1Panel<sup>1</sup></a><a href="/tags/%E8%BF%81%E7%A7%BB/">迁移<sup>1</sup></a><a href="/tags/%E9%83%A8%E7%BD%B2/">部署<sup>1</sup></a><a href="/tags/badge/">badge<sup>1</sup></a><a href="/tags/shields/">shields<sup>1</sup></a><a href="/tags/github/">github<sup>1</sup></a><a href="/tags/Cloudflare/">Cloudflare<sup>1</sup></a><a href="/tags/%E4%B8%83%E7%89%9B%E4%BA%91/">七牛云<sup>2</sup></a><a href="/tags/CDN/">CDN<sup>1</sup></a><a href="/tags/Hexo/">Hexo<sup>2</sup></a><a href="/tags/Git/">Git<sup>2</sup></a><a href="/tags/%E8%B8%A9%E5%9D%91/">踩坑<sup>2</sup></a><a href="/tags/%E8%BD%AC%E8%BD%BD/">转载<sup>1</sup></a><a href="/tags/%E5%9B%BE%E5%BA%8A/">图床<sup>1</sup></a></div></div><div class="console-card history" onclick="sco.hideConsole()"><ul class="card-archive-list"><li class="item"><a href="/archives/2026/04/"><span class="date">2026/04</span><div class="count-group"><span class="count">7</span><span class="unit">篇</span></div></a></li><li class="item"><a href="/archives/2026/02/"><span class="date">2026/02</span><div class="count-group"><span class="count">2</span><span class="unit">篇</span></div></a></li><li class="item"><a href="/archives/2025/11/"><span class="date">2025/11</span><div class="count-group"><span class="count">5</span><span class="unit">篇</span></div></a></li><li class="item"><a href="/archives/2025/08/"><span class="date">2025/08</span><div class="count-group"><span class="count">1</span><span class="unit">篇</span></div></a></li><li class="item"><a href="/archives/2023/02/"><span class="date">2023/02</span><div class="count-group"><span class="count">5</span><span class="unit">篇</span></div></a></li><li class="item"><a href="/archives/2023/01/"><span class="date">2023/01</span><div class="count-group"><span class="count">7</span><span class="unit">篇</span></div></a></li><li class="item"><a href="/archives/2022/12/"><span class="date">2022/12</span><div class="count-group"><span class="count">2</span><span class="unit">篇</span></div></a></li><li class="item"><a href="/archives/2022/11/"><span class="date">2022/11</span><div class="count-group"><span class="count">1</span><span class="unit">篇</span></div></a></li><li class="item"><a href="/archives/"><span class="date">全部文章</span><div class="count-group"><span class="count">30</span><span class="unit">篇</span></div></a></li></ul></div></div></div><div class="button-group"><div class="console-btn-item"><span class="darkmode_switchbutton" onclick="sco.switchDarkMode()" title="昼夜切换"><i class="solitude fas fa-circle-half-stroke"></i></span></div><div class="console-btn-item" id="consoleHideAside"><span class="asideSwitch" onclick="sco.switchHideAside()" title="边栏显示控制"><i class="solitude fas fa-arrows-left-right-to-line"></i></span></div></div><div class="console-mask" onclick="sco.hideConsole()"></div></div><div id="sidebar" style="zoom: 1;"><div id="menu-mask" style="display: none;"></div><div id="sidebar-menus"><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">30</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">55</div></a></div></div></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><span class="darkmode_switchbutton menu-child" onclick="sco.switchDarkMode()"><i class="solitude fas fa-circle-half-stroke"></i><span>显示模式</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span>首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><span>文章</span></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="solitude  fas fa-folder-closed"></i><span>归档</span></a></li><li><a class="site-page child" href="/categories/"><i class="solitude  fas fa-clone"></i><span>分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="solitude  fas fa-tags"></i><span>标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><span>友链</span></a><ul class="menus_item_child"><li><a class="site-page child" href="/moments/"><i class="solitude  fas fa-wifi"></i><span>朋友圈</span></a></li><li><a class="site-page child" href="/links/"><i class="solitude  fas fa-user-group"></i><span>友情链接</span></a></li><li><a class="site-page child" href="javascript:travelling()" rel="external nofollow noreferrer"><i class="solitude  fas fa-gift"></i><span>宝藏博主</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><span>我的</span></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="solitude  fas fa-user"></i><span>关于</span></a></li><li><a class="site-page child" href="/kit/"><i class="solitude  fas fa-laptop"></i><span>装备</span></a></li><li><a class="site-page child" href="/music/"><i class="solitude  fas fa-music"></i><span>音乐馆</span></a></li></ul></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="card-tag-cloud"><a href="/tags/hexo/">hexo<sup>8</sup></a><a href="/tags/powershell/">powershell<sup>1</sup></a><a href="/tags/%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/">问题解决<sup>1</sup></a><a href="/tags/alist/">alist<sup>1</sup></a><a href="/tags/%E4%BA%91%E7%9B%98/">云盘<sup>1</sup></a><a href="/tags/%E6%8C%82%E8%BD%BD/">挂载<sup>1</sup></a><a href="/tags/linux/">linux<sup>2</sup></a><a href="/tags/%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/">基础命令<sup>1</sup></a><a href="/tags/%E6%95%99%E7%A8%8B/">教程<sup>2</sup></a><a href="/tags/obsidian/">obsidian<sup>1</sup></a><a href="/tags/git/">git<sup>2</sup></a><a href="/tags/%E5%90%8C%E6%AD%A5/">同步<sup>1</sup></a><a href="/tags/%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/">软件安装<sup>1</sup></a><a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/">服务器<sup>1</sup></a><a href="/tags/typora/">typora<sup>1</sup></a><a href="/tags/markdown/">markdown<sup>1</sup></a><a href="/tags/%E5%B7%A5%E5%85%B7/">工具<sup>1</sup></a><a href="/tags/butterfly/">butterfly<sup>1</sup></a><a href="/tags/%E4%B8%BB%E9%A2%98/">主题<sup>2</sup></a><a href="/tags/%E8%B5%84%E6%BA%90/">资源<sup>1</sup></a><a href="/tags/%E5%85%A5%E9%97%A8/">入门<sup>1</sup></a><a href="/tags/windows/">windows<sup>2</sup></a><a href="/tags/win10/">win10<sup>1</sup></a><a href="/tags/%E6%BF%80%E6%B4%BB/">激活<sup>1</sup></a><a href="/tags/CachyOS/">CachyOS<sup>1</sup></a><a href="/tags/%E8%BE%93%E5%85%A5%E6%B3%95/">输入法<sup>1</sup></a><a href="/tags/%E5%9F%9F%E5%90%8D/">域名<sup>1</sup></a><a href="/tags/freenom/">freenom<sup>1</sup></a><a href="/tags/cloudflare/">cloudflare<sup>1</sup></a><a href="/tags/android/">android<sup>1</sup></a><a href="/tags/recovery/">recovery<sup>1</sup></a><a href="/tags/twrp/">twrp<sup>1</sup></a><a href="/tags/%E5%BB%BA%E7%AB%99/">建站<sup>3</sup></a><a href="/tags/WordPress/">WordPress<sup>1</sup></a><a href="/tags/%E5%91%BD%E4%BB%A4/">命令<sup>1</sup></a><a href="/tags/%E9%80%9F%E6%9F%A5/">速查<sup>1</sup></a><a href="/tags/manjaro/">manjaro<sup>1</sup></a><a href="/tags/%E5%8F%8C%E7%B3%BB%E7%BB%9F/">双系统<sup>1</sup></a><a href="/tags/ssh/">ssh<sup>1</sup></a><a href="/tags/%E5%AF%86%E9%92%A5/">密钥<sup>1</sup></a><a href="/tags/%E5%AE%9D%E5%A1%94/">宝塔<sup>1</sup></a><a href="/tags/1Panel/">1Panel<sup>1</sup></a><a href="/tags/%E8%BF%81%E7%A7%BB/">迁移<sup>1</sup></a><a href="/tags/%E9%83%A8%E7%BD%B2/">部署<sup>1</sup></a><a href="/tags/badge/">badge<sup>1</sup></a><a href="/tags/shields/">shields<sup>1</sup></a><a href="/tags/github/">github<sup>1</sup></a><a href="/tags/Cloudflare/">Cloudflare<sup>1</sup></a><a href="/tags/%E4%B8%83%E7%89%9B%E4%BA%91/">七牛云<sup>2</sup></a><a href="/tags/CDN/">CDN<sup>1</sup></a><a href="/tags/Hexo/">Hexo<sup>2</sup></a><a href="/tags/Git/">Git<sup>2</sup></a><a href="/tags/%E8%B8%A9%E5%9D%91/">踩坑<sup>2</sup></a><a href="/tags/%E8%BD%AC%E8%BD%BD/">转载<sup>1</sup></a><a href="/tags/%E5%9B%BE%E5%BA%8A/">图床<sup>1</sup></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav class="show" id="nav"><div id="nav-group"><div id="blog_name"><a href="/" title="返回博客主页" id="site-name"><span class="title">Solitude</span><i class="solitude fas fa-home"></i></a></div><div id="page-name-mask"><div id="page-name"><a id="page-name-text" onclick="sco.toTop()">建站教程一（hexo零基础建站）</a></div></div><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span>首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><span>文章</span></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="solitude  fas fa-folder-closed"></i><span>归档</span></a></li><li><a class="site-page child" href="/categories/"><i class="solitude  fas fa-clone"></i><span>分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="solitude  fas fa-tags"></i><span>标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><span>友链</span></a><ul class="menus_item_child"><li><a class="site-page child" href="/moments/"><i class="solitude  fas fa-wifi"></i><span>朋友圈</span></a></li><li><a class="site-page child" href="/links/"><i class="solitude  fas fa-user-group"></i><span>友情链接</span></a></li><li><a class="site-page child" href="javascript:travelling()" rel="external nofollow noreferrer"><i class="solitude  fas fa-gift"></i><span>宝藏博主</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><span>我的</span></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="solitude  fas fa-user"></i><span>关于</span></a></li><li><a class="site-page child" href="/kit/"><i class="solitude  fas fa-laptop"></i><span>装备</span></a></li><li><a class="site-page child" href="/music/"><i class="solitude  fas fa-music"></i><span>音乐馆</span></a></li></ul></div></div></div><div id="nav-left"></div><div id="nav-right"><div class="nav-button" id="travellings_button"><a class="site-page" target="_blank" rel="noopener external nofollow noreferrer" href="https://www.travellings.cn/go.html" title=""><i class="solitude fas fa-train"></i></a></div><div class="nav-button" id="nav-totop" onclick="sco.toTop()"><a class="totopbtn"><i class="solitude fas fa-arrow-up"></i><span id="percent">0</span></a></div><div id="toggle-menu"><a class="site-page"><i class="solitude fas fa-bars"></i></a></div></div></div></nav><div class="coverdiv" id="coverdiv"><img class="nolazyload" id="post-cover" src="/img/covers/hexo-beginner.png" alt="建站教程一（hexo零基础建站）"></div><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original" title="该文章为原创文章，注意版权协议">原创</a><span class="post-meta-categories"><a class="post-meta-categories" href="/categories/%E6%95%99%E7%A8%8B/">教程</a></span><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/hexo/"><span class="tags-name tags-punctuation"><i class="solitude fas fa-hashtag"></i>hexo</span></a><a class="post-meta__tags" href="/tags/%E5%BB%BA%E7%AB%99/"><span class="tags-name tags-punctuation"><i class="solitude fas fa-hashtag"></i>建站</span></a></div></div></div></div><h1 class="post-title">建站教程一（hexo零基础建站）</h1><div id="post-meta"><div class="meta-secondline"></div></div></div><div class="post-radius-bottom"></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content article-container"><h2 id="1-事前准备"><a href="#1-事前准备" class="headerlink" title="1.事前准备"></a>1.事前准备</h2><ol>
+<li>GitHub（必须，你需要注册一个GitHub帐号）</li>
+<li>Cloudflare（非必须，你需要注册一个Cloudflare帐号，这样你就可以将博客部署在CF的CDN里加速，但是你也可以直接使用GitHub.io分配的域名）</li>
+</ol>
+<h2 id="2-软件支持"><a href="#2-软件支持" class="headerlink" title="2.软件支持"></a>2.软件支持</h2><ol>
+<li>安装Git（必须）</li>
+<li>安装Node.js（必须）</li>
+<li>VSCode（非必须，这是一款轻量型的代码编辑器）</li>
+</ol>
+<h2 id="3配置-Git-密钥并连接至-Github"><a href="#3配置-Git-密钥并连接至-Github" class="headerlink" title="3配置 Git 密钥并连接至 Github"></a>3配置 Git 密钥并连接至 Github</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git config -l  //查看所有配置</span><br><span class="line">git config --system --list //查看系统配置</span><br><span class="line">git config --global --list //查看用户（全局）配置</span><br></pre></td></tr></table></figure>
+<h3 id="3-1-配置用户名和邮箱"><a href="#3-1-配置用户名和邮箱" class="headerlink" title="3.1 配置用户名和邮箱"></a>3.1 配置用户名和邮箱</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;你的用户名&quot;</span><br><span class="line">git config --global user.email &quot;你的邮箱&quot;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>通过git config -l 检查是否配置成功</p>
+</blockquote>
+<h3 id="3-2-配置公钥连接Github"><a href="#3-2-配置公钥连接Github" class="headerlink" title="3.2 配置公钥连接Github"></a>3.2 配置公钥连接Github</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;你的邮箱&quot;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>提示Enter file in which to save the key直接一路回车即可，新手小白不推荐设置密钥<br>生成公钥文件成功后，将公钥文件里的内容复制到GitHub的SSH Keys里，然后输入命令：ssh -T git@github.com</p>
+</blockquote>
+<h3 id="3-3-私钥和公钥文件在C盘下用户文件夹下的-ssh的文件夹"><a href="#3-3-私钥和公钥文件在C盘下用户文件夹下的-ssh的文件夹" class="headerlink" title="3.3 私钥和公钥文件在C盘下用户文件夹下的.ssh的文件夹"></a>3.3 私钥和公钥文件在C盘下用户文件夹下的.ssh的文件夹</h3><ul>
+<li>id_rsa私钥</li>
+<li>id_rsa.pub公钥</li>
+</ul>
+<blockquote>
+<p>用记事本打开公钥id_rsa.pub，复制里面的内容，然后开始在github中配置ssh密钥。</p>
+</blockquote>
+<h3 id="3-4-将-SSH-KEY-配置到-GitHub"><a href="#3-4-将-SSH-KEY-配置到-GitHub" class="headerlink" title="3.4 将 SSH KEY 配置到 GitHub"></a>3.4 将 SSH KEY 配置到 GitHub</h3><p>进入github，点击右上角头像 选择settings，进入设置页后选择 SSH and GPG keys，名字随便起，公钥填到Key那一栏。</p>
+<h3 id="3-5-测试是否成功"><a href="#3-5-测试是否成功" class="headerlink" title="3.5 测试是否成功"></a>3.5 测试是否成功</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
+<h2 id="4-创建GitHub-io仓库-也可以不用GitHub-io"><a href="#4-创建GitHub-io仓库-也可以不用GitHub-io" class="headerlink" title="4.创建GitHub.io仓库(也可以不用GitHub.io)"></a>4.创建GitHub.io仓库(也可以不用GitHub.io)</h2><ol>
+<li>创建仓库</li>
+<li>创建分支<br><img src="https://img.090227.xyz/file/3d9274644460cd1ffeb26.png" alt="github"></li>
+</ol>
+<h2 id="5-初始化Hexo"><a href="#5-初始化Hexo" class="headerlink" title="5.初始化Hexo"></a>5.初始化Hexo</h2><h3 id="5-1-在win桌面运行git，输入如下命令"><a href="#5-1-在win桌面运行git，输入如下命令" class="headerlink" title="5.1 在win桌面运行git，输入如下命令"></a>5.1 在win桌面运行git，输入如下命令</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br><span class="line">hexo init blog</span><br><span class="line">cd blog</span><br><span class="line">npm install</span><br><span class="line">hexo server</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="5-2初始化项目后，blog有如下结构："><a href="#5-2初始化项目后，blog有如下结构：" class="headerlink" title="5.2初始化项目后，blog有如下结构："></a>5.2初始化项目后，blog有如下结构：</h3><p><img src="https://blog.nanyu.xin/api/f/RgeK/1763204463751417490.png" alt=""></p>
+<blockquote>
+<p>node_modules：依赖包<br>scaffolds：生成文章的一些模板<br>source：用来存放你的文章<br>themes：主题<br>.npmignore：发布时忽略的文件（可忽略）<br>_config.landscape.yml：主题的配置文件<br>config.yml：博客的配置文件<br>package.json：项目名称、描述、版本、运行和开发等信</p>
+</blockquote>
+<h3 id="5-3在命令行输入hexo-cl-amp-amp-hexo-s启动项目"><a href="#5-3在命令行输入hexo-cl-amp-amp-hexo-s启动项目" class="headerlink" title="5.3在命令行输入hexo cl &amp;&amp; hexo s启动项目"></a>5.3在命令行输入hexo cl &amp;&amp; hexo s启动项目</h3><blockquote>
+<p>打开浏览器，输入地址：<a target="_blank" rel="noopener external nofollow noreferrer" href="http://localhost:4000/">http://localhost:4000/</a> ，看到下面的效果，说明你的博客已经构建成功了。</p>
+</blockquote>
+<h2 id="6-将静态博客挂载到-GitHub-Pages"><a href="#6-将静态博客挂载到-GitHub-Pages" class="headerlink" title="6.将静态博客挂载到 GitHub Pages"></a>6.将静态博客挂载到 GitHub Pages</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这个命令很重要，不能运行blog文件部署不到GitHub上</p>
+</blockquote>
+<h3 id="修改-config-yml-文件"><a href="#修改-config-yml-文件" class="headerlink" title="修改 _config.yml 文件"></a>修改 _config.yml 文件</h3><ol>
+<li><p>在blog目录下的_config.yml，就是整个Hexo框架的配置文件了。可以在里面修改大部分的配置。详细可参考官方的配置描述。</p>
+</li>
+<li><p>修改最后一行的配置，将xxx修改为你自己的github项目地址即可，还有分支要改为main代表主分支（注意缩进）。</p>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repository: git@github.com:xxxx/xxxx.github.io.git</span><br><span class="line">  branch: main</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>修改好配置后，运行如下命令，将代码部署到 GitHub（Hexo三连）。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// Git BASH终端</span><br><span class="line">hexo clean &amp;&amp; hexo generate &amp;&amp; hexo deploy  </span><br><span class="line"></span><br><span class="line">// 或者</span><br><span class="line"></span><br><span class="line">// VSCODE终端</span><br><span class="line">hexo cl; hexo g; hexo d</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="VSCODE-终端首次执行报错（如果你使用的是win系统自带的命令行需运行如下命令）"><a href="#VSCODE-终端首次执行报错（如果你使用的是win系统自带的命令行需运行如下命令）" class="headerlink" title="VSCODE 终端首次执行报错（如果你使用的是win系统自带的命令行需运行如下命令）"></a>VSCODE 终端首次执行报错（如果你使用的是win系统自带的命令行需运行如下命令）</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Set-ExecutionPolicy RemoteSigned</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ul>
+<li>hexo clean：删除之前生成的文件，可以用hexo cl缩写。</li>
+<li>hexo generate：生成静态文章，可以用hexo g缩写</li>
+<li>hexo deploy：部署文章，可以用hexo d缩写<br><u><strong>如果出现Deploy done，则说明部署成功了。</strong></u></li>
+</ul>
+<p><img src="https://blog.nanyu.xin/api/f/W70l/1763205371810958670.png" alt="部署到GitHub成功"></p>
+<blockquote>
+<p>稍等两分钟，打开浏览器访问：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://xxxx.github.io">https://xxxx.github.io</a> ，这时候我们就可以看到博客内容了。(xxx就是你的仓库名）</p>
+</blockquote>
+</article><div class="post-copyright"><div class="post-copyright__author_group"><div class="post-copyright__author_img"><img class="post-copyright__author_img_front" src="/img/logo.png"></div><div class="post-copyright__author_name">鲸落</div><div class="post-copyright__author_desc"></div></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div id="quit-box" onclick="RemoveRewardMask()"></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本文是原创文章，采用<a target="_blank" rel="noopener external nofollow noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans">CC BY-NC-SA 4.0</a>协议，完整转载请注明来自<a href="/">白鲸</a></span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/hexo/"><span class="tags-punctuation"><i class="solitude fas fa-hashtag"></i>hexo<span class="tagsPageCount">8</span></span></a><a class="post-meta__tags" href="/tags/%E5%BB%BA%E7%AB%99/"><span class="tags-punctuation"><i class="solitude fas fa-hashtag"></i>建站<span class="tagsPageCount">3</span></span></a></div></div></div><nav class="needEndHide pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/b374de5.html"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">建站教程二（将静态博客hexo挂载到 Cloudflare Pages）</div></div></a></div><div class="next-post pull-right"><a href="/posts/7ab43e2.html"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">报错到完美排雷（下）</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><div class="top-group"><div class="sayhi" id="sayhi" onclick="sco.changeWittyWord()"></div></div></div><div class="avatar"><img alt="头像" src="/img/logo.png"></div><div class="description"></div><div class="bottom-group"><span class="left"><div class="name">鲸落</div><div class="desc">只有迎风，风筝才能飞得更高。</div></span><div class="social-icons is-center"></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="solitude fas fa-bars"></i><span>文章目录</span></div><div class="toc-content" id="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%BA%8B%E5%89%8D%E5%87%86%E5%A4%87"><span class="toc-text">1.事前准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E8%BD%AF%E4%BB%B6%E6%94%AF%E6%8C%81"><span class="toc-text">2.软件支持</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E9%85%8D%E7%BD%AE-Git-%E5%AF%86%E9%92%A5%E5%B9%B6%E8%BF%9E%E6%8E%A5%E8%87%B3-Github"><span class="toc-text">3配置 Git 密钥并连接至 Github</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E9%85%8D%E7%BD%AE%E7%94%A8%E6%88%B7%E5%90%8D%E5%92%8C%E9%82%AE%E7%AE%B1"><span class="toc-text">3.1 配置用户名和邮箱</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E9%85%8D%E7%BD%AE%E5%85%AC%E9%92%A5%E8%BF%9E%E6%8E%A5Github"><span class="toc-text">3.2 配置公钥连接Github</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E7%A7%81%E9%92%A5%E5%92%8C%E5%85%AC%E9%92%A5%E6%96%87%E4%BB%B6%E5%9C%A8C%E7%9B%98%E4%B8%8B%E7%94%A8%E6%88%B7%E6%96%87%E4%BB%B6%E5%A4%B9%E4%B8%8B%E7%9A%84-ssh%E7%9A%84%E6%96%87%E4%BB%B6%E5%A4%B9"><span class="toc-text">3.3 私钥和公钥文件在C盘下用户文件夹下的.ssh的文件夹</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-%E5%B0%86-SSH-KEY-%E9%85%8D%E7%BD%AE%E5%88%B0-GitHub"><span class="toc-text">3.4 将 SSH KEY 配置到 GitHub</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-%E6%B5%8B%E8%AF%95%E6%98%AF%E5%90%A6%E6%88%90%E5%8A%9F"><span class="toc-text">3.5 测试是否成功</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%88%9B%E5%BB%BAGitHub-io%E4%BB%93%E5%BA%93-%E4%B9%9F%E5%8F%AF%E4%BB%A5%E4%B8%8D%E7%94%A8GitHub-io"><span class="toc-text">4.创建GitHub.io仓库(也可以不用GitHub.io)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E5%88%9D%E5%A7%8B%E5%8C%96Hexo"><span class="toc-text">5.初始化Hexo</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-%E5%9C%A8win%E6%A1%8C%E9%9D%A2%E8%BF%90%E8%A1%8Cgit%EF%BC%8C%E8%BE%93%E5%85%A5%E5%A6%82%E4%B8%8B%E5%91%BD%E4%BB%A4"><span class="toc-text">5.1 在win桌面运行git，输入如下命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2%E5%88%9D%E5%A7%8B%E5%8C%96%E9%A1%B9%E7%9B%AE%E5%90%8E%EF%BC%8Cblog%E6%9C%89%E5%A6%82%E4%B8%8B%E7%BB%93%E6%9E%84%EF%BC%9A"><span class="toc-text">5.2初始化项目后，blog有如下结构：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3%E5%9C%A8%E5%91%BD%E4%BB%A4%E8%A1%8C%E8%BE%93%E5%85%A5hexo-cl-amp-amp-hexo-s%E5%90%AF%E5%8A%A8%E9%A1%B9%E7%9B%AE"><span class="toc-text">5.3在命令行输入hexo cl &amp;&amp; hexo s启动项目</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E5%B0%86%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2%E6%8C%82%E8%BD%BD%E5%88%B0-GitHub-Pages"><span class="toc-text">6.将静态博客挂载到 GitHub Pages</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9-config-yml-%E6%96%87%E4%BB%B6"><span class="toc-text">修改 _config.yml 文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VSCODE-%E7%BB%88%E7%AB%AF%E9%A6%96%E6%AC%A1%E6%89%A7%E8%A1%8C%E6%8A%A5%E9%94%99%EF%BC%88%E5%A6%82%E6%9E%9C%E4%BD%A0%E4%BD%BF%E7%94%A8%E7%9A%84%E6%98%AFwin%E7%B3%BB%E7%BB%9F%E8%87%AA%E5%B8%A6%E7%9A%84%E5%91%BD%E4%BB%A4%E8%A1%8C%E9%9C%80%E8%BF%90%E8%A1%8C%E5%A6%82%E4%B8%8B%E5%91%BD%E4%BB%A4%EF%BC%89"><span class="toc-text">VSCODE 终端首次执行报错（如果你使用的是win系统自带的命令行需运行如下命令）</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="solitude fas fa-map"></i><span>最近发布</span></div><div class="aside-list"><a class="aside-list-item" href="/posts/87b19224.html" title="WordPress博客一步一步部署教程"><div class="thumbnail"><img alt="WordPress博客一步一步部署教程" src="/img/covers/wordpress-deploy.png"></div><div class="content"><span class="title" href="/posts/87b19224.html" title="WordPress博客一步一步部署教程">WordPress博客一步一步部署教程</span><span class="categories" href="/posts/87b19224.html">教程</span></div></a><a class="aside-list-item" href="/posts/b86c2edc.html" title="配置七牛云 Kodo 存储"><div class="thumbnail"><img alt="配置七牛云 Kodo 存储" src="/img/covers/qiniu-kodo.png"></div><div class="content"><span class="title" href="/posts/b86c2edc.html" title="配置七牛云 Kodo 存储">配置七牛云 Kodo 存储</span><span class="categories" href="/posts/b86c2edc.html">教程</span></div></a><a class="aside-list-item" href="/posts/8452a9f.html" title="从零开始：我和 AI 一起在 CachyOS 上装好了中文输入法"><div class="thumbnail"><img alt="从零开始：我和 AI 一起在 CachyOS 上装好了中文输入法" src="/img/covers/cachyos-input.png"></div><div class="content"><span class="title" href="/posts/8452a9f.html" title="从零开始：我和 AI 一起在 CachyOS 上装好了中文输入法">从零开始：我和 AI 一起在 CachyOS 上装好了中文输入法</span><span class="categories" href="/posts/8452a9f.html">教程</span></div></a><a class="aside-list-item" href="/posts/1a091685.html" title="把域名从 Cloudflare 迁移到七牛云 CDN"><div class="thumbnail"><img alt="把域名从 Cloudflare 迁移到七牛云 CDN" src="/img/covers/domain-qiniu.png"></div><div class="content"><span class="title" href="/posts/1a091685.html" title="把域名从 Cloudflare 迁移到七牛云 CDN">把域名从 Cloudflare 迁移到七牛云 CDN</span><span class="categories" href="/posts/1a091685.html">教程</span></div></a><a class="aside-list-item" href="/posts/2e3cdad1.html" title="Typora 永久破解教程"><div class="content"><span class="title" href="/posts/2e3cdad1.html" title="Typora 永久破解教程">Typora 永久破解教程</span></div></a></div></div></div></div></main><footer id="footer"><div id="st-footer"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div class="copyright">© 2023 - 2026 By<a class="footer-bar-link" href="/" title="鲸落">鲸落</a></div><div class="beian-group"><a class="footer-bar-link" target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io/" title="框架：Hexo">框架：Hexo</a><a class="footer-bar-link" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/everfu/hexo-theme-solitude" title="主题：Solitude">主题：Solitude</a></div></div><div class="footer-bar-right"></div></div></div><div class="comment-barrage needEndHide"></div></footer></div><div><!-- Critical scripts loaded synchronously--><script src="/js/utils.js?v=3.0.21"></script><script src="/js/main.js?v=3.0.21"></script><!-- Non-critical scripts loaded asynchronously--><script async src="/js/third_party/waterfall.min.js?v=3.0.21"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script><!-- Feature-specific scripts loaded asynchronously--><script defer src="/js/tw_cn.js?v=3.0.21"></script><!-- UI enhancement scripts--><script defer src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><!-- Music player scripts--><!-- Cover color processing scripts--><script>window.paceOptions = {
+  restartOnPushState: false
+}
+
+utils.addGlobalFn('pjaxSend', () => {
+  Pace.restart()
+}, 'pace_restart')
+</script><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!-- Search functionality--><!-- Right menu functionality--><div class="js-pjax"></div></div><!-- pjax--><script>let pjax = null;
+
+function initPjax() {
+    if (typeof Pjax === 'undefined') {
+        console.warn('Pjax is not loaded yet, retrying...');
+        setTimeout(initPjax, 100);
+        return;
+    }
+
+    pjax = new Pjax({
+        elements: 'a:not([target="_blank"])',
+        selectors: ["title","#body-wrap","#site-config","meta[name=\"description\"]",".js-pjax","meta[property^=\"og:\"]","#config-diff",".rs_show",".rs_hide"],
+        cacheBust: false,
+        analytics: false,
+        scrollRestoration: false
+    })
+
+    // 将 pjax 实例挂载到全局
+    window.pjax = pjax;
+
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+        const newScript = document.createElement('script')
+        const content = item.text || item.textContent || item.innerHTML || ""
+        Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+        newScript.appendChild(document.createTextNode(content))
+        item.parentNode.replaceChild(newScript, item)
+    })
+
+    document.addEventListener('pjax:complete', () => {
+        window.refreshFn()
+
+        document.querySelectorAll('script[data-pjax]').forEach(item => {
+            const newScript = document.createElement('script')
+            const content = item.text || item.textContent || item.innerHTML || ""
+            Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+            newScript.appendChild(document.createTextNode(content))
+            item.parentNode.replaceChild(newScript, item)
+        })
+
+        GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+    })
+
+    document.addEventListener('pjax:error', (e) => {
+        if (e.request.status === 404) {
+            pjax.loadUrl('/404.html')
+        }
+    })
+}
+
+// 初始化 Pjax
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPjax);
+} else {
+    initPjax();
+}</script><!-- google adsense--><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/"});</script></body></html>
+        <script>
+            const posts = ["posts/87b19224.html","posts/b86c2edc.html","posts/8452a9f.html","posts/1a091685.html","posts/2e3cdad1.html","posts/e86019d.html","posts/undefined.html","posts/4168ed28.html","posts/0.html","posts/15d1e318.html","posts/97844892.html","posts/b374de5.html","posts/3c3c884d.html","posts/7ab43e2.html","posts/0.html","posts/9fe78a1c.html","posts/e86019d.html","posts/605a3c7d.html","posts/324882c3.html","posts/516ae0b5.html","posts/ab29e5b.html","posts/f1068b53.html","posts/2e9081ea.html","posts/undefined.html","posts/624ef525.html","posts/7968a355.html","posts/590f2ba.html","posts/99a5c448.html","posts/62a96202.html","posts/4a17b156.html"];
+            function toRandomPost() {
+                const randomPost = posts[Math.floor(Math.random() * posts.length)];
+                pjax.loadUrl(GLOBAL_CONFIG.root + randomPost);
+            }
+        </script>

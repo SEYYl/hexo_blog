@@ -1,0 +1,402 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Obsidian Git同步配置指南 | 白鲸</title><noscript>开启JavaScript才能访问本站哦~</noscript><link rel="icon" href="/img/pwa/favicon.png"><link rel="stylesheet" href="/css/index.css?v=3.0.21"><link rel="canonical" href="https://blogog.top/posts/0.html"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css"><!-- Feature-specific CSS--><!-- aplayer--><!-- swiper--><!-- fancybox ui--><!-- katex--><!-- Open Graph--><meta name="description" content="Obsidian笔记库同步方案-Git Aug 4, 2025 下载文件 Obsidian Git 同步配置指南 (桌面端) 核心优势: 版本控制: 每次提交都是一个快照，你可以随时回溯到任何历史版本，是防止误删、误改的最强保险。 免费可靠: 利用 GitHub&amp;#x2F;Git"><!-- pwa--><meta name="apple-mobile-web-app-capable" content="白鲸"><meta name="theme-color" content="var(--efu-main)"><meta name="apple-mobile-web-app-status-bar-style" content="var(--efu-main)"><link rel="bookmark" href="/img/pwa/favicon.png"><link rel="apple-touch-icon" href="/img/pwa/favicon.png" sizes="180x180"><script>console.log(' %c Solitude %c ' + '3.0.21' + ' %c https://github.com/everfu/hexo-theme-solitude',
+    'background:#35495e ; padding: 1px; border-radius: 3px 0 0 3px;  color: #fff',
+    'background:#ff9a9a ; padding: 1px; border-radius: 0 3px 3px 0;  color: #fff',
+    'background:unset ; padding: 1px; border-radius: 0 3px 3px 0;  color: #fff')
+</script><script>(()=>{
+        const saveToLocal = {
+            set: function setWithExpiry(key, value, ttl) {
+                if (ttl === 0)
+                    return
+                const now = new Date()
+                const expiryDay = ttl * 86400000
+                const item = {
+                    value: value,
+                    expiry: now.getTime() + expiryDay
+                }
+                localStorage.setItem(key, JSON.stringify(item))
+            },
+            get: function getWithExpiry(key) {
+                const itemStr = localStorage.getItem(key)
+
+                if (!itemStr) {
+                    return undefined
+                }
+                const item = JSON.parse(itemStr)
+                const now = new Date()
+
+                if (now.getTime() > item.expiry) {
+                    localStorage.removeItem(key)
+                    return undefined
+                }
+                return item.value
+            }
+        };
+        window.utils = {
+            saveToLocal: saveToLocal,
+            getCSS: (url, id = false) => new Promise((resolve, reject) => {
+              const link = document.createElement('link')
+              link.rel = 'stylesheet'
+              link.href = url
+              if (id) link.id = id
+              link.onerror = reject
+              link.onload = link.onreadystatechange = function() {
+                const loadState = this.readyState
+                if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+                link.onload = link.onreadystatechange = null
+                resolve()
+              }
+              document.head.appendChild(link)
+            }),
+            getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+              const script = document.createElement('script')
+              script.src = url
+              script.async = true
+              script.onerror = reject
+              script.onload = script.onreadystatechange = function() {
+                const loadState = this.readyState
+                if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+                script.onload = script.onreadystatechange = null
+                resolve()
+              }
+
+              Object.keys(attr).forEach(key => {
+                script.setAttribute(key, attr[key])
+              })
+
+              document.head.appendChild(script)
+            }),
+            addGlobalFn: (key, fn, name = false, parent = window) => {
+                const globalFn = parent.globalFn || {}
+                const keyObj = globalFn[key] || {}
+
+                if (name && keyObj[name]) return
+
+                name = name || Object.keys(keyObj).length
+                keyObj[name] = fn
+                globalFn[key] = keyObj
+                parent.globalFn = globalFn
+            },
+            addEventListenerPjax: (ele, event, fn, option = false) => {
+              ele.addEventListener(event, fn, option)
+              utils.addGlobalFn('pjax', () => {
+                  ele.removeEventListener(event, fn, option)
+              })
+            },
+            diffDateFormat: (selector) => {
+                selector.forEach(item => {
+                    const date = new Date(item.getAttribute('datetime') || item.textContent);
+                    item.textContent = (date.getMonth() + 1).toString()+'/'+date.getDate().toString();
+                });
+            },
+        }
+    })()</script><!-- theme--><script>initTheme = () => {
+    let isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const cachedMode = utils.saveToLocal.get('theme');
+    if (cachedMode === undefined) {
+        const nowMode =
+            isDarkMode ? 'dark' : 'light'
+        document.documentElement.setAttribute('data-theme', nowMode);
+    } else {
+        document.documentElement.setAttribute('data-theme', cachedMode);
+    }
+    typeof rm === 'object' && rm.mode(cachedMode === 'dark' && isDarkMode)
+}
+initTheme()</script><script>const GLOBAL_CONFIG = {
+    root: '/',
+    algolia: undefined,
+    localsearch: undefined,
+    runtime: '2023-04-20 00:00:00',
+    lazyload: {
+        enable: false,
+        error: '/img/error_load.avif'
+    },
+    copyright: false,
+    highlight: {"limit":200,"expand":true,"copy":true,"syntax":"highlight.js"},
+    randomlink: false,
+    lang: {"theme":{"dark":"已切换至深色模式","light":"已切换至浅色模式"},"copy":{"success":"复制成功","error":"复制失败"},"backtop":"返回顶部","time":{"day":"天前","hour":"小时前","just":"刚刚","min":"分钟前","month":"个月前"},"day":" 天","f12":"开发者模式已打开，请遵循GPL协议。","totalk":"无需删除空行，直接输入评论即可"},
+    aside: {
+        state: {
+            morning: "✨ 早上好，新的一天开始了",
+            noon: "🍲 午餐时间",
+            afternoon: "🌞 下午好",
+            night: "早点休息",
+            goodnight: "晚安 😴",
+        },
+        witty_words: [],
+        witty_comment: {
+            prefix: '好久不见，',
+            back: '欢迎再次回来，',
+        },
+    },
+    covercolor: {
+        enable: false
+    },
+    comment: false,
+    lightbox: 'null',
+    right_menu: false,
+    translate: {"translateDelay":0,"defaultEncoding":2},
+    lure: false,
+    expire: false,
+};</script><script id="config-diff">var PAGE_CONFIG = {
+    is_post: true,
+    is_page: false,
+    is_home: false,
+    page: '',
+    toc: true,
+    comment: false,
+    ai_text: false,
+    color: false,
+}</script><meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="白鲸" type="application/atom+xml">
+</head><body id="body"><div id="console"><div class="close-btn" onclick="sco.hideConsole()"><i class="solitude fas fa-xmark"></i></div><div class="console-card-group"><div class="console-card-group-right"><div class="console-card tags" onclick="sco.hideConsole()"><div class="card-content"><div class="author-content-item-tips">标签</div><div class="author-content-item-title">寻找感兴趣的领域</div></div><div class="card-tag-cloud"><a href="/tags/hexo/">hexo<sup>8</sup></a><a href="/tags/powershell/">powershell<sup>1</sup></a><a href="/tags/%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/">问题解决<sup>1</sup></a><a href="/tags/alist/">alist<sup>1</sup></a><a href="/tags/%E4%BA%91%E7%9B%98/">云盘<sup>1</sup></a><a href="/tags/%E6%8C%82%E8%BD%BD/">挂载<sup>1</sup></a><a href="/tags/linux/">linux<sup>2</sup></a><a href="/tags/%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/">基础命令<sup>1</sup></a><a href="/tags/%E6%95%99%E7%A8%8B/">教程<sup>2</sup></a><a href="/tags/obsidian/">obsidian<sup>1</sup></a><a href="/tags/git/">git<sup>2</sup></a><a href="/tags/%E5%90%8C%E6%AD%A5/">同步<sup>1</sup></a><a href="/tags/%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/">软件安装<sup>1</sup></a><a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/">服务器<sup>1</sup></a><a href="/tags/typora/">typora<sup>1</sup></a><a href="/tags/markdown/">markdown<sup>1</sup></a><a href="/tags/%E5%B7%A5%E5%85%B7/">工具<sup>1</sup></a><a href="/tags/butterfly/">butterfly<sup>1</sup></a><a href="/tags/%E4%B8%BB%E9%A2%98/">主题<sup>2</sup></a><a href="/tags/%E8%B5%84%E6%BA%90/">资源<sup>1</sup></a><a href="/tags/%E5%85%A5%E9%97%A8/">入门<sup>1</sup></a><a href="/tags/windows/">windows<sup>2</sup></a><a href="/tags/win10/">win10<sup>1</sup></a><a href="/tags/%E6%BF%80%E6%B4%BB/">激活<sup>1</sup></a><a href="/tags/CachyOS/">CachyOS<sup>1</sup></a><a href="/tags/%E8%BE%93%E5%85%A5%E6%B3%95/">输入法<sup>1</sup></a><a href="/tags/%E5%9F%9F%E5%90%8D/">域名<sup>1</sup></a><a href="/tags/freenom/">freenom<sup>1</sup></a><a href="/tags/cloudflare/">cloudflare<sup>1</sup></a><a href="/tags/android/">android<sup>1</sup></a><a href="/tags/recovery/">recovery<sup>1</sup></a><a href="/tags/twrp/">twrp<sup>1</sup></a><a href="/tags/%E5%BB%BA%E7%AB%99/">建站<sup>3</sup></a><a href="/tags/WordPress/">WordPress<sup>1</sup></a><a href="/tags/%E5%91%BD%E4%BB%A4/">命令<sup>1</sup></a><a href="/tags/%E9%80%9F%E6%9F%A5/">速查<sup>1</sup></a><a href="/tags/manjaro/">manjaro<sup>1</sup></a><a href="/tags/%E5%8F%8C%E7%B3%BB%E7%BB%9F/">双系统<sup>1</sup></a><a href="/tags/ssh/">ssh<sup>1</sup></a><a href="/tags/%E5%AF%86%E9%92%A5/">密钥<sup>1</sup></a><a href="/tags/%E5%AE%9D%E5%A1%94/">宝塔<sup>1</sup></a><a href="/tags/1Panel/">1Panel<sup>1</sup></a><a href="/tags/%E8%BF%81%E7%A7%BB/">迁移<sup>1</sup></a><a href="/tags/%E9%83%A8%E7%BD%B2/">部署<sup>1</sup></a><a href="/tags/badge/">badge<sup>1</sup></a><a href="/tags/shields/">shields<sup>1</sup></a><a href="/tags/github/">github<sup>1</sup></a><a href="/tags/Cloudflare/">Cloudflare<sup>1</sup></a><a href="/tags/%E4%B8%83%E7%89%9B%E4%BA%91/">七牛云<sup>2</sup></a><a href="/tags/CDN/">CDN<sup>1</sup></a><a href="/tags/Hexo/">Hexo<sup>2</sup></a><a href="/tags/Git/">Git<sup>2</sup></a><a href="/tags/%E8%B8%A9%E5%9D%91/">踩坑<sup>2</sup></a><a href="/tags/%E8%BD%AC%E8%BD%BD/">转载<sup>1</sup></a><a href="/tags/%E5%9B%BE%E5%BA%8A/">图床<sup>1</sup></a></div></div><div class="console-card history" onclick="sco.hideConsole()"><ul class="card-archive-list"><li class="item"><a href="/archives/2026/04/"><span class="date">2026/04</span><div class="count-group"><span class="count">7</span><span class="unit">篇</span></div></a></li><li class="item"><a href="/archives/2026/02/"><span class="date">2026/02</span><div class="count-group"><span class="count">2</span><span class="unit">篇</span></div></a></li><li class="item"><a href="/archives/2025/11/"><span class="date">2025/11</span><div class="count-group"><span class="count">5</span><span class="unit">篇</span></div></a></li><li class="item"><a href="/archives/2025/08/"><span class="date">2025/08</span><div class="count-group"><span class="count">1</span><span class="unit">篇</span></div></a></li><li class="item"><a href="/archives/2023/02/"><span class="date">2023/02</span><div class="count-group"><span class="count">5</span><span class="unit">篇</span></div></a></li><li class="item"><a href="/archives/2023/01/"><span class="date">2023/01</span><div class="count-group"><span class="count">7</span><span class="unit">篇</span></div></a></li><li class="item"><a href="/archives/2022/12/"><span class="date">2022/12</span><div class="count-group"><span class="count">2</span><span class="unit">篇</span></div></a></li><li class="item"><a href="/archives/2022/11/"><span class="date">2022/11</span><div class="count-group"><span class="count">1</span><span class="unit">篇</span></div></a></li><li class="item"><a href="/archives/"><span class="date">全部文章</span><div class="count-group"><span class="count">30</span><span class="unit">篇</span></div></a></li></ul></div></div></div><div class="button-group"><div class="console-btn-item"><span class="darkmode_switchbutton" onclick="sco.switchDarkMode()" title="昼夜切换"><i class="solitude fas fa-circle-half-stroke"></i></span></div><div class="console-btn-item" id="consoleHideAside"><span class="asideSwitch" onclick="sco.switchHideAside()" title="边栏显示控制"><i class="solitude fas fa-arrows-left-right-to-line"></i></span></div></div><div class="console-mask" onclick="sco.hideConsole()"></div></div><div id="sidebar" style="zoom: 1;"><div id="menu-mask" style="display: none;"></div><div id="sidebar-menus"><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">30</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">55</div></a></div></div></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><span class="darkmode_switchbutton menu-child" onclick="sco.switchDarkMode()"><i class="solitude fas fa-circle-half-stroke"></i><span>显示模式</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span>首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><span>文章</span></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="solitude  fas fa-folder-closed"></i><span>归档</span></a></li><li><a class="site-page child" href="/categories/"><i class="solitude  fas fa-clone"></i><span>分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="solitude  fas fa-tags"></i><span>标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><span>友链</span></a><ul class="menus_item_child"><li><a class="site-page child" href="/moments/"><i class="solitude  fas fa-wifi"></i><span>朋友圈</span></a></li><li><a class="site-page child" href="/links/"><i class="solitude  fas fa-user-group"></i><span>友情链接</span></a></li><li><a class="site-page child" href="javascript:travelling()" rel="external nofollow noreferrer"><i class="solitude  fas fa-gift"></i><span>宝藏博主</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><span>我的</span></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="solitude  fas fa-user"></i><span>关于</span></a></li><li><a class="site-page child" href="/kit/"><i class="solitude  fas fa-laptop"></i><span>装备</span></a></li><li><a class="site-page child" href="/music/"><i class="solitude  fas fa-music"></i><span>音乐馆</span></a></li></ul></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="card-tag-cloud"><a href="/tags/hexo/">hexo<sup>8</sup></a><a href="/tags/powershell/">powershell<sup>1</sup></a><a href="/tags/%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/">问题解决<sup>1</sup></a><a href="/tags/alist/">alist<sup>1</sup></a><a href="/tags/%E4%BA%91%E7%9B%98/">云盘<sup>1</sup></a><a href="/tags/%E6%8C%82%E8%BD%BD/">挂载<sup>1</sup></a><a href="/tags/linux/">linux<sup>2</sup></a><a href="/tags/%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/">基础命令<sup>1</sup></a><a href="/tags/%E6%95%99%E7%A8%8B/">教程<sup>2</sup></a><a href="/tags/obsidian/">obsidian<sup>1</sup></a><a href="/tags/git/">git<sup>2</sup></a><a href="/tags/%E5%90%8C%E6%AD%A5/">同步<sup>1</sup></a><a href="/tags/%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/">软件安装<sup>1</sup></a><a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/">服务器<sup>1</sup></a><a href="/tags/typora/">typora<sup>1</sup></a><a href="/tags/markdown/">markdown<sup>1</sup></a><a href="/tags/%E5%B7%A5%E5%85%B7/">工具<sup>1</sup></a><a href="/tags/butterfly/">butterfly<sup>1</sup></a><a href="/tags/%E4%B8%BB%E9%A2%98/">主题<sup>2</sup></a><a href="/tags/%E8%B5%84%E6%BA%90/">资源<sup>1</sup></a><a href="/tags/%E5%85%A5%E9%97%A8/">入门<sup>1</sup></a><a href="/tags/windows/">windows<sup>2</sup></a><a href="/tags/win10/">win10<sup>1</sup></a><a href="/tags/%E6%BF%80%E6%B4%BB/">激活<sup>1</sup></a><a href="/tags/CachyOS/">CachyOS<sup>1</sup></a><a href="/tags/%E8%BE%93%E5%85%A5%E6%B3%95/">输入法<sup>1</sup></a><a href="/tags/%E5%9F%9F%E5%90%8D/">域名<sup>1</sup></a><a href="/tags/freenom/">freenom<sup>1</sup></a><a href="/tags/cloudflare/">cloudflare<sup>1</sup></a><a href="/tags/android/">android<sup>1</sup></a><a href="/tags/recovery/">recovery<sup>1</sup></a><a href="/tags/twrp/">twrp<sup>1</sup></a><a href="/tags/%E5%BB%BA%E7%AB%99/">建站<sup>3</sup></a><a href="/tags/WordPress/">WordPress<sup>1</sup></a><a href="/tags/%E5%91%BD%E4%BB%A4/">命令<sup>1</sup></a><a href="/tags/%E9%80%9F%E6%9F%A5/">速查<sup>1</sup></a><a href="/tags/manjaro/">manjaro<sup>1</sup></a><a href="/tags/%E5%8F%8C%E7%B3%BB%E7%BB%9F/">双系统<sup>1</sup></a><a href="/tags/ssh/">ssh<sup>1</sup></a><a href="/tags/%E5%AF%86%E9%92%A5/">密钥<sup>1</sup></a><a href="/tags/%E5%AE%9D%E5%A1%94/">宝塔<sup>1</sup></a><a href="/tags/1Panel/">1Panel<sup>1</sup></a><a href="/tags/%E8%BF%81%E7%A7%BB/">迁移<sup>1</sup></a><a href="/tags/%E9%83%A8%E7%BD%B2/">部署<sup>1</sup></a><a href="/tags/badge/">badge<sup>1</sup></a><a href="/tags/shields/">shields<sup>1</sup></a><a href="/tags/github/">github<sup>1</sup></a><a href="/tags/Cloudflare/">Cloudflare<sup>1</sup></a><a href="/tags/%E4%B8%83%E7%89%9B%E4%BA%91/">七牛云<sup>2</sup></a><a href="/tags/CDN/">CDN<sup>1</sup></a><a href="/tags/Hexo/">Hexo<sup>2</sup></a><a href="/tags/Git/">Git<sup>2</sup></a><a href="/tags/%E8%B8%A9%E5%9D%91/">踩坑<sup>2</sup></a><a href="/tags/%E8%BD%AC%E8%BD%BD/">转载<sup>1</sup></a><a href="/tags/%E5%9B%BE%E5%BA%8A/">图床<sup>1</sup></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav class="show" id="nav"><div id="nav-group"><div id="blog_name"><a href="/" title="返回博客主页" id="site-name"><span class="title">Solitude</span><i class="solitude fas fa-home"></i></a></div><div id="page-name-mask"><div id="page-name"><a id="page-name-text" onclick="sco.toTop()">Obsidian Git同步配置指南</a></div></div><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span>首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><span>文章</span></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="solitude  fas fa-folder-closed"></i><span>归档</span></a></li><li><a class="site-page child" href="/categories/"><i class="solitude  fas fa-clone"></i><span>分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="solitude  fas fa-tags"></i><span>标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><span>友链</span></a><ul class="menus_item_child"><li><a class="site-page child" href="/moments/"><i class="solitude  fas fa-wifi"></i><span>朋友圈</span></a></li><li><a class="site-page child" href="/links/"><i class="solitude  fas fa-user-group"></i><span>友情链接</span></a></li><li><a class="site-page child" href="javascript:travelling()" rel="external nofollow noreferrer"><i class="solitude  fas fa-gift"></i><span>宝藏博主</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><span>我的</span></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="solitude  fas fa-user"></i><span>关于</span></a></li><li><a class="site-page child" href="/kit/"><i class="solitude  fas fa-laptop"></i><span>装备</span></a></li><li><a class="site-page child" href="/music/"><i class="solitude  fas fa-music"></i><span>音乐馆</span></a></li></ul></div></div></div><div id="nav-left"></div><div id="nav-right"><div class="nav-button" id="travellings_button"><a class="site-page" target="_blank" rel="noopener external nofollow noreferrer" href="https://www.travellings.cn/go.html" title=""><i class="solitude fas fa-train"></i></a></div><div class="nav-button" id="nav-totop" onclick="sco.toTop()"><a class="totopbtn"><i class="solitude fas fa-arrow-up"></i><span id="percent">0</span></a></div><div id="toggle-menu"><a class="site-page"><i class="solitude fas fa-bars"></i></a></div></div></div></nav><div class="coverdiv" id="coverdiv"><img class="nolazyload" id="post-cover" src="/img/covers/obsidian-git.png" alt="Obsidian Git同步配置指南"></div><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original" title="该文章为原创文章，注意版权协议">原创</a><span class="post-meta-categories"><a class="post-meta-categories" href="/categories/%E6%95%99%E7%A8%8B/">教程</a></span><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/obsidian/"><span class="tags-name tags-punctuation"><i class="solitude fas fa-hashtag"></i>obsidian</span></a><a class="post-meta__tags" href="/tags/git/"><span class="tags-name tags-punctuation"><i class="solitude fas fa-hashtag"></i>git</span></a><a class="post-meta__tags" href="/tags/%E5%90%8C%E6%AD%A5/"><span class="tags-name tags-punctuation"><i class="solitude fas fa-hashtag"></i>同步</span></a></div></div></div></div><h1 class="post-title">Obsidian Git同步配置指南</h1><div id="post-meta"><div class="meta-secondline"></div></div></div><div class="post-radius-bottom"></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content article-container"><div class="relative px-4 sm:px-8 lg:px-12">  <div class="mx-auto max-w-3xl"> <article class="mb-40"> <div class="prose dark:prose-invert mx-auto prose-slate prose-a:text-primary-500 max-w-none"> <header class="flex flex-col gap-y-1"> <h1 class="text-3xl sm:text-4xl">Obsidian笔记库同步方案-Git</h1> <time class="text-sm font-mono inline-flex mx-auto text-stone-400"> <time datetime="2025-08-04T00:00:00.000Z"> Aug 4, 2025 </time> </time> <a href="/download/Obsidian笔记库同步方案-Git.md" download="Obsidian笔记库同步方案-Git.md" class="block mt-4 text-sm text-blue-600 hover:underline">
+下载文件
+</a> </header>  <h1 id="obsidian-git-同步配置指南-桌面端">Obsidian Git 同步配置指南 (桌面端)</h1>
+<p><strong>核心优势</strong>:</p>
+<ul>
+<li><strong>版本控制</strong>: 每次提交都是一个快照，你可以随时回溯到任何历史版本，是防止误删、误改的最强保险。</li>
+<li><strong>免费可靠</strong>: 利用 GitHub/Gitee 等平台的免费私有仓库，成本为零。</li>
+<li><strong>无冲突风险</strong>: Git 强大的分支和合并机制能专业地处理冲突，远优于普通网盘。</li>
+<li><strong>可以尽情折腾插件外观</strong>: 依托于Git 强大的分支和合并机制。</li>
+</ul>
+<p><strong>核心劣势</strong>:</p>
+<ul>
+<li><strong>手机端不给力</strong>: 需要借助第三方工具，麻烦且收费。</li>
+<li><strong>不适合大量二进制文件存储</strong>: 比如音频，视频，图片。</li>
+</ul>
+<h2 id="前提条件">前提条件</h2>
+<ol>
+<li><strong>一个 GitHub/Gitee 账号</strong>: 用于托管你的远程私有仓库。</li>
+<li><strong>在你的电脑上已安装 Git</strong>: 可以从 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://git-scm.com/downloads">git-scm.com</a> 下载安装。</li>
+</ol>
+<hr>
+<h2 id="步骤简介">步骤简介</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th align="left">步骤</th><th align="left">核心任务</th><th align="left">全新仓库的操作</th><th align="left">已有仓库的操作</th></tr></thead><tbody><tr><td align="left"><strong>1</strong></td><td align="left"><strong>创建云端仓库</strong></td><td align="left">在 GitHub/Gitee 创建一个空的<strong>私有</strong>仓库。</td><td align="left">(同左)</td></tr><tr><td align="left"><strong>2</strong></td><td align="left"><strong>建立本地仓库</strong></td><td align="left">在本地选好位置，执行 <code>git clone [仓库地址]</code>。</td><td align="left"><code>cd</code> 进入库文件夹，执行 <code>git init</code>。</td></tr><tr><td align="left"><strong>3</strong></td><td align="left"><strong>关联云与本地</strong></td><td align="left"><code>clone</code> 命令已自动完成此步骤。</td><td align="left">执行 <code>git remote add origin [仓库地址]</code>。</td></tr><tr><td align="left"><strong>4</strong></td><td align="left"><strong>创建忽略规则</strong></td><td align="left">在库的根目录创建 <code>.gitignore</code> 文件。</td><td align="left">(同左)</td></tr><tr><td align="left"><strong>5</strong></td><td align="left"><strong>首次推送内容</strong></td><td align="left">执行 <code>git add</code>, <code>commit</code>, <code>push</code> 命令。</td><td align="left">(同左)</td></tr><tr><td align="left"><strong>6</strong></td><td align="left"><strong>实现自动化</strong></td><td align="left">安装并配置 <code>Obsidian Git</code> 插件，设置自动同步。</td><td align="left">(同左)</td></tr></tbody></table>
+<h2 id="详细配置步骤">详细配置步骤</h2>
+<h3 id="步骤一创建远程私有仓库">步骤一：创建远程私有仓库</h3>
+<ol>
+<li>注册、登录 <strong>GitHub</strong> (或 Gitee)。</li>
+<li>点击右上角的 <code>+</code> 号，选择 <code>New repository</code>。</li>
+<li><strong>Repository name</strong>: 建议使用你的库名称，例如 <code>my-obsidian-vault</code>。</li>
+<li><strong>设置为 <code>Private</code></strong>: <strong>至关重要！</strong> 确保你的笔记不会被公开访问。</li>
+<li><strong>不要</strong>勾选任何 “Initialize this repository with…” 的选项（如 README, .gitignore）。我们需要一个完全空的仓库来接收我们已有的本地内容。</li>
+<li>点击 <code>Create repository</code>。创建后，复制页面上提供的 <strong>HTTPS</strong> 地址备用。</li>
+<li>安装Git</li>
+</ol>
+<h3 id="步骤二初始化本地仓库">步骤二：初始化本地仓库</h3>
+<p>接下来，我们要把你本地的 Obsidian 库文件夹变成一个 Git 仓库。</p>
+<ol>
+<li>打开你电脑的终端 (Terminal, PowerShell, CMD)。</li>
+<li>使用 <code>cd</code> 命令进入你的 Obsidian 库所在的文件夹。（这里也可以打开文件夹后，右键点击文件夹空白处，选择<code>Open Git Bash Here</code>）
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># 示例 (请替换为你的真实路径)</span></span>
+<span class="line"><span style="color:#79B8FF">cd</span><span style="color:#9ECBFF"> ~/Documents/MyVault</span></span></code></pre>
+</li>
+<li>执行 <code>git init</code> 命令，这会在当前文件夹下创建一个 <code>.git</code> 子文件夹，标志着本地仓库创建成功。
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">git</span><span style="color:#9ECBFF"> init</span></span></code></pre>
+</li>
+<li>(推荐) 将默认分支名从 <code>master</code> 修改为 <code>main</code>，这是目前社区的推荐做法。
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">git</span><span style="color:#9ECBFF"> branch</span><span style="color:#79B8FF"> -m</span><span style="color:#9ECBFF"> main</span></span></code></pre>
+</li>
+<li>将你的本地仓库与第一步创建的远程仓库关联起来。
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># 将 [你的远程仓库地址] 替换为你之前复制的 URL</span></span>
+<span class="line"><span style="color:#B392F0">git</span><span style="color:#9ECBFF"> remote</span><span style="color:#9ECBFF"> add</span><span style="color:#9ECBFF"> origin</span><span style="color:#E1E4E8"> [你的远程仓库地址]</span></span></code></pre>
+</li>
+</ol>
+<p><strong>如果你尚未创建任何Obsidian vault，那么你可以直接新建一个文件夹（比如MyVault），在这个文件夹里的空白处点击右键，选择<code>Open Git Bash Here</code>，然后执行命令<code>git clone [你的远程仓库地址]</code>，然后，在obsidian中打开这个文件夹即可。</strong></p>
+<h3 id="步骤三创建-gitignore-文件">步骤三：创建 <code>.gitignore</code> 文件</h3>
+<p>此文件用于告诉 Git 哪些文件或文件夹<strong>不需要</strong>被同步，以保持仓库干净并避免不必要的冲突。</p>
+<ol>
+<li>在你的库根目录（与 <code>.obsidian</code> 文件夹同级）创建一个名为 <code>.gitignore</code> 的文件。</li>
+<li>打开该文件，粘贴以下推荐内容：</li>
+</ol>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span># 忽略操作系统自动生成的文件</span></span>
+<span class="line"><span>.DS_Store</span></span>
+<span class="line"><span>Thumbs.db</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># 忽略Obsidian的缓存文件</span></span>
+<span class="line"><span>.obsidian/cache</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># 忽略特定设备的工作区状态，这是避免冲突的关键</span></span>
+<span class="line"><span># 这是你本次操作的核心目标</span></span>
+<span class="line"><span>.obsidian/workspace.json</span></span>
+<span class="line"><span>.obsidian/workspaces.json</span></span>
+<span class="line"><span>.obsidian/workspace-mobile.json</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># 忽略其他不建议同步的文件</span></span>
+<span class="line"><span>.obsidian/daily-notes.json</span></span>
+<span class="line"><span>.obsidian/facets.json</span></span>
+<span class="line"><span>.obsidian/starred.json</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># 忽略插件的缓存和数据文件 (可选，但推荐)</span></span>
+<span class="line"><span># .obsidian/plugins/some-plugin/data.json</span></span>
+<span class="line"><span>.obsidian/plugins/recent-files-obsidian/data.json</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># 忽略垃圾箱文件夹</span></span>
+<span class="line"><span>.trash/</span></span></code></pre>
+<h3 id="步骤四首次提交与推送">步骤四：首次提交与推送</h3>
+<p>这是将你本地的所有笔记首次上传到 GitHub 的关键一步。</p>
+<ol>
+<li>回到终端，将所有文件添加到暂存区。
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">git</span><span style="color:#9ECBFF"> add</span><span style="color:#9ECBFF"> .</span></span></code></pre>
+</li>
+<li>提交这些文件，并附上一条描述信息。
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">git</span><span style="color:#9ECBFF"> commit</span><span style="color:#79B8FF"> -m</span><span style="color:#9ECBFF"> "Initial commit: Add all vault files"</span></span></code></pre>
+</li>
+<li>将本地的 <code>main</code> 分支内容推送到远程 <code>origin</code> 仓库，并建立跟踪关系。
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">git</span><span style="color:#9ECBFF"> push</span><span style="color:#79B8FF"> -u</span><span style="color:#9ECBFF"> origin</span><span style="color:#9ECBFF"> main</span></span></code></pre>
+执行此步时，可能会提示你输入 GitHub 的用户名和密码（实际上是 <strong>Personal Access Token</strong>）。</li>
+</ol>
+<h3 id="步骤五安装并配置-obsidian-git-插件">步骤五：安装并配置 <code>Obsidian Git</code> 插件</h3>
+<p>最后一步是让 Obsidian 自动为我们执行 Git 操作。</p>
+<ol>
+<li>在 Obsidian 中，进入 <code>设置</code> -&gt; <code>第三方插件</code> -&gt; <code>社区插件市场</code>。</li>
+<li>搜索 <code>Obsidian Git</code>，点击 <code>安装</code>，然后 <code>启用</code>。</li>
+<li>进入 <code>Obsidian Git</code> 的设置页面，进行以下核心配置：</li>
+</ol>
+<ul>
+<li><strong>Pull on startup</strong>: 启动时拉取更新。防止多设备内容冲突的核心功能，必须开启。</li>
+<li><strong>Auto commit interval (minutes)</strong>: 自动提交间隔。设置大于0的值（如10），以启用后台自动备份到本地。</li>
+<li><strong>Push on commit-and-sync(在“提交并同步”时推送)</strong>: 默认是开启的，保持开启即可。</li>
+</ul>
+<p>至此，全部配置完成！你的 Obsidian 库已经拥有了强大的 Git “超能力”，可以安心地在多台电脑上写作了。你也可以通过命令面板 (<code>Ctrl/Cmd + P</code>) 手动执行 <code>Git: Push</code> 等命令。</p>
+<h2 id="流程图">流程图</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="mermaid"><code><span class="line"><span style="color:#E1E4E8">flowchart TD</span></span>
+<span class="line"><span style="color:#E1E4E8">    A["开始"] --&gt; B["在 GitHub 创建空的私有仓库"];</span></span>
+<span class="line"><span style="color:#E1E4E8">    B --&gt; C["在电脑上安装 Git"];</span></span>
+<span class="line"><span style="color:#E1E4E8">    C --&gt; D&#123;"这是一个全新的库吗"&#125;;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">    D -- "是 (全新库)" --&gt; E["在本地选择一个位置执行 git clone [仓库地址]"];</span></span>
+<span class="line"><span style="color:#E1E4E8">    E --&gt; J["用 Obsidian 打开这个新文件夹"];</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">    D -- "否 (已有库)" --&gt; F["cd 进入已存在的库文件夹"];</span></span>
+<span class="line"><span style="color:#E1E4E8">    F --&gt; G["执行 git init"];</span></span>
+<span class="line"><span style="color:#E1E4E8">    G --&gt; H["执行 git branch -m main"];</span></span>
+<span class="line"><span style="color:#E1E4E8">    H --&gt; I["执行 git remote add origin关联远程仓库"];</span></span>
+<span class="line"><span style="color:#E1E4E8">    I --&gt; J;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">    J --&gt; K["创建 .gitignore 文件"];</span></span>
+<span class="line"><span style="color:#E1E4E8">    K --&gt; L["执行 git add .将所有文件添加到暂存区"];</span></span>
+<span class="line"><span style="color:#E1E4E8">    L --&gt; M["执行 git commit创建首次提交"];</span></span>
+<span class="line"><span style="color:#E1E4E8">M --&gt; N["执行 git push推送到远程仓库"];</span></span>
+<span class="line"><span style="color:#E1E4E8">    N --&gt; O["安装 Obsidian Git 插件"];</span></span>
+<span class="line"><span style="color:#E1E4E8">    O --&gt; P["配置插件设置自动同步"];</span></span>
+<span class="line"><span style="color:#E1E4E8">    P --&gt; Q["完成"];</span></span></code></pre>  </div> </article> </div> <footer class="max-w-2xl mx-auto pb-20 mt-10 pt-20 border-t border-slate-300 dark:border-slate-600 px-4 md:px-30 text-center"> <div>© 2026 Jason's Efficiency Lab. All rights reserved.</div> <div class="flex justify-center space-x-6 mt-8"> <a href="https://x.com/JasonEffiLab" class="size-10 mr-2 inline-block opacity-90 hover:opacity-100" aria-label="X" target="_blank" rel="noopener noreferrer" title="推特(X)主页"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-brand-x"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M4 4l11.733 16h4.267l-11.733 -16z"></path><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"></path></svg> </a> <a href="https://www.youtube.com/@JasonEfficiencyLab" class="size-10 mr-2 inline-block opacity-90 hover:opacity-100 text-[#ff0033]" aria-label="YouTube" target="_blank" rel="noopener noreferrer" title="YouTube主页"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-filled icon-tabler-brand-youtube"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M18 3a5 5 0 0 1 5 5v8a5 5 0 0 1 -5 5h-12a5 5 0 0 1 -5 -5v-8a5 5 0 0 1 5 -5zm-9 6v6a1 1 0 0 0 1.514 .857l5 -3a1 1 0 0 0 0 -1.714l-5 -3a1 1 0 0 0 -1.514 .857z"></path></svg> </a> <a href="https://www.xiaohongshu.com/user/profile/60935957000000000101fbf7" class="size-10 mr-2 inline-block opacity-90 hover:opacity-100" aria-label="Xiaohongshu" target="_blank" rel="noopener noreferrer" title="小红书主页"> <svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 377.97 376.53"> <defs> <style>
+                .cls-1 {
+                    fill: #ff2842;
+                    stroke-width: 0px;
+                }
+            </style> </defs> <g id="Layer_1-2" data-name="Layer 1"> <g id="g1"> <path id="path1" class="cls-1" d="M43.86,1.11C21.81,5.7,3.59,22.91,1.34,46.07c-2.33,23.92,0,49.25,0,73.3v149.53c0,27.5-6.94,64.79,10.75,87.96,19.11,25.02,53.98,19.06,81.6,19.06h214.03c8.48,0,18.08,1.24,26.39-.49,22.05-4.59,40.26-21.8,42.51-44.96,2.33-23.92,0-49.25,0-73.3V107.64c0-27.5,6.94-64.79-10.75-87.96C346.76-5.34,311.89.62,284.27.62H70.24c-8.48,0-18.08-1.24-26.39.49M177.26,134.02l-10.26,27.85h17.59l-14.66,35.18,13.19,1.47c-1.45,3.93-3.4,11.34-6.35,14.42-2.17,2.26-5.48,1.71-8.31,1.71-6.39,0-19.3,2.65-22.72-4.4-1.57-3.23.68-7.31,1.95-10.26,2.66-6.17,6.19-12.48,7.57-19.06-3.19,0-7.22.63-10.26-.49-11.4-4.19,1.28-22.52,3.91-28.83,1.85-4.43,4.04-14.05,8.06-16.86,5.65-3.94,14.24-1.21,20.28-.73M61.45,226.38c4.03,0,10.02,1.2,12.46-2.93,2.59-4.39.73-14.06.73-19.06v-48.38c0-4.53-2.29-18.38,1.71-21.26,3.29-2.37,17.1-1.87,18.57,2.2,2.4,6.66.24,17.83.24,24.92v46.91c0,8.04,1.39,17.39-1.95,24.92-3.19,7.18-18.04,13.59-25.41,8.06-3.24-2.43-5.55-11.6-6.35-15.39M284.27,134.02v7.33c5.47,0,12.33-1.12,17.59.49,17.56,5.36,16.13,22.61,16.13,37.63,2.93,0,5.93-.23,8.8.49,16.85,4.21,14.66,21.06,14.66,34.69,0,7.27,1.36,15.86-3.42,21.99-5.27,6.75-13.9,5.86-21.5,5.86-2.36,0-6.25.75-8.31-.73-3.85-2.77-5.54-11-6.35-15.39,4.82,0,13.51,1.65,17.35-1.95,4.52-4.25,2.67-20.86-2.69-23.7-2.84-1.5-7.16-.73-10.26-.73h-21.99v42.51h-20.52v-42.51h-20.52v-20.52h20.52v-17.59h-13.19v-20.52h13.19v-7.33h20.52M237.36,141.35v20.52h-11.73v61.57h19.06v19.06h-67.43l7.82-18.32,18.57-.73v-61.57h-11.73v-20.52h45.44M320.92,161.88c0-4.17-.76-9.17.49-13.19,4.9-15.82,28.76-3.07,16.86,10.02-1.35,1.49-3.73,2.22-5.62,2.69-3.75.94-7.89.49-11.73.49M61.45,161.88l-6.11,54.24-10.02,17.59-8.8-23.46,4.4-48.38h20.52M128.88,161.88l4.4,48.38-8.8,21.99h-2.93c-7.87-12.46-8.87-25.31-10.26-39.58-.99-10.14-2.93-20.58-2.93-30.78h20.52M284.27,161.88v17.59h13.19v-17.59h-13.19M174.32,223.45l-7.33,19.06h-32.25l7.82-19.79,11.24.24,20.52.49Z"></path> </g> </g> </svg> </a> <a href="https://space.bilibili.com/3546884870244925" class="size-10 mr-2 inline-block opacity-90 hover:opacity-100" aria-label="bilibili" target="_blank" rel="noopener noreferrer" title="B站主页"> <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="icon" version="1.1" p-id="5441" viewBox="0 0 1024 1024"><path d="M0 0m184.32 0l655.36 0q184.32 0 184.32 184.32l0 655.36q0 184.32-184.32 184.32l-655.36 0q-184.32 0-184.32-184.32l0-655.36q0-184.32 184.32-184.32Z" fill="#EC5D85" p-id="5442"></path><path d="M512 241.96096h52.224l65.06496-96.31744c49.63328-50.31936 89.64096 0.43008 63.85664 45.71136l-34.31424 51.5072c257.64864 5.02784 257.64864 43.008 257.64864 325.03808 0 325.94944 0 336.46592-404.48 336.46592S107.52 893.8496 107.52 567.90016c0-277.69856 0-318.80192 253.14304-324.95616l-39.43424-58.368c-31.26272-54.90688 37.33504-90.40896 64.68608-42.37312l60.416 99.80928c18.18624-0.0512 41.18528-0.0512 65.66912-0.0512z" fill="#EF85A7" p-id="5443"></path><path d="M512 338.5856c332.8 0 332.8 0 332.8 240.64s0 248.39168-332.8 248.39168-332.8-7.75168-332.8-248.39168 0-240.64 332.8-240.64z" fill="#EC5D85" p-id="5444"></path><path d="M281.6 558.08a30.72 30.72 0 0 1-27.47392-16.97792 30.72 30.72 0 0 1 13.73184-41.216l122.88-61.44a30.72 30.72 0 0 1 41.216 13.74208 30.72 30.72 0 0 1-13.74208 41.216l-122.88 61.44a30.59712 30.59712 0 0 1-13.73184 3.23584zM752.64 558.08a30.60736 30.60736 0 0 1-12.8512-2.83648l-133.12-61.44a30.72 30.72 0 0 1-15.04256-40.7552 30.72 30.72 0 0 1 40.76544-15.02208l133.12 61.44A30.72 30.72 0 0 1 752.64 558.08zM454.656 666.88a15.36 15.36 0 0 1-12.288-6.1952 15.36 15.36 0 0 1 3.072-21.49376l68.5056-50.91328 50.35008 52.62336a15.36 15.36 0 0 1-22.20032 21.23776l-31.5904-33.024-46.71488 34.72384a15.28832 15.28832 0 0 1-9.13408 3.04128z" fill="#EF85A7" p-id="5445"></path><path d="M65.536 369.31584c15.03232 101.90848 32.84992 147.17952 44.544 355.328 14.63296 2.18112 177.70496 10.04544 204.05248-74.62912a16.14848 16.14848 0 0 0 1.64864-10.87488c-30.60736-80.3328-169.216-60.416-169.216-60.416s-10.36288-146.50368-11.49952-238.83776zM362.25024 383.03744l34.816 303.17568h34.64192L405.23776 381.1328zM309.52448 536.28928h45.48608l16.09728 158.6176-31.82592 1.85344zM446.86336 542.98624h45.80352V705.3312h-33.87392zM296.6016 457.97376h21.39136l5.2736 58.99264-18.91328 2.26304zM326.99392 457.97376h21.39136l2.53952 55.808-17.408 1.61792zM470.62016 459.88864h19.456v62.27968h-19.456zM440.23808 459.88864h22.20032v62.27968h-16.62976z" fill="#FFFFFF" p-id="5446"></path><path d="M243.56864 645.51936a275.456 275.456 0 0 1-28.4672 23.74656 242.688 242.688 0 0 1-29.53216 17.52064 2.70336 2.70336 0 0 1-4.4032-1.95584 258.60096 258.60096 0 0 1-5.12-29.57312c-1.41312-12.1856-1.95584-25.68192-2.16064-36.36224 0-0.3072 0-2.5088 3.01056-1.90464a245.92384 245.92384 0 0 1 34.22208 9.5744 257.024 257.024 0 0 1 32.3584 15.17568c0.52224 0.256 2.51904 1.4848 0.09216 3.77856z" fill="#EB5480" p-id="5447"></path><path d="M513.29024 369.31584c15.03232 101.90848 32.84992 147.17952 44.544 355.328 14.63296 2.18112 177.70496 10.04544 204.05248-74.62912a16.14848 16.14848 0 0 0 1.64864-10.87488c-30.60736-80.3328-169.216-60.416-169.216-60.416s-10.36288-146.50368-11.49952-238.83776zM810.00448 383.03744l34.816 303.17568h34.64192L852.992 381.1328zM757.27872 536.28928h45.48608l16.09728 158.6176-31.82592 1.85344zM894.6176 542.98624h45.80352V705.3312H906.5472zM744.35584 457.97376h21.39136l5.2736 58.99264-18.91328 2.26304zM774.74816 457.97376h21.39136l2.53952 55.808-17.408 1.61792zM918.3744 459.88864h19.456v62.27968h-19.456zM887.99232 459.88864h22.20032v62.27968h-16.62976z" fill="#FFFFFF" p-id="5448"></path><path d="M691.32288 645.51936a275.456 275.456 0 0 1-28.4672 23.74656 242.688 242.688 0 0 1-29.53216 17.52064 2.70336 2.70336 0 0 1-4.4032-1.95584 258.60096 258.60096 0 0 1-5.12-29.57312c-1.41312-12.1856-1.95584-25.68192-2.16064-36.36224 0-0.3072 0-2.5088 3.01056-1.90464a245.92384 245.92384 0 0 1 34.22208 9.5744 257.024 257.024 0 0 1 32.3584 15.17568c0.52224 0.256 2.51904 1.4848 0.09216 3.77856z" fill="#EB5480" p-id="5449"></path></svg> </a> <a href="/qrcode" class="size-10 mr-2 inline-block opacity-90 hover:opacity-100 text-[#07C160]" aria-label="wechat" rel="noopener noreferrer" title="微信公众号扫码"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-brand-wechat"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M16.5 10c3.038 0 5.5 2.015 5.5 4.5c0 1.397 -.778 2.645 -2 3.47l0 2.03l-1.964 -1.178a6.649 6.649 0 0 1 -1.536 .178c-3.038 0 -5.5 -2.015 -5.5 -4.5s2.462 -4.5 5.5 -4.5"></path><path d="M11.197 15.698c-.69 .196 -1.43 .302 -2.197 .302a8.008 8.008 0 0 1 -2.612 -.432l-2.388 1.432v-2.801c-1.237 -1.082 -2 -2.564 -2 -4.199c0 -3.314 3.134 -6 7 -6c3.782 0 6.863 2.57 7 5.785l0 .233"></path><path d="M10 8h.01"></path><path d="M7 8h.01"></path><path d="M15 14h.01"></path><path d="M18 14h.01"></path></svg> </a> </div> </footer>  </div></article><div class="post-copyright"><div class="post-copyright__author_group"><div class="post-copyright__author_img"><img class="post-copyright__author_img_front" src="/img/logo.png"></div><div class="post-copyright__author_name">鲸落</div><div class="post-copyright__author_desc"></div></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div id="quit-box" onclick="RemoveRewardMask()"></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本文是原创文章，采用<a target="_blank" rel="noopener external nofollow noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans">CC BY-NC-SA 4.0</a>协议，完整转载请注明来自<a href="/">白鲸</a></span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/obsidian/"><span class="tags-punctuation"><i class="solitude fas fa-hashtag"></i>obsidian<span class="tagsPageCount">1</span></span></a><a class="post-meta__tags" href="/tags/git/"><span class="tags-punctuation"><i class="solitude fas fa-hashtag"></i>git<span class="tagsPageCount">2</span></span></a><a class="post-meta__tags" href="/tags/%E5%90%8C%E6%AD%A5/"><span class="tags-punctuation"><i class="solitude fas fa-hashtag"></i>同步<span class="tagsPageCount">1</span></span></a></div></div></div><nav class="needEndHide pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/7ab43e2.html"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">报错到完美排雷（下）</div></div></a></div><div class="next-post pull-right"><a href="/posts/9fe78a1c.html"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">同一台电脑管理多个SSH</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><div class="top-group"><div class="sayhi" id="sayhi" onclick="sco.changeWittyWord()"></div></div></div><div class="avatar"><img alt="头像" src="/img/logo.png"></div><div class="description"></div><div class="bottom-group"><span class="left"><div class="name">鲸落</div><div class="desc">只有迎风，风筝才能飞得更高。</div></span><div class="social-icons is-center"></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="solitude fas fa-bars"></i><span>文章目录</span></div><div class="toc-content" id="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">Obsidian笔记库同步方案-Git</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#obsidian-git-%E5%90%8C%E6%AD%A5%E9%85%8D%E7%BD%AE%E6%8C%87%E5%8D%97-%E6%A1%8C%E9%9D%A2%E7%AB%AF"><span class="toc-text">Obsidian Git 同步配置指南 (桌面端)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E6%8F%90%E6%9D%A1%E4%BB%B6"><span class="toc-text">前提条件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4%E7%AE%80%E4%BB%8B"><span class="toc-text">步骤简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%A6%E7%BB%86%E9%85%8D%E7%BD%AE%E6%AD%A5%E9%AA%A4"><span class="toc-text">详细配置步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4%E4%B8%80%E5%88%9B%E5%BB%BA%E8%BF%9C%E7%A8%8B%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93"><span class="toc-text">步骤一：创建远程私有仓库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4%E4%BA%8C%E5%88%9D%E5%A7%8B%E5%8C%96%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93"><span class="toc-text">步骤二：初始化本地仓库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4%E4%B8%89%E5%88%9B%E5%BB%BA-gitignore-%E6%96%87%E4%BB%B6"><span class="toc-text">步骤三：创建 .gitignore 文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4%E5%9B%9B%E9%A6%96%E6%AC%A1%E6%8F%90%E4%BA%A4%E4%B8%8E%E6%8E%A8%E9%80%81"><span class="toc-text">步骤四：首次提交与推送</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4%E4%BA%94%E5%AE%89%E8%A3%85%E5%B9%B6%E9%85%8D%E7%BD%AE-obsidian-git-%E6%8F%92%E4%BB%B6"><span class="toc-text">步骤五：安装并配置 Obsidian Git 插件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%81%E7%A8%8B%E5%9B%BE"><span class="toc-text">流程图</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="solitude fas fa-map"></i><span>最近发布</span></div><div class="aside-list"><a class="aside-list-item" href="/posts/87b19224.html" title="WordPress博客一步一步部署教程"><div class="thumbnail"><img alt="WordPress博客一步一步部署教程" src="/img/covers/wordpress-deploy.png"></div><div class="content"><span class="title" href="/posts/87b19224.html" title="WordPress博客一步一步部署教程">WordPress博客一步一步部署教程</span><span class="categories" href="/posts/87b19224.html">教程</span></div></a><a class="aside-list-item" href="/posts/b86c2edc.html" title="配置七牛云 Kodo 存储"><div class="thumbnail"><img alt="配置七牛云 Kodo 存储" src="/img/covers/qiniu-kodo.png"></div><div class="content"><span class="title" href="/posts/b86c2edc.html" title="配置七牛云 Kodo 存储">配置七牛云 Kodo 存储</span><span class="categories" href="/posts/b86c2edc.html">教程</span></div></a><a class="aside-list-item" href="/posts/8452a9f.html" title="从零开始：我和 AI 一起在 CachyOS 上装好了中文输入法"><div class="thumbnail"><img alt="从零开始：我和 AI 一起在 CachyOS 上装好了中文输入法" src="/img/covers/cachyos-input.png"></div><div class="content"><span class="title" href="/posts/8452a9f.html" title="从零开始：我和 AI 一起在 CachyOS 上装好了中文输入法">从零开始：我和 AI 一起在 CachyOS 上装好了中文输入法</span><span class="categories" href="/posts/8452a9f.html">教程</span></div></a><a class="aside-list-item" href="/posts/1a091685.html" title="把域名从 Cloudflare 迁移到七牛云 CDN"><div class="thumbnail"><img alt="把域名从 Cloudflare 迁移到七牛云 CDN" src="/img/covers/domain-qiniu.png"></div><div class="content"><span class="title" href="/posts/1a091685.html" title="把域名从 Cloudflare 迁移到七牛云 CDN">把域名从 Cloudflare 迁移到七牛云 CDN</span><span class="categories" href="/posts/1a091685.html">教程</span></div></a><a class="aside-list-item" href="/posts/2e3cdad1.html" title="Typora 永久破解教程"><div class="content"><span class="title" href="/posts/2e3cdad1.html" title="Typora 永久破解教程">Typora 永久破解教程</span></div></a></div></div></div></div></main><footer id="footer"><div id="st-footer"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div class="copyright">© 2023 - 2026 By<a class="footer-bar-link" href="/" title="鲸落">鲸落</a></div><div class="beian-group"><a class="footer-bar-link" target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io/" title="框架：Hexo">框架：Hexo</a><a class="footer-bar-link" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/everfu/hexo-theme-solitude" title="主题：Solitude">主题：Solitude</a></div></div><div class="footer-bar-right"></div></div></div><div class="comment-barrage needEndHide"></div></footer></div><div><!-- Critical scripts loaded synchronously--><script src="/js/utils.js?v=3.0.21"></script><script src="/js/main.js?v=3.0.21"></script><!-- Non-critical scripts loaded asynchronously--><script async src="/js/third_party/waterfall.min.js?v=3.0.21"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script><!-- Feature-specific scripts loaded asynchronously--><script defer src="/js/tw_cn.js?v=3.0.21"></script><!-- UI enhancement scripts--><script defer src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><!-- Music player scripts--><!-- Cover color processing scripts--><script>window.paceOptions = {
+  restartOnPushState: false
+}
+
+utils.addGlobalFn('pjaxSend', () => {
+  Pace.restart()
+}, 'pace_restart')
+</script><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!-- Search functionality--><!-- Right menu functionality--><div class="js-pjax"></div></div><!-- pjax--><script>let pjax = null;
+
+function initPjax() {
+    if (typeof Pjax === 'undefined') {
+        console.warn('Pjax is not loaded yet, retrying...');
+        setTimeout(initPjax, 100);
+        return;
+    }
+
+    pjax = new Pjax({
+        elements: 'a:not([target="_blank"])',
+        selectors: ["title","#body-wrap","#site-config","meta[name=\"description\"]",".js-pjax","meta[property^=\"og:\"]","#config-diff",".rs_show",".rs_hide"],
+        cacheBust: false,
+        analytics: false,
+        scrollRestoration: false
+    })
+
+    // 将 pjax 实例挂载到全局
+    window.pjax = pjax;
+
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+        const newScript = document.createElement('script')
+        const content = item.text || item.textContent || item.innerHTML || ""
+        Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+        newScript.appendChild(document.createTextNode(content))
+        item.parentNode.replaceChild(newScript, item)
+    })
+
+    document.addEventListener('pjax:complete', () => {
+        window.refreshFn()
+
+        document.querySelectorAll('script[data-pjax]').forEach(item => {
+            const newScript = document.createElement('script')
+            const content = item.text || item.textContent || item.innerHTML || ""
+            Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+            newScript.appendChild(document.createTextNode(content))
+            item.parentNode.replaceChild(newScript, item)
+        })
+
+        GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+    })
+
+    document.addEventListener('pjax:error', (e) => {
+        if (e.request.status === 404) {
+            pjax.loadUrl('/404.html')
+        }
+    })
+}
+
+// 初始化 Pjax
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPjax);
+} else {
+    initPjax();
+}</script><!-- google adsense--><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/"});</script></body></html>
+        <script>
+            const posts = ["posts/87b19224.html","posts/b86c2edc.html","posts/8452a9f.html","posts/1a091685.html","posts/2e3cdad1.html","posts/e86019d.html","posts/undefined.html","posts/4168ed28.html","posts/0.html","posts/15d1e318.html","posts/97844892.html","posts/b374de5.html","posts/3c3c884d.html","posts/7ab43e2.html","posts/0.html","posts/9fe78a1c.html","posts/e86019d.html","posts/605a3c7d.html","posts/324882c3.html","posts/516ae0b5.html","posts/ab29e5b.html","posts/f1068b53.html","posts/2e9081ea.html","posts/undefined.html","posts/624ef525.html","posts/7968a355.html","posts/590f2ba.html","posts/99a5c448.html","posts/62a96202.html","posts/4a17b156.html"];
+            function toRandomPost() {
+                const randomPost = posts[Math.floor(Math.random() * posts.length)];
+                pjax.loadUrl(GLOBAL_CONFIG.root + randomPost);
+            }
+        </script>

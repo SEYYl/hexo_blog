@@ -1,0 +1,363 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>把域名从 Cloudflare 迁移到七牛云 CDN | 白鲸</title><noscript>开启JavaScript才能访问本站哦~</noscript><link rel="icon" href="/img/pwa/favicon.png"><link rel="stylesheet" href="/css/index.css?v=3.0.21"><link rel="canonical" href="https://blogog.top/posts/1a091685.html"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css"><!-- Feature-specific CSS--><!-- aplayer--><!-- swiper--><!-- fancybox ui--><!-- katex--><!-- Open Graph--><meta name="description" content="为什么要换？Cloudflare 免费 CDN 很好，但国内访问速度有时候不理想。七牛云 CDN 在国内节点多，加速效果更好，而且每月有 10GB 免费流量，个人网站基本够用。 准备工作 一个已经在 Cloudflare 托管的域名（比如 example.com） 七牛云账号（已完成实名认证）"><!-- pwa--><meta name="apple-mobile-web-app-capable" content="白鲸"><meta name="theme-color" content="var(--efu-main)"><meta name="apple-mobile-web-app-status-bar-style" content="var(--efu-main)"><link rel="bookmark" href="/img/pwa/favicon.png"><link rel="apple-touch-icon" href="/img/pwa/favicon.png" sizes="180x180"><script>console.log(' %c Solitude %c ' + '3.0.21' + ' %c https://github.com/everfu/hexo-theme-solitude',
+    'background:#35495e ; padding: 1px; border-radius: 3px 0 0 3px;  color: #fff',
+    'background:#ff9a9a ; padding: 1px; border-radius: 0 3px 3px 0;  color: #fff',
+    'background:unset ; padding: 1px; border-radius: 0 3px 3px 0;  color: #fff')
+</script><script>(()=>{
+        const saveToLocal = {
+            set: function setWithExpiry(key, value, ttl) {
+                if (ttl === 0)
+                    return
+                const now = new Date()
+                const expiryDay = ttl * 86400000
+                const item = {
+                    value: value,
+                    expiry: now.getTime() + expiryDay
+                }
+                localStorage.setItem(key, JSON.stringify(item))
+            },
+            get: function getWithExpiry(key) {
+                const itemStr = localStorage.getItem(key)
+
+                if (!itemStr) {
+                    return undefined
+                }
+                const item = JSON.parse(itemStr)
+                const now = new Date()
+
+                if (now.getTime() > item.expiry) {
+                    localStorage.removeItem(key)
+                    return undefined
+                }
+                return item.value
+            }
+        };
+        window.utils = {
+            saveToLocal: saveToLocal,
+            getCSS: (url, id = false) => new Promise((resolve, reject) => {
+              const link = document.createElement('link')
+              link.rel = 'stylesheet'
+              link.href = url
+              if (id) link.id = id
+              link.onerror = reject
+              link.onload = link.onreadystatechange = function() {
+                const loadState = this.readyState
+                if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+                link.onload = link.onreadystatechange = null
+                resolve()
+              }
+              document.head.appendChild(link)
+            }),
+            getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+              const script = document.createElement('script')
+              script.src = url
+              script.async = true
+              script.onerror = reject
+              script.onload = script.onreadystatechange = function() {
+                const loadState = this.readyState
+                if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+                script.onload = script.onreadystatechange = null
+                resolve()
+              }
+
+              Object.keys(attr).forEach(key => {
+                script.setAttribute(key, attr[key])
+              })
+
+              document.head.appendChild(script)
+            }),
+            addGlobalFn: (key, fn, name = false, parent = window) => {
+                const globalFn = parent.globalFn || {}
+                const keyObj = globalFn[key] || {}
+
+                if (name && keyObj[name]) return
+
+                name = name || Object.keys(keyObj).length
+                keyObj[name] = fn
+                globalFn[key] = keyObj
+                parent.globalFn = globalFn
+            },
+            addEventListenerPjax: (ele, event, fn, option = false) => {
+              ele.addEventListener(event, fn, option)
+              utils.addGlobalFn('pjax', () => {
+                  ele.removeEventListener(event, fn, option)
+              })
+            },
+            diffDateFormat: (selector) => {
+                selector.forEach(item => {
+                    const date = new Date(item.getAttribute('datetime') || item.textContent);
+                    item.textContent = (date.getMonth() + 1).toString()+'/'+date.getDate().toString();
+                });
+            },
+        }
+    })()</script><!-- theme--><script>initTheme = () => {
+    let isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const cachedMode = utils.saveToLocal.get('theme');
+    if (cachedMode === undefined) {
+        const nowMode =
+            isDarkMode ? 'dark' : 'light'
+        document.documentElement.setAttribute('data-theme', nowMode);
+    } else {
+        document.documentElement.setAttribute('data-theme', cachedMode);
+    }
+    typeof rm === 'object' && rm.mode(cachedMode === 'dark' && isDarkMode)
+}
+initTheme()</script><script>const GLOBAL_CONFIG = {
+    root: '/',
+    algolia: undefined,
+    localsearch: undefined,
+    runtime: '2023-04-20 00:00:00',
+    lazyload: {
+        enable: false,
+        error: '/img/error_load.avif'
+    },
+    copyright: false,
+    highlight: {"limit":200,"expand":true,"copy":true,"syntax":"highlight.js"},
+    randomlink: false,
+    lang: {"theme":{"dark":"已切换至深色模式","light":"已切换至浅色模式"},"copy":{"success":"复制成功","error":"复制失败"},"backtop":"返回顶部","time":{"day":"天前","hour":"小时前","just":"刚刚","min":"分钟前","month":"个月前"},"day":" 天","f12":"开发者模式已打开，请遵循GPL协议。","totalk":"无需删除空行，直接输入评论即可"},
+    aside: {
+        state: {
+            morning: "✨ 早上好，新的一天开始了",
+            noon: "🍲 午餐时间",
+            afternoon: "🌞 下午好",
+            night: "早点休息",
+            goodnight: "晚安 😴",
+        },
+        witty_words: [],
+        witty_comment: {
+            prefix: '好久不见，',
+            back: '欢迎再次回来，',
+        },
+    },
+    covercolor: {
+        enable: false
+    },
+    comment: false,
+    lightbox: 'null',
+    right_menu: false,
+    translate: {"translateDelay":0,"defaultEncoding":2},
+    lure: false,
+    expire: false,
+};</script><script id="config-diff">var PAGE_CONFIG = {
+    is_post: true,
+    is_page: false,
+    is_home: false,
+    page: '',
+    toc: true,
+    comment: false,
+    ai_text: false,
+    color: false,
+}</script><meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="白鲸" type="application/atom+xml">
+</head><body id="body"><div id="console"><div class="close-btn" onclick="sco.hideConsole()"><i class="solitude fas fa-xmark"></i></div><div class="console-card-group"><div class="console-card-group-right"><div class="console-card tags" onclick="sco.hideConsole()"><div class="card-content"><div class="author-content-item-tips">标签</div><div class="author-content-item-title">寻找感兴趣的领域</div></div><div class="card-tag-cloud"><a href="/tags/hexo/">hexo<sup>8</sup></a><a href="/tags/powershell/">powershell<sup>1</sup></a><a href="/tags/%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/">问题解决<sup>1</sup></a><a href="/tags/alist/">alist<sup>1</sup></a><a href="/tags/%E4%BA%91%E7%9B%98/">云盘<sup>1</sup></a><a href="/tags/%E6%8C%82%E8%BD%BD/">挂载<sup>1</sup></a><a href="/tags/linux/">linux<sup>2</sup></a><a href="/tags/%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/">基础命令<sup>1</sup></a><a href="/tags/%E6%95%99%E7%A8%8B/">教程<sup>2</sup></a><a href="/tags/obsidian/">obsidian<sup>1</sup></a><a href="/tags/git/">git<sup>2</sup></a><a href="/tags/%E5%90%8C%E6%AD%A5/">同步<sup>1</sup></a><a href="/tags/%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/">软件安装<sup>1</sup></a><a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/">服务器<sup>1</sup></a><a href="/tags/typora/">typora<sup>1</sup></a><a href="/tags/markdown/">markdown<sup>1</sup></a><a href="/tags/%E5%B7%A5%E5%85%B7/">工具<sup>1</sup></a><a href="/tags/butterfly/">butterfly<sup>1</sup></a><a href="/tags/%E4%B8%BB%E9%A2%98/">主题<sup>2</sup></a><a href="/tags/%E8%B5%84%E6%BA%90/">资源<sup>1</sup></a><a href="/tags/%E5%85%A5%E9%97%A8/">入门<sup>1</sup></a><a href="/tags/windows/">windows<sup>2</sup></a><a href="/tags/win10/">win10<sup>1</sup></a><a href="/tags/%E6%BF%80%E6%B4%BB/">激活<sup>1</sup></a><a href="/tags/CachyOS/">CachyOS<sup>1</sup></a><a href="/tags/%E8%BE%93%E5%85%A5%E6%B3%95/">输入法<sup>1</sup></a><a href="/tags/%E5%9F%9F%E5%90%8D/">域名<sup>1</sup></a><a href="/tags/freenom/">freenom<sup>1</sup></a><a href="/tags/cloudflare/">cloudflare<sup>1</sup></a><a href="/tags/android/">android<sup>1</sup></a><a href="/tags/recovery/">recovery<sup>1</sup></a><a href="/tags/twrp/">twrp<sup>1</sup></a><a href="/tags/%E5%BB%BA%E7%AB%99/">建站<sup>3</sup></a><a href="/tags/WordPress/">WordPress<sup>1</sup></a><a href="/tags/%E5%91%BD%E4%BB%A4/">命令<sup>1</sup></a><a href="/tags/%E9%80%9F%E6%9F%A5/">速查<sup>1</sup></a><a href="/tags/manjaro/">manjaro<sup>1</sup></a><a href="/tags/%E5%8F%8C%E7%B3%BB%E7%BB%9F/">双系统<sup>1</sup></a><a href="/tags/ssh/">ssh<sup>1</sup></a><a href="/tags/%E5%AF%86%E9%92%A5/">密钥<sup>1</sup></a><a href="/tags/%E5%AE%9D%E5%A1%94/">宝塔<sup>1</sup></a><a href="/tags/1Panel/">1Panel<sup>1</sup></a><a href="/tags/%E8%BF%81%E7%A7%BB/">迁移<sup>1</sup></a><a href="/tags/%E9%83%A8%E7%BD%B2/">部署<sup>1</sup></a><a href="/tags/badge/">badge<sup>1</sup></a><a href="/tags/shields/">shields<sup>1</sup></a><a href="/tags/github/">github<sup>1</sup></a><a href="/tags/Cloudflare/">Cloudflare<sup>1</sup></a><a href="/tags/%E4%B8%83%E7%89%9B%E4%BA%91/">七牛云<sup>2</sup></a><a href="/tags/CDN/">CDN<sup>1</sup></a><a href="/tags/Hexo/">Hexo<sup>2</sup></a><a href="/tags/Git/">Git<sup>2</sup></a><a href="/tags/%E8%B8%A9%E5%9D%91/">踩坑<sup>2</sup></a><a href="/tags/%E8%BD%AC%E8%BD%BD/">转载<sup>1</sup></a><a href="/tags/%E5%9B%BE%E5%BA%8A/">图床<sup>1</sup></a></div></div><div class="console-card history" onclick="sco.hideConsole()"><ul class="card-archive-list"><li class="item"><a href="/archives/2026/04/"><span class="date">2026/04</span><div class="count-group"><span class="count">7</span><span class="unit">篇</span></div></a></li><li class="item"><a href="/archives/2026/02/"><span class="date">2026/02</span><div class="count-group"><span class="count">2</span><span class="unit">篇</span></div></a></li><li class="item"><a href="/archives/2025/11/"><span class="date">2025/11</span><div class="count-group"><span class="count">5</span><span class="unit">篇</span></div></a></li><li class="item"><a href="/archives/2025/08/"><span class="date">2025/08</span><div class="count-group"><span class="count">1</span><span class="unit">篇</span></div></a></li><li class="item"><a href="/archives/2023/02/"><span class="date">2023/02</span><div class="count-group"><span class="count">5</span><span class="unit">篇</span></div></a></li><li class="item"><a href="/archives/2023/01/"><span class="date">2023/01</span><div class="count-group"><span class="count">7</span><span class="unit">篇</span></div></a></li><li class="item"><a href="/archives/2022/12/"><span class="date">2022/12</span><div class="count-group"><span class="count">2</span><span class="unit">篇</span></div></a></li><li class="item"><a href="/archives/2022/11/"><span class="date">2022/11</span><div class="count-group"><span class="count">1</span><span class="unit">篇</span></div></a></li><li class="item"><a href="/archives/"><span class="date">全部文章</span><div class="count-group"><span class="count">30</span><span class="unit">篇</span></div></a></li></ul></div></div></div><div class="button-group"><div class="console-btn-item"><span class="darkmode_switchbutton" onclick="sco.switchDarkMode()" title="昼夜切换"><i class="solitude fas fa-circle-half-stroke"></i></span></div><div class="console-btn-item" id="consoleHideAside"><span class="asideSwitch" onclick="sco.switchHideAside()" title="边栏显示控制"><i class="solitude fas fa-arrows-left-right-to-line"></i></span></div></div><div class="console-mask" onclick="sco.hideConsole()"></div></div><div id="sidebar" style="zoom: 1;"><div id="menu-mask" style="display: none;"></div><div id="sidebar-menus"><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">30</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">55</div></a></div></div></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><span class="darkmode_switchbutton menu-child" onclick="sco.switchDarkMode()"><i class="solitude fas fa-circle-half-stroke"></i><span>显示模式</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span>首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><span>文章</span></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="solitude  fas fa-folder-closed"></i><span>归档</span></a></li><li><a class="site-page child" href="/categories/"><i class="solitude  fas fa-clone"></i><span>分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="solitude  fas fa-tags"></i><span>标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><span>友链</span></a><ul class="menus_item_child"><li><a class="site-page child" href="/moments/"><i class="solitude  fas fa-wifi"></i><span>朋友圈</span></a></li><li><a class="site-page child" href="/links/"><i class="solitude  fas fa-user-group"></i><span>友情链接</span></a></li><li><a class="site-page child" href="javascript:travelling()" rel="external nofollow noreferrer"><i class="solitude  fas fa-gift"></i><span>宝藏博主</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><span>我的</span></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="solitude  fas fa-user"></i><span>关于</span></a></li><li><a class="site-page child" href="/kit/"><i class="solitude  fas fa-laptop"></i><span>装备</span></a></li><li><a class="site-page child" href="/music/"><i class="solitude  fas fa-music"></i><span>音乐馆</span></a></li></ul></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="card-tag-cloud"><a href="/tags/hexo/">hexo<sup>8</sup></a><a href="/tags/powershell/">powershell<sup>1</sup></a><a href="/tags/%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/">问题解决<sup>1</sup></a><a href="/tags/alist/">alist<sup>1</sup></a><a href="/tags/%E4%BA%91%E7%9B%98/">云盘<sup>1</sup></a><a href="/tags/%E6%8C%82%E8%BD%BD/">挂载<sup>1</sup></a><a href="/tags/linux/">linux<sup>2</sup></a><a href="/tags/%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/">基础命令<sup>1</sup></a><a href="/tags/%E6%95%99%E7%A8%8B/">教程<sup>2</sup></a><a href="/tags/obsidian/">obsidian<sup>1</sup></a><a href="/tags/git/">git<sup>2</sup></a><a href="/tags/%E5%90%8C%E6%AD%A5/">同步<sup>1</sup></a><a href="/tags/%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/">软件安装<sup>1</sup></a><a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/">服务器<sup>1</sup></a><a href="/tags/typora/">typora<sup>1</sup></a><a href="/tags/markdown/">markdown<sup>1</sup></a><a href="/tags/%E5%B7%A5%E5%85%B7/">工具<sup>1</sup></a><a href="/tags/butterfly/">butterfly<sup>1</sup></a><a href="/tags/%E4%B8%BB%E9%A2%98/">主题<sup>2</sup></a><a href="/tags/%E8%B5%84%E6%BA%90/">资源<sup>1</sup></a><a href="/tags/%E5%85%A5%E9%97%A8/">入门<sup>1</sup></a><a href="/tags/windows/">windows<sup>2</sup></a><a href="/tags/win10/">win10<sup>1</sup></a><a href="/tags/%E6%BF%80%E6%B4%BB/">激活<sup>1</sup></a><a href="/tags/CachyOS/">CachyOS<sup>1</sup></a><a href="/tags/%E8%BE%93%E5%85%A5%E6%B3%95/">输入法<sup>1</sup></a><a href="/tags/%E5%9F%9F%E5%90%8D/">域名<sup>1</sup></a><a href="/tags/freenom/">freenom<sup>1</sup></a><a href="/tags/cloudflare/">cloudflare<sup>1</sup></a><a href="/tags/android/">android<sup>1</sup></a><a href="/tags/recovery/">recovery<sup>1</sup></a><a href="/tags/twrp/">twrp<sup>1</sup></a><a href="/tags/%E5%BB%BA%E7%AB%99/">建站<sup>3</sup></a><a href="/tags/WordPress/">WordPress<sup>1</sup></a><a href="/tags/%E5%91%BD%E4%BB%A4/">命令<sup>1</sup></a><a href="/tags/%E9%80%9F%E6%9F%A5/">速查<sup>1</sup></a><a href="/tags/manjaro/">manjaro<sup>1</sup></a><a href="/tags/%E5%8F%8C%E7%B3%BB%E7%BB%9F/">双系统<sup>1</sup></a><a href="/tags/ssh/">ssh<sup>1</sup></a><a href="/tags/%E5%AF%86%E9%92%A5/">密钥<sup>1</sup></a><a href="/tags/%E5%AE%9D%E5%A1%94/">宝塔<sup>1</sup></a><a href="/tags/1Panel/">1Panel<sup>1</sup></a><a href="/tags/%E8%BF%81%E7%A7%BB/">迁移<sup>1</sup></a><a href="/tags/%E9%83%A8%E7%BD%B2/">部署<sup>1</sup></a><a href="/tags/badge/">badge<sup>1</sup></a><a href="/tags/shields/">shields<sup>1</sup></a><a href="/tags/github/">github<sup>1</sup></a><a href="/tags/Cloudflare/">Cloudflare<sup>1</sup></a><a href="/tags/%E4%B8%83%E7%89%9B%E4%BA%91/">七牛云<sup>2</sup></a><a href="/tags/CDN/">CDN<sup>1</sup></a><a href="/tags/Hexo/">Hexo<sup>2</sup></a><a href="/tags/Git/">Git<sup>2</sup></a><a href="/tags/%E8%B8%A9%E5%9D%91/">踩坑<sup>2</sup></a><a href="/tags/%E8%BD%AC%E8%BD%BD/">转载<sup>1</sup></a><a href="/tags/%E5%9B%BE%E5%BA%8A/">图床<sup>1</sup></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav class="show" id="nav"><div id="nav-group"><div id="blog_name"><a href="/" title="返回博客主页" id="site-name"><span class="title">Solitude</span><i class="solitude fas fa-home"></i></a></div><div id="page-name-mask"><div id="page-name"><a id="page-name-text" onclick="sco.toTop()">把域名从 Cloudflare 迁移到七牛云 CDN</a></div></div><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span>首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><span>文章</span></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="solitude  fas fa-folder-closed"></i><span>归档</span></a></li><li><a class="site-page child" href="/categories/"><i class="solitude  fas fa-clone"></i><span>分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="solitude  fas fa-tags"></i><span>标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><span>友链</span></a><ul class="menus_item_child"><li><a class="site-page child" href="/moments/"><i class="solitude  fas fa-wifi"></i><span>朋友圈</span></a></li><li><a class="site-page child" href="/links/"><i class="solitude  fas fa-user-group"></i><span>友情链接</span></a></li><li><a class="site-page child" href="javascript:travelling()" rel="external nofollow noreferrer"><i class="solitude  fas fa-gift"></i><span>宝藏博主</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><span>我的</span></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="solitude  fas fa-user"></i><span>关于</span></a></li><li><a class="site-page child" href="/kit/"><i class="solitude  fas fa-laptop"></i><span>装备</span></a></li><li><a class="site-page child" href="/music/"><i class="solitude  fas fa-music"></i><span>音乐馆</span></a></li></ul></div></div></div><div id="nav-left"></div><div id="nav-right"><div class="nav-button" id="travellings_button"><a class="site-page" target="_blank" rel="noopener external nofollow noreferrer" href="https://www.travellings.cn/go.html" title=""><i class="solitude fas fa-train"></i></a></div><div class="nav-button" id="nav-totop" onclick="sco.toTop()"><a class="totopbtn"><i class="solitude fas fa-arrow-up"></i><span id="percent">0</span></a></div><div id="toggle-menu"><a class="site-page"><i class="solitude fas fa-bars"></i></a></div></div></div></nav><div class="coverdiv" id="coverdiv"><img class="nolazyload" id="post-cover" src="/img/covers/domain-qiniu.png" alt="把域名从 Cloudflare 迁移到七牛云 CDN"></div><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original" title="该文章为原创文章，注意版权协议">原创</a><span class="post-meta-categories"><a class="post-meta-categories" href="/categories/%E6%95%99%E7%A8%8B/">教程</a></span><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Cloudflare/"><span class="tags-name tags-punctuation"><i class="solitude fas fa-hashtag"></i>Cloudflare</span></a><a class="post-meta__tags" href="/tags/%E4%B8%83%E7%89%9B%E4%BA%91/"><span class="tags-name tags-punctuation"><i class="solitude fas fa-hashtag"></i>七牛云</span></a><a class="post-meta__tags" href="/tags/CDN/"><span class="tags-name tags-punctuation"><i class="solitude fas fa-hashtag"></i>CDN</span></a></div></div></div></div><h1 class="post-title">把域名从 Cloudflare 迁移到七牛云 CDN</h1><div id="post-meta"><div class="meta-secondline"></div></div></div><div class="post-radius-bottom"></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content article-container"><h2 id="为什么要换？"><a href="#为什么要换？" class="headerlink" title="为什么要换？"></a>为什么要换？</h2><p>Cloudflare 免费 CDN 很好，但国内访问速度有时候不理想。七牛云 CDN 在国内节点多，加速效果更好，而且每月有 <strong>10GB 免费流量</strong>，个人网站基本够用。</p>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><ul>
+<li><p>一个已经在 Cloudflare 托管的域名（比如 <code>example.com</code>）</p>
+</li>
+<li><p>七牛云账号（已完成实名认证）</p>
+</li>
+<li><p>如果你的网站主要面向国内，域名需要备过案</p>
+</li>
+</ul>
+<h2 id="第一步：在七牛云添加域名"><a href="#第一步：在七牛云添加域名" class="headerlink" title="第一步：在七牛云添加域名"></a>第一步：在七牛云添加域名</h2><ol>
+<li><p>登录七牛云控制台，进入 <strong>CDN</strong> 服务，点击 <strong>添加域名</strong>。</p>
+</li>
+<li><p>填写你的域名（例如 <code>www.yourname.com</code> 或 <code>blog.yourname.com</code>）。</p>
+</li>
+<li><p><strong>源站配置</strong>：</p>
+<ul>
+<li><p>如果你有自己的服务器（IP 固定），选 <strong>IP 地址</strong>，然后填你的服务器公网 IP。</p>
+</li>
+<li><p>如果你用的是对象存储（如七牛云 Kodo），选 <strong>七牛云存储</strong>。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>回源 HOST</strong>：选择 <strong>自定义</strong>，填入你的域名（就是和加速域名一样的那个）。</p>
+</li>
+<li><p><strong>回源协议</strong>：如果你的源站支持 HTTPS 就选 HTTPS，否则选 HTTP。选错也没事，后面可以改。</p>
+</li>
+<li><p>其他选项（缓存配置）保持默认就行，直接点 <strong>创建</strong>。</p>
+</li>
+</ol>
+<blockquote>
+<p>创建后，七牛云会给你一个 <strong>CNAME 地址</strong>，长这样：<code>yourdomain-id.qiniudns.com</code>，记下来，待会儿要用。</p>
+</blockquote>
+<h2 id="第二步：在-Cloudflare-修改-DNS-解析"><a href="#第二步：在-Cloudflare-修改-DNS-解析" class="headerlink" title="第二步：在 Cloudflare 修改 DNS 解析"></a>第二步：在 Cloudflare 修改 DNS 解析</h2><ol>
+<li><p>登录 Cloudflare，进入你的域名管理页。</p>
+</li>
+<li><p>找到你要加速的那个域名（比如 <code>blog.yourname.com</code>）的记录。</p>
+</li>
+<li><p><strong>删除</strong>原来的 <strong>A 记录</strong>（如果存在）。</p>
+</li>
+<li><p>点击 <strong>添加记录</strong>：</p>
+<ul>
+<li><p>类型：<strong>CNAME</strong></p>
+</li>
+<li><p>名称：你的子域名（比如 <code>blog</code>）</p>
+</li>
+<li><p>目标：粘贴七牛云给你的 CNAME 地址</p>
+</li>
+<li><p><strong>代理状态：一定要设为“仅 DNS”</strong>（灰色的云朵图标，不是橙色的）</p>
+</li>
+</ul>
+</li>
+<li><p>保存。</p>
+</li>
+</ol>
+<blockquote>
+<p>如果你要加速根域名（比如 <code>yourname.com</code> 本身），Cloudflare 支持 CNAME 扁平化，同样操作即可。但是要注意：根域名用了 CNAME 之后，就不能再添加 MX 邮件记录了。</p>
+</blockquote>
+<h2 id="第三步：等待生效并验证"><a href="#第三步：等待生效并验证" class="headerlink" title="第三步：等待生效并验证"></a>第三步：等待生效并验证</h2><p>DNS 解析需要几分钟到几十分钟才能全球生效。你可以用以下命令在电脑上验证（Windows 打开 CMD，Mac 打开终端）：</p>
+<h3 id="1-检查-DNS-是否已指向七牛云"><a href="#1-检查-DNS-是否已指向七牛云" class="headerlink" title="1. 检查 DNS 是否已指向七牛云"></a>1. 检查 DNS 是否已指向七牛云</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nslookup blog.yourname.com</span><br></pre></td></tr></table></figure>
+<p>如果看到一堆 IP 地址（比如 <code>183.60.227.41</code> 之类的），而且<strong>没有</strong> <code>cloudflare</code> 字样，就说明解析成功了。</p>
+<h3 id="2测试-CDN-是否正常工作"><a href="#2测试-CDN-是否正常工作" class="headerlink" title="2测试 CDN 是否正常工作"></a>2测试 CDN 是否正常工作</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -I http://blog.yourname.com</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>如果返回的 <code>Server</code> 是 <code>nginx</code>（或者 <code>qiniu</code>），说明流量已经走七牛云了。</p>
+</li>
+<li><p>如果返回 <code>Server: cloudflare</code> 或者有 <code>CF-RAY</code> 字段，说明 Cloudflare 还在拦截，请检查第二步中是否把代理状态改成了“仅 DNS”。</p>
+</li>
+</ul>
+<blockquote>
+<p>如果看到 <code>301 Moved Permanently</code> 并且跳转到 <code>https://</code>，那是因为你在七牛云开启了“强制 HTTPS”，属于正常现象。</p>
+</blockquote>
+<h2 id="常见问题与解决"><a href="#常见问题与解决" class="headerlink" title="常见问题与解决"></a>常见问题与解决</h2><h3 id="问题1：nslookup-正确，但-curl-还是显示-Cloudflare"><a href="#问题1：nslookup-正确，但-curl-还是显示-Cloudflare" class="headerlink" title="问题1：nslookup 正确，但 curl 还是显示 Cloudflare"></a>问题1：nslookup 正确，但 curl 还是显示 Cloudflare</h3><p><strong>原因</strong>：Cloudflare 的 DNS 扁平化可能会“劫持”流量，即使你关了代理。</p>
+<p><strong>解决办法</strong>：彻底更换 DNS 服务商，比如用 DNSPod 或阿里云 DNS。步骤：</p>
+<ol>
+<li><p>在 DNSPod 添加你的域名。</p>
+</li>
+<li><p>去你的域名注册商（比如 Namesilo、GoDaddy）把 NS 记录改成 DNSPod 的。</p>
+</li>
+<li><p>在 DNSPod 里添加 CNAME 记录指向七牛云。</p>
+</li>
+<li><p>等生效后再测试。</p>
+</li>
+</ol>
+<h3 id="问题2：根域名（yourname-com）同时存在-A-记录和-CNAME-记录"><a href="#问题2：根域名（yourname-com）同时存在-A-记录和-CNAME-记录" class="headerlink" title="问题2：根域名（yourname.com）同时存在 A 记录和 CNAME 记录"></a>问题2：根域名（yourname.com）同时存在 A 记录和 CNAME 记录</h3><p><strong>原因</strong>：同一个域名不能同时有 A 和 CNAME，会冲突。</p>
+<p><strong>解决办法</strong>：删除 A 记录，只保留 CNAME。</p>
+<h3 id="问题3：访问-http-总是跳转到-https"><a href="#问题3：访问-http-总是跳转到-https" class="headerlink" title="问题3：访问 http 总是跳转到 https"></a>问题3：访问 http 总是跳转到 https</h3><p><strong>原因</strong>：七牛云开启了“强制 HTTPS”。</p>
+<p><strong>解决办法</strong>：</p>
+<ul>
+<li><p>如果你接受 HTTPS，那就保持现状，无需操作。</p>
+</li>
+<li><p>如果你想同时支持 HTTP，去七牛云 CDN 配置里找到 <strong>HTTPS 配置</strong>，把“强制 HTTPS”关掉。</p>
+</li>
+</ul>
+<h2 id="费用要花多少钱？"><a href="#费用要花多少钱？" class="headerlink" title="费用要花多少钱？"></a>费用要花多少钱？</h2><p>七牛云 CDN 的计费很良心：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>价格</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>免费额度（HTTP）</td>
+<td>每月 10 GB</td>
+</tr>
+<tr>
+<td>超出后 HTTP 流量</td>
+<td>0.24 元/GB</td>
+</tr>
+<tr>
+<td>HTTPS 流量（无免费额度）</td>
+<td>0.28 元/GB</td>
+</tr>
+<tr>
+<td>新用户优惠</td>
+<td>0.1 元买 10GB HTTPS 流量包（有效期12个月）</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>个人博客费用估算</strong>：</p>
+<ul>
+<li><p>纯 HTTP，月流量 5 GB：<strong>0 元</strong></p>
+</li>
+<li><p>纯 HTTP，月流量 15 GB：约 <strong>1.2 元</strong></p>
+</li>
+<li><p>HTTPS，月流量 15 GB：约 <strong>4.2 元</strong>（如果买了优惠包，约 1.5 元）</p>
+</li>
+</ul>
+<blockquote>
+<p>注意：一旦域名开启了 HTTPS，无论用户用 <code>http://</code> 还是 <code>https://</code> 访问，都会按照 HTTPS 价格计费。</p>
+</blockquote>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>把域名从 Cloudflare 迁到七牛云并不难，核心就三步：</p>
+<ol>
+<li><p>在七牛云添加域名，拿到 CNAME 地址。</p>
+</li>
+<li><p>在 Cloudflare 把域名的 A 记录改为 CNAME，并关闭代理（灰色云朵）。</p>
+</li>
+<li><p>等待解析生效，用 <code>nslookup</code> 和 <code>curl</code> 验证。</p>
+</li>
+</ol>
+<p>如果遇到流量还被 Cloudflare 拦截，最好的办法是换 DNS 服务商（DNSPod）。七牛云的费用对个人站长非常友好，每月基本免费。</p>
+<p>照着这个教程操作，你也能轻松用上国内高速 CDN！</p>
+</article><div class="post-copyright"><div class="post-copyright__author_group"><div class="post-copyright__author_img"><img class="post-copyright__author_img_front" src="/img/logo.png"></div><div class="post-copyright__author_name">鲸落</div><div class="post-copyright__author_desc"></div></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div id="quit-box" onclick="RemoveRewardMask()"></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本文是原创文章，采用<a target="_blank" rel="noopener external nofollow noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans">CC BY-NC-SA 4.0</a>协议，完整转载请注明来自<a href="/">白鲸</a></span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Cloudflare/"><span class="tags-punctuation"><i class="solitude fas fa-hashtag"></i>Cloudflare<span class="tagsPageCount">1</span></span></a><a class="post-meta__tags" href="/tags/%E4%B8%83%E7%89%9B%E4%BA%91/"><span class="tags-punctuation"><i class="solitude fas fa-hashtag"></i>七牛云<span class="tagsPageCount">2</span></span></a><a class="post-meta__tags" href="/tags/CDN/"><span class="tags-punctuation"><i class="solitude fas fa-hashtag"></i>CDN<span class="tagsPageCount">1</span></span></a></div></div></div><nav class="needEndHide pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/8452a9f.html"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">从零开始：我和 AI 一起在 CachyOS 上装好了中文输入法</div></div></a></div><div class="next-post pull-right"><a href="/posts/2e3cdad1.html"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Typora 永久破解教程</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><div class="top-group"><div class="sayhi" id="sayhi" onclick="sco.changeWittyWord()"></div></div></div><div class="avatar"><img alt="头像" src="/img/logo.png"></div><div class="description"></div><div class="bottom-group"><span class="left"><div class="name">鲸落</div><div class="desc">只有迎风，风筝才能飞得更高。</div></span><div class="social-icons is-center"></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="solitude fas fa-bars"></i><span>文章目录</span></div><div class="toc-content" id="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%8D%A2%EF%BC%9F"><span class="toc-text">为什么要换？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="toc-text">准备工作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5%EF%BC%9A%E5%9C%A8%E4%B8%83%E7%89%9B%E4%BA%91%E6%B7%BB%E5%8A%A0%E5%9F%9F%E5%90%8D"><span class="toc-text">第一步：在七牛云添加域名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5%EF%BC%9A%E5%9C%A8-Cloudflare-%E4%BF%AE%E6%94%B9-DNS-%E8%A7%A3%E6%9E%90"><span class="toc-text">第二步：在 Cloudflare 修改 DNS 解析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E6%AD%A5%EF%BC%9A%E7%AD%89%E5%BE%85%E7%94%9F%E6%95%88%E5%B9%B6%E9%AA%8C%E8%AF%81"><span class="toc-text">第三步：等待生效并验证</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%A3%80%E6%9F%A5-DNS-%E6%98%AF%E5%90%A6%E5%B7%B2%E6%8C%87%E5%90%91%E4%B8%83%E7%89%9B%E4%BA%91"><span class="toc-text">1. 检查 DNS 是否已指向七牛云</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E6%B5%8B%E8%AF%95-CDN-%E6%98%AF%E5%90%A6%E6%AD%A3%E5%B8%B8%E5%B7%A5%E4%BD%9C"><span class="toc-text">2测试 CDN 是否正常工作</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E4%B8%8E%E8%A7%A3%E5%86%B3"><span class="toc-text">常见问题与解决</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AE%E9%A2%981%EF%BC%9Anslookup-%E6%AD%A3%E7%A1%AE%EF%BC%8C%E4%BD%86-curl-%E8%BF%98%E6%98%AF%E6%98%BE%E7%A4%BA-Cloudflare"><span class="toc-text">问题1：nslookup 正确，但 curl 还是显示 Cloudflare</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AE%E9%A2%982%EF%BC%9A%E6%A0%B9%E5%9F%9F%E5%90%8D%EF%BC%88yourname-com%EF%BC%89%E5%90%8C%E6%97%B6%E5%AD%98%E5%9C%A8-A-%E8%AE%B0%E5%BD%95%E5%92%8C-CNAME-%E8%AE%B0%E5%BD%95"><span class="toc-text">问题2：根域名（yourname.com）同时存在 A 记录和 CNAME 记录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AE%E9%A2%983%EF%BC%9A%E8%AE%BF%E9%97%AE-http-%E6%80%BB%E6%98%AF%E8%B7%B3%E8%BD%AC%E5%88%B0-https"><span class="toc-text">问题3：访问 http 总是跳转到 https</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B4%B9%E7%94%A8%E8%A6%81%E8%8A%B1%E5%A4%9A%E5%B0%91%E9%92%B1%EF%BC%9F"><span class="toc-text">费用要花多少钱？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="solitude fas fa-map"></i><span>最近发布</span></div><div class="aside-list"><a class="aside-list-item" href="/posts/87b19224.html" title="WordPress博客一步一步部署教程"><div class="thumbnail"><img alt="WordPress博客一步一步部署教程" src="/img/covers/wordpress-deploy.png"></div><div class="content"><span class="title" href="/posts/87b19224.html" title="WordPress博客一步一步部署教程">WordPress博客一步一步部署教程</span><span class="categories" href="/posts/87b19224.html">教程</span></div></a><a class="aside-list-item" href="/posts/b86c2edc.html" title="配置七牛云 Kodo 存储"><div class="thumbnail"><img alt="配置七牛云 Kodo 存储" src="/img/covers/qiniu-kodo.png"></div><div class="content"><span class="title" href="/posts/b86c2edc.html" title="配置七牛云 Kodo 存储">配置七牛云 Kodo 存储</span><span class="categories" href="/posts/b86c2edc.html">教程</span></div></a><a class="aside-list-item" href="/posts/8452a9f.html" title="从零开始：我和 AI 一起在 CachyOS 上装好了中文输入法"><div class="thumbnail"><img alt="从零开始：我和 AI 一起在 CachyOS 上装好了中文输入法" src="/img/covers/cachyos-input.png"></div><div class="content"><span class="title" href="/posts/8452a9f.html" title="从零开始：我和 AI 一起在 CachyOS 上装好了中文输入法">从零开始：我和 AI 一起在 CachyOS 上装好了中文输入法</span><span class="categories" href="/posts/8452a9f.html">教程</span></div></a><a class="aside-list-item" href="/posts/1a091685.html" title="把域名从 Cloudflare 迁移到七牛云 CDN"><div class="thumbnail"><img alt="把域名从 Cloudflare 迁移到七牛云 CDN" src="/img/covers/domain-qiniu.png"></div><div class="content"><span class="title" href="/posts/1a091685.html" title="把域名从 Cloudflare 迁移到七牛云 CDN">把域名从 Cloudflare 迁移到七牛云 CDN</span><span class="categories" href="/posts/1a091685.html">教程</span></div></a><a class="aside-list-item" href="/posts/2e3cdad1.html" title="Typora 永久破解教程"><div class="content"><span class="title" href="/posts/2e3cdad1.html" title="Typora 永久破解教程">Typora 永久破解教程</span></div></a></div></div></div></div></main><footer id="footer"><div id="st-footer"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div class="copyright">© 2023 - 2026 By<a class="footer-bar-link" href="/" title="鲸落">鲸落</a></div><div class="beian-group"><a class="footer-bar-link" target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io/" title="框架：Hexo">框架：Hexo</a><a class="footer-bar-link" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/everfu/hexo-theme-solitude" title="主题：Solitude">主题：Solitude</a></div></div><div class="footer-bar-right"></div></div></div><div class="comment-barrage needEndHide"></div></footer></div><div><!-- Critical scripts loaded synchronously--><script src="/js/utils.js?v=3.0.21"></script><script src="/js/main.js?v=3.0.21"></script><!-- Non-critical scripts loaded asynchronously--><script async src="/js/third_party/waterfall.min.js?v=3.0.21"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script><!-- Feature-specific scripts loaded asynchronously--><script defer src="/js/tw_cn.js?v=3.0.21"></script><!-- UI enhancement scripts--><script defer src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><!-- Music player scripts--><!-- Cover color processing scripts--><script>window.paceOptions = {
+  restartOnPushState: false
+}
+
+utils.addGlobalFn('pjaxSend', () => {
+  Pace.restart()
+}, 'pace_restart')
+</script><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!-- Search functionality--><!-- Right menu functionality--><div class="js-pjax"></div></div><!-- pjax--><script>let pjax = null;
+
+function initPjax() {
+    if (typeof Pjax === 'undefined') {
+        console.warn('Pjax is not loaded yet, retrying...');
+        setTimeout(initPjax, 100);
+        return;
+    }
+
+    pjax = new Pjax({
+        elements: 'a:not([target="_blank"])',
+        selectors: ["title","#body-wrap","#site-config","meta[name=\"description\"]",".js-pjax","meta[property^=\"og:\"]","#config-diff",".rs_show",".rs_hide"],
+        cacheBust: false,
+        analytics: false,
+        scrollRestoration: false
+    })
+
+    // 将 pjax 实例挂载到全局
+    window.pjax = pjax;
+
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+        const newScript = document.createElement('script')
+        const content = item.text || item.textContent || item.innerHTML || ""
+        Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+        newScript.appendChild(document.createTextNode(content))
+        item.parentNode.replaceChild(newScript, item)
+    })
+
+    document.addEventListener('pjax:complete', () => {
+        window.refreshFn()
+
+        document.querySelectorAll('script[data-pjax]').forEach(item => {
+            const newScript = document.createElement('script')
+            const content = item.text || item.textContent || item.innerHTML || ""
+            Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+            newScript.appendChild(document.createTextNode(content))
+            item.parentNode.replaceChild(newScript, item)
+        })
+
+        GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+    })
+
+    document.addEventListener('pjax:error', (e) => {
+        if (e.request.status === 404) {
+            pjax.loadUrl('/404.html')
+        }
+    })
+}
+
+// 初始化 Pjax
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPjax);
+} else {
+    initPjax();
+}</script><!-- google adsense--><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/"});</script></body></html>
+        <script>
+            const posts = ["posts/87b19224.html","posts/b86c2edc.html","posts/8452a9f.html","posts/1a091685.html","posts/2e3cdad1.html","posts/e86019d.html","posts/undefined.html","posts/4168ed28.html","posts/0.html","posts/15d1e318.html","posts/97844892.html","posts/b374de5.html","posts/3c3c884d.html","posts/7ab43e2.html","posts/0.html","posts/9fe78a1c.html","posts/e86019d.html","posts/605a3c7d.html","posts/324882c3.html","posts/516ae0b5.html","posts/ab29e5b.html","posts/f1068b53.html","posts/2e9081ea.html","posts/undefined.html","posts/624ef525.html","posts/7968a355.html","posts/590f2ba.html","posts/99a5c448.html","posts/62a96202.html","posts/4a17b156.html"];
+            function toRandomPost() {
+                const randomPost = posts[Math.floor(Math.random() * posts.length)];
+                pjax.loadUrl(GLOBAL_CONFIG.root + randomPost);
+            }
+        </script>
