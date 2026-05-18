@@ -3,11 +3,11 @@
   <title>白鲸</title>
   
   
-  <link href="https://blogog.top/atom.xml" rel="self"/>
+  <link href="https://blog.helijike.eu.org/atom.xml" rel="self"/>
   
-  <link href="https://blogog.top/"/>
+  <link href="https://blog.helijike.eu.org/"/>
   <updated>2026-05-18T16:42:59.037Z</updated>
-  <id>https://blogog.top/</id>
+  <id>https://blog.helijike.eu.org/</id>
   
   <author>
     <name>鲸落</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>WordPress博客一步一步部署教程</title>
-    <link href="https://blogog.top/posts/87b19224.html"/>
-    <id>https://blogog.top/posts/87b19224.html</id>
+    <link href="https://blog.helijike.eu.org/posts/87b19224.html"/>
+    <id>https://blog.helijike.eu.org/posts/87b19224.html</id>
     <published>2026-04-26T07:25:35.000Z</published>
     <updated>2026-05-18T16:42:59.037Z</updated>
     
@@ -33,21 +33,21 @@
     
     
     
-    <category term="教程" scheme="https://blogog.top/categories/%E6%95%99%E7%A8%8B/"/>
+    <category term="教程" scheme="https://blog.helijike.eu.org/categories/%E6%95%99%E7%A8%8B/"/>
     
-    <category term="WordPress" scheme="https://blogog.top/categories/%E6%95%99%E7%A8%8B/WordPress/"/>
+    <category term="WordPress" scheme="https://blog.helijike.eu.org/categories/%E6%95%99%E7%A8%8B/WordPress/"/>
     
     
-    <category term="建站" scheme="https://blogog.top/tags/%E5%BB%BA%E7%AB%99/"/>
+    <category term="建站" scheme="https://blog.helijike.eu.org/tags/%E5%BB%BA%E7%AB%99/"/>
     
-    <category term="WordPress" scheme="https://blogog.top/tags/WordPress/"/>
+    <category term="WordPress" scheme="https://blog.helijike.eu.org/tags/WordPress/"/>
     
   </entry>
   
   <entry>
     <title>配置七牛云 Kodo 存储</title>
-    <link href="https://blogog.top/posts/b86c2edc.html"/>
-    <id>https://blogog.top/posts/b86c2edc.html</id>
+    <link href="https://blog.helijike.eu.org/posts/b86c2edc.html"/>
+    <id>https://blog.helijike.eu.org/posts/b86c2edc.html</id>
     <published>2026-04-21T16:49:17.000Z</published>
     <updated>2026-05-18T16:42:59.038Z</updated>
     
@@ -61,19 +61,19 @@
     
     
     
-    <category term="教程" scheme="https://blogog.top/categories/%E6%95%99%E7%A8%8B/"/>
+    <category term="教程" scheme="https://blog.helijike.eu.org/categories/%E6%95%99%E7%A8%8B/"/>
     
     
-    <category term="七牛云" scheme="https://blogog.top/tags/%E4%B8%83%E7%89%9B%E4%BA%91/"/>
+    <category term="七牛云" scheme="https://blog.helijike.eu.org/tags/%E4%B8%83%E7%89%9B%E4%BA%91/"/>
     
-    <category term="图床" scheme="https://blogog.top/tags/%E5%9B%BE%E5%BA%8A/"/>
+    <category term="图床" scheme="https://blog.helijike.eu.org/tags/%E5%9B%BE%E5%BA%8A/"/>
     
   </entry>
   
   <entry>
     <title>从零开始：我和 AI 一起在 CachyOS 上装好了中文输入法</title>
-    <link href="https://blogog.top/posts/8452a9f.html"/>
-    <id>https://blogog.top/posts/8452a9f.html</id>
+    <link href="https://blog.helijike.eu.org/posts/8452a9f.html"/>
+    <id>https://blog.helijike.eu.org/posts/8452a9f.html</id>
     <published>2026-04-21T16:47:28.000Z</published>
     <updated>2026-05-18T16:42:59.037Z</updated>
     
@@ -87,19 +87,19 @@
     
     
     
-    <category term="教程" scheme="https://blogog.top/categories/%E6%95%99%E7%A8%8B/"/>
+    <category term="教程" scheme="https://blog.helijike.eu.org/categories/%E6%95%99%E7%A8%8B/"/>
     
     
-    <category term="CachyOS" scheme="https://blogog.top/tags/CachyOS/"/>
+    <category term="CachyOS" scheme="https://blog.helijike.eu.org/tags/CachyOS/"/>
     
-    <category term="输入法" scheme="https://blogog.top/tags/%E8%BE%93%E5%85%A5%E6%B3%95/"/>
+    <category term="输入法" scheme="https://blog.helijike.eu.org/tags/%E8%BE%93%E5%85%A5%E6%B3%95/"/>
     
   </entry>
   
   <entry>
     <title>把域名从 Cloudflare 迁移到七牛云 CDN</title>
-    <link href="https://blogog.top/posts/1a091685.html"/>
-    <id>https://blogog.top/posts/1a091685.html</id>
+    <link href="https://blog.helijike.eu.org/posts/1a091685.html"/>
+    <id>https://blog.helijike.eu.org/posts/1a091685.html</id>
     <published>2026-04-21T16:44:58.000Z</published>
     <updated>2026-05-18T16:42:59.038Z</updated>
     
@@ -113,21 +113,21 @@
     
     
     
-    <category term="教程" scheme="https://blogog.top/categories/%E6%95%99%E7%A8%8B/"/>
+    <category term="教程" scheme="https://blog.helijike.eu.org/categories/%E6%95%99%E7%A8%8B/"/>
     
     
-    <category term="Cloudflare" scheme="https://blogog.top/tags/Cloudflare/"/>
+    <category term="Cloudflare" scheme="https://blog.helijike.eu.org/tags/Cloudflare/"/>
     
-    <category term="七牛云" scheme="https://blogog.top/tags/%E4%B8%83%E7%89%9B%E4%BA%91/"/>
+    <category term="七牛云" scheme="https://blog.helijike.eu.org/tags/%E4%B8%83%E7%89%9B%E4%BA%91/"/>
     
-    <category term="CDN" scheme="https://blogog.top/tags/CDN/"/>
+    <category term="CDN" scheme="https://blog.helijike.eu.org/tags/CDN/"/>
     
   </entry>
   
   <entry>
     <title>Typora 永久破解教程</title>
-    <link href="https://blogog.top/posts/2e3cdad1.html"/>
-    <id>https://blogog.top/posts/2e3cdad1.html</id>
+    <link href="https://blog.helijike.eu.org/posts/2e3cdad1.html"/>
+    <id>https://blog.helijike.eu.org/posts/2e3cdad1.html</id>
     <published>2026-04-16T13:59:04.000Z</published>
     <updated>2026-05-18T16:45:06.244Z</updated>
     
@@ -146,8 +146,8 @@
   
   <entry>
     <title>win10专业版激活</title>
-    <link href="https://blogog.top/posts/e86019d.html"/>
-    <id>https://blogog.top/posts/e86019d.html</id>
+    <link href="https://blog.helijike.eu.org/posts/e86019d.html"/>
+    <id>https://blog.helijike.eu.org/posts/e86019d.html</id>
     <published>2026-04-16T13:57:56.000Z</published>
     <updated>2026-05-18T16:45:06.245Z</updated>
     
@@ -166,8 +166,8 @@
   
   <entry>
     <title>同一台电脑管理多个ssh</title>
-    <link href="https://blogog.top/posts/undefined.html"/>
-    <id>https://blogog.top/posts/undefined.html</id>
+    <link href="https://blog.helijike.eu.org/posts/undefined.html"/>
+    <id>https://blog.helijike.eu.org/posts/undefined.html</id>
     <published>2026-04-16T13:54:24.000Z</published>
     <updated>2026-05-18T16:42:50.774Z</updated>
     
@@ -186,8 +186,8 @@
   
   <entry>
     <title>记一次惊心动魄的 Hexo 博客部署踩坑实录（上）</title>
-    <link href="https://blogog.top/posts/4168ed28.html"/>
-    <id>https://blogog.top/posts/4168ed28.html</id>
+    <link href="https://blog.helijike.eu.org/posts/4168ed28.html"/>
+    <id>https://blog.helijike.eu.org/posts/4168ed28.html</id>
     <published>2026-02-14T05:25:11.000Z</published>
     <updated>2026-05-18T16:42:59.038Z</updated>
     
@@ -202,21 +202,21 @@
     
     
     
-    <category term="教程" scheme="https://blogog.top/categories/%E6%95%99%E7%A8%8B/"/>
+    <category term="教程" scheme="https://blog.helijike.eu.org/categories/%E6%95%99%E7%A8%8B/"/>
     
     
-    <category term="Hexo" scheme="https://blogog.top/tags/Hexo/"/>
+    <category term="Hexo" scheme="https://blog.helijike.eu.org/tags/Hexo/"/>
     
-    <category term="Git" scheme="https://blogog.top/tags/Git/"/>
+    <category term="Git" scheme="https://blog.helijike.eu.org/tags/Git/"/>
     
-    <category term="踩坑" scheme="https://blogog.top/tags/%E8%B8%A9%E5%9D%91/"/>
+    <category term="踩坑" scheme="https://blog.helijike.eu.org/tags/%E8%B8%A9%E5%9D%91/"/>
     
   </entry>
   
   <entry>
     <title>宝塔迁移1Panel</title>
-    <link href="https://blogog.top/posts/0.html"/>
-    <id>https://blogog.top/posts/0.html</id>
+    <link href="https://blog.helijike.eu.org/posts/0.html"/>
+    <id>https://blog.helijike.eu.org/posts/0.html</id>
     <published>2026-02-14T03:04:12.000Z</published>
     <updated>2026-05-18T16:42:59.037Z</updated>
     
@@ -230,23 +230,23 @@
     
     
     
-    <category term="教程" scheme="https://blogog.top/categories/%E6%95%99%E7%A8%8B/"/>
+    <category term="教程" scheme="https://blog.helijike.eu.org/categories/%E6%95%99%E7%A8%8B/"/>
     
-    <category term="服务器" scheme="https://blogog.top/categories/%E6%95%99%E7%A8%8B/%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
+    <category term="服务器" scheme="https://blog.helijike.eu.org/categories/%E6%95%99%E7%A8%8B/%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
     
     
-    <category term="宝塔" scheme="https://blogog.top/tags/%E5%AE%9D%E5%A1%94/"/>
+    <category term="宝塔" scheme="https://blog.helijike.eu.org/tags/%E5%AE%9D%E5%A1%94/"/>
     
-    <category term="1Panel" scheme="https://blogog.top/tags/1Panel/"/>
+    <category term="1Panel" scheme="https://blog.helijike.eu.org/tags/1Panel/"/>
     
-    <category term="迁移" scheme="https://blogog.top/tags/%E8%BF%81%E7%A7%BB/"/>
+    <category term="迁移" scheme="https://blog.helijike.eu.org/tags/%E8%BF%81%E7%A7%BB/"/>
     
   </entry>
   
   <entry>
     <title>建站教程三（hexo主题篇）</title>
-    <link href="https://blogog.top/posts/15d1e318.html"/>
-    <id>https://blogog.top/posts/15d1e318.html</id>
+    <link href="https://blog.helijike.eu.org/posts/15d1e318.html"/>
+    <id>https://blog.helijike.eu.org/posts/15d1e318.html</id>
     <published>2025-11-15T04:45:11.000Z</published>
     <updated>2025-11-15T04:46:01.000Z</updated>
     
@@ -260,19 +260,19 @@
     
     
     
-    <category term="教程" scheme="https://blogog.top/categories/%E6%95%99%E7%A8%8B/"/>
+    <category term="教程" scheme="https://blog.helijike.eu.org/categories/%E6%95%99%E7%A8%8B/"/>
     
     
-    <category term="hexo" scheme="https://blogog.top/tags/hexo/"/>
+    <category term="hexo" scheme="https://blog.helijike.eu.org/tags/hexo/"/>
     
-    <category term="主题" scheme="https://blogog.top/tags/%E4%B8%BB%E9%A2%98/"/>
+    <category term="主题" scheme="https://blog.helijike.eu.org/tags/%E4%B8%BB%E9%A2%98/"/>
     
   </entry>
   
   <entry>
     <title>建站教程（hexo零基础建站）</title>
-    <link href="https://blogog.top/posts/97844892.html"/>
-    <id>https://blogog.top/posts/97844892.html</id>
+    <link href="https://blog.helijike.eu.org/posts/97844892.html"/>
+    <id>https://blog.helijike.eu.org/posts/97844892.html</id>
     <published>2025-11-15T04:14:45.000Z</published>
     <updated>2026-05-18T16:42:59.038Z</updated>
     
@@ -286,19 +286,19 @@
     
     
     
-    <category term="教程" scheme="https://blogog.top/categories/%E6%95%99%E7%A8%8B/"/>
+    <category term="教程" scheme="https://blog.helijike.eu.org/categories/%E6%95%99%E7%A8%8B/"/>
     
     
-    <category term="hexo" scheme="https://blogog.top/tags/hexo/"/>
+    <category term="hexo" scheme="https://blog.helijike.eu.org/tags/hexo/"/>
     
-    <category term="建站" scheme="https://blogog.top/tags/%E5%BB%BA%E7%AB%99/"/>
+    <category term="建站" scheme="https://blog.helijike.eu.org/tags/%E5%BB%BA%E7%AB%99/"/>
     
   </entry>
   
   <entry>
     <title>建站教程二（将静态博客hexo挂载到 Cloudflare Pages）</title>
-    <link href="https://blogog.top/posts/b374de5.html"/>
-    <id>https://blogog.top/posts/b374de5.html</id>
+    <link href="https://blog.helijike.eu.org/posts/b374de5.html"/>
+    <id>https://blog.helijike.eu.org/posts/b374de5.html</id>
     <published>2025-11-15T03:40:12.000Z</published>
     <updated>2025-11-15T03:47:04.000Z</updated>
     
@@ -314,19 +314,19 @@
     
     
     
-    <category term="教程" scheme="https://blogog.top/categories/%E6%95%99%E7%A8%8B/"/>
+    <category term="教程" scheme="https://blog.helijike.eu.org/categories/%E6%95%99%E7%A8%8B/"/>
     
     
-    <category term="hexo" scheme="https://blogog.top/tags/hexo/"/>
+    <category term="hexo" scheme="https://blog.helijike.eu.org/tags/hexo/"/>
     
-    <category term="部署" scheme="https://blogog.top/tags/%E9%83%A8%E7%BD%B2/"/>
+    <category term="部署" scheme="https://blog.helijike.eu.org/tags/%E9%83%A8%E7%BD%B2/"/>
     
   </entry>
   
   <entry>
     <title>建站教程一（hexo零基础建站）</title>
-    <link href="https://blogog.top/posts/3c3c884d.html"/>
-    <id>https://blogog.top/posts/3c3c884d.html</id>
+    <link href="https://blog.helijike.eu.org/posts/3c3c884d.html"/>
+    <id>https://blog.helijike.eu.org/posts/3c3c884d.html</id>
     <published>2025-11-15T03:10:31.000Z</published>
     <updated>2025-11-15T03:46:31.000Z</updated>
     
@@ -342,19 +342,19 @@
     
     
     
-    <category term="教程" scheme="https://blogog.top/categories/%E6%95%99%E7%A8%8B/"/>
+    <category term="教程" scheme="https://blog.helijike.eu.org/categories/%E6%95%99%E7%A8%8B/"/>
     
     
-    <category term="hexo" scheme="https://blogog.top/tags/hexo/"/>
+    <category term="hexo" scheme="https://blog.helijike.eu.org/tags/hexo/"/>
     
-    <category term="建站" scheme="https://blogog.top/tags/%E5%BB%BA%E7%AB%99/"/>
+    <category term="建站" scheme="https://blog.helijike.eu.org/tags/%E5%BB%BA%E7%AB%99/"/>
     
   </entry>
   
   <entry>
     <title>报错到完美排雷（下）</title>
-    <link href="https://blogog.top/posts/7ab43e2.html"/>
-    <id>https://blogog.top/posts/7ab43e2.html</id>
+    <link href="https://blog.helijike.eu.org/posts/7ab43e2.html"/>
+    <id>https://blog.helijike.eu.org/posts/7ab43e2.html</id>
     <published>2025-11-14T16:00:00.000Z</published>
     <updated>2026-05-18T16:42:59.038Z</updated>
     
@@ -370,21 +370,21 @@
     
     
     
-    <category term="教程" scheme="https://blogog.top/categories/%E6%95%99%E7%A8%8B/"/>
+    <category term="教程" scheme="https://blog.helijike.eu.org/categories/%E6%95%99%E7%A8%8B/"/>
     
     
-    <category term="Hexo" scheme="https://blogog.top/tags/Hexo/"/>
+    <category term="Hexo" scheme="https://blog.helijike.eu.org/tags/Hexo/"/>
     
-    <category term="Git" scheme="https://blogog.top/tags/Git/"/>
+    <category term="Git" scheme="https://blog.helijike.eu.org/tags/Git/"/>
     
-    <category term="踩坑" scheme="https://blogog.top/tags/%E8%B8%A9%E5%9D%91/"/>
+    <category term="踩坑" scheme="https://blog.helijike.eu.org/tags/%E8%B8%A9%E5%9D%91/"/>
     
   </entry>
   
   <entry>
     <title>Obsidian Git同步配置指南</title>
-    <link href="https://blogog.top/posts/0.html"/>
-    <id>https://blogog.top/posts/0.html</id>
+    <link href="https://blog.helijike.eu.org/posts/0.html"/>
+    <id>https://blog.helijike.eu.org/posts/0.html</id>
     <published>2025-08-03T16:00:00.000Z</published>
     <updated>2026-05-18T16:42:59.036Z</updated>
     
@@ -398,23 +398,23 @@
     
     
     
-    <category term="教程" scheme="https://blogog.top/categories/%E6%95%99%E7%A8%8B/"/>
+    <category term="教程" scheme="https://blog.helijike.eu.org/categories/%E6%95%99%E7%A8%8B/"/>
     
-    <category term="工具" scheme="https://blogog.top/categories/%E6%95%99%E7%A8%8B/%E5%B7%A5%E5%85%B7/"/>
+    <category term="工具" scheme="https://blog.helijike.eu.org/categories/%E6%95%99%E7%A8%8B/%E5%B7%A5%E5%85%B7/"/>
     
     
-    <category term="obsidian" scheme="https://blogog.top/tags/obsidian/"/>
+    <category term="obsidian" scheme="https://blog.helijike.eu.org/tags/obsidian/"/>
     
-    <category term="git" scheme="https://blogog.top/tags/git/"/>
+    <category term="git" scheme="https://blog.helijike.eu.org/tags/git/"/>
     
-    <category term="同步" scheme="https://blogog.top/tags/%E5%90%8C%E6%AD%A5/"/>
+    <category term="同步" scheme="https://blog.helijike.eu.org/tags/%E5%90%8C%E6%AD%A5/"/>
     
   </entry>
   
   <entry>
     <title>同一台电脑管理多个SSH</title>
-    <link href="https://blogog.top/posts/9fe78a1c.html"/>
-    <id>https://blogog.top/posts/9fe78a1c.html</id>
+    <link href="https://blog.helijike.eu.org/posts/9fe78a1c.html"/>
+    <id>https://blog.helijike.eu.org/posts/9fe78a1c.html</id>
     <published>2023-02-19T11:10:08.000Z</published>
     <updated>2026-05-18T16:42:59.037Z</updated>
     
@@ -428,23 +428,23 @@
     
     
     
-    <category term="教程" scheme="https://blogog.top/categories/%E6%95%99%E7%A8%8B/"/>
+    <category term="教程" scheme="https://blog.helijike.eu.org/categories/%E6%95%99%E7%A8%8B/"/>
     
-    <category term="工具" scheme="https://blogog.top/categories/%E6%95%99%E7%A8%8B/%E5%B7%A5%E5%85%B7/"/>
+    <category term="工具" scheme="https://blog.helijike.eu.org/categories/%E6%95%99%E7%A8%8B/%E5%B7%A5%E5%85%B7/"/>
     
     
-    <category term="git" scheme="https://blogog.top/tags/git/"/>
+    <category term="git" scheme="https://blog.helijike.eu.org/tags/git/"/>
     
-    <category term="ssh" scheme="https://blogog.top/tags/ssh/"/>
+    <category term="ssh" scheme="https://blog.helijike.eu.org/tags/ssh/"/>
     
-    <category term="密钥" scheme="https://blogog.top/tags/%E5%AF%86%E9%92%A5/"/>
+    <category term="密钥" scheme="https://blog.helijike.eu.org/tags/%E5%AF%86%E9%92%A5/"/>
     
   </entry>
   
   <entry>
     <title>win10专业版激活</title>
-    <link href="https://blogog.top/posts/e86019d.html"/>
-    <id>https://blogog.top/posts/e86019d.html</id>
+    <link href="https://blog.helijike.eu.org/posts/e86019d.html"/>
+    <id>https://blog.helijike.eu.org/posts/e86019d.html</id>
     <published>2023-02-19T10:59:09.000Z</published>
     <updated>2026-05-18T16:42:59.037Z</updated>
     
@@ -458,23 +458,23 @@
     
     
     
-    <category term="教程" scheme="https://blogog.top/categories/%E6%95%99%E7%A8%8B/"/>
+    <category term="教程" scheme="https://blog.helijike.eu.org/categories/%E6%95%99%E7%A8%8B/"/>
     
-    <category term="Windows" scheme="https://blogog.top/categories/%E6%95%99%E7%A8%8B/Windows/"/>
+    <category term="Windows" scheme="https://blog.helijike.eu.org/categories/%E6%95%99%E7%A8%8B/Windows/"/>
     
     
-    <category term="windows" scheme="https://blogog.top/tags/windows/"/>
+    <category term="windows" scheme="https://blog.helijike.eu.org/tags/windows/"/>
     
-    <category term="win10" scheme="https://blogog.top/tags/win10/"/>
+    <category term="win10" scheme="https://blog.helijike.eu.org/tags/win10/"/>
     
-    <category term="激活" scheme="https://blogog.top/tags/%E6%BF%80%E6%B4%BB/"/>
+    <category term="激活" scheme="https://blog.helijike.eu.org/tags/%E6%BF%80%E6%B4%BB/"/>
     
   </entry>
   
   <entry>
     <title>Typora永久破解教程</title>
-    <link href="https://blogog.top/posts/605a3c7d.html"/>
-    <id>https://blogog.top/posts/605a3c7d.html</id>
+    <link href="https://blog.helijike.eu.org/posts/605a3c7d.html"/>
+    <id>https://blog.helijike.eu.org/posts/605a3c7d.html</id>
     <published>2023-02-19T10:53:29.000Z</published>
     <updated>2026-05-18T16:42:59.037Z</updated>
     
@@ -488,23 +488,23 @@
     
     
     
-    <category term="教程" scheme="https://blogog.top/categories/%E6%95%99%E7%A8%8B/"/>
+    <category term="教程" scheme="https://blog.helijike.eu.org/categories/%E6%95%99%E7%A8%8B/"/>
     
-    <category term="工具" scheme="https://blogog.top/categories/%E6%95%99%E7%A8%8B/%E5%B7%A5%E5%85%B7/"/>
+    <category term="工具" scheme="https://blog.helijike.eu.org/categories/%E6%95%99%E7%A8%8B/%E5%B7%A5%E5%85%B7/"/>
     
     
-    <category term="typora" scheme="https://blogog.top/tags/typora/"/>
+    <category term="typora" scheme="https://blog.helijike.eu.org/tags/typora/"/>
     
-    <category term="markdown" scheme="https://blogog.top/tags/markdown/"/>
+    <category term="markdown" scheme="https://blog.helijike.eu.org/tags/markdown/"/>
     
-    <category term="工具" scheme="https://blogog.top/tags/%E5%B7%A5%E5%85%B7/"/>
+    <category term="工具" scheme="https://blog.helijike.eu.org/tags/%E5%B7%A5%E5%85%B7/"/>
     
   </entry>
   
   <entry>
     <title>Hexo在PowerShell无法运行问题</title>
-    <link href="https://blogog.top/posts/324882c3.html"/>
-    <id>https://blogog.top/posts/324882c3.html</id>
+    <link href="https://blog.helijike.eu.org/posts/324882c3.html"/>
+    <id>https://blog.helijike.eu.org/posts/324882c3.html</id>
     <published>2023-02-19T10:43:59.000Z</published>
     <updated>2026-05-18T16:42:59.036Z</updated>
     
@@ -518,23 +518,23 @@
     
     
     
-    <category term="教程" scheme="https://blogog.top/categories/%E6%95%99%E7%A8%8B/"/>
+    <category term="教程" scheme="https://blog.helijike.eu.org/categories/%E6%95%99%E7%A8%8B/"/>
     
-    <category term="Hexo" scheme="https://blogog.top/categories/%E6%95%99%E7%A8%8B/Hexo/"/>
+    <category term="Hexo" scheme="https://blog.helijike.eu.org/categories/%E6%95%99%E7%A8%8B/Hexo/"/>
     
     
-    <category term="hexo" scheme="https://blogog.top/tags/hexo/"/>
+    <category term="hexo" scheme="https://blog.helijike.eu.org/tags/hexo/"/>
     
-    <category term="powershell" scheme="https://blogog.top/tags/powershell/"/>
+    <category term="powershell" scheme="https://blog.helijike.eu.org/tags/powershell/"/>
     
-    <category term="问题解决" scheme="https://blogog.top/tags/%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/"/>
+    <category term="问题解决" scheme="https://blog.helijike.eu.org/tags/%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/"/>
     
   </entry>
   
   <entry>
     <title>文章转载</title>
-    <link href="https://blogog.top/posts/516ae0b5.html"/>
-    <id>https://blogog.top/posts/516ae0b5.html</id>
+    <link href="https://blog.helijike.eu.org/posts/516ae0b5.html"/>
+    <id>https://blog.helijike.eu.org/posts/516ae0b5.html</id>
     <published>2023-02-08T11:34:59.000Z</published>
     <updated>2026-05-18T16:42:59.038Z</updated>
     
@@ -548,14 +548,14 @@
     
     
     
-    <category term="教程" scheme="https://blogog.top/categories/%E6%95%99%E7%A8%8B/"/>
+    <category term="教程" scheme="https://blog.helijike.eu.org/categories/%E6%95%99%E7%A8%8B/"/>
     
-    <category term="其他" scheme="https://blogog.top/categories/%E6%95%99%E7%A8%8B/%E5%85%B6%E4%BB%96/"/>
+    <category term="其他" scheme="https://blog.helijike.eu.org/categories/%E6%95%99%E7%A8%8B/%E5%85%B6%E4%BB%96/"/>
     
     
-    <category term="教程" scheme="https://blogog.top/tags/%E6%95%99%E7%A8%8B/"/>
+    <category term="教程" scheme="https://blog.helijike.eu.org/tags/%E6%95%99%E7%A8%8B/"/>
     
-    <category term="转载" scheme="https://blogog.top/tags/%E8%BD%AC%E8%BD%BD/"/>
+    <category term="转载" scheme="https://blog.helijike.eu.org/tags/%E8%BD%AC%E8%BD%BD/"/>
     
   </entry>
   
