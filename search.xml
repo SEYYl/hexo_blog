@@ -55,13 +55,13 @@
       
         <tags>
             
+            <tag> hexo </tag>
+            
             <tag> git </tag>
             
             <tag> 教程 </tag>
             
             <tag> 新电脑 </tag>
-            
-            <tag> hexo </tag>
             
             <tag> 迁移 </tag>
             
@@ -177,9 +177,9 @@
       
         <tags>
             
-            <tag> Markdown </tag>
-            
             <tag> Flask </tag>
+            
+            <tag> Markdown </tag>
             
             <tag> 开源 </tag>
             
