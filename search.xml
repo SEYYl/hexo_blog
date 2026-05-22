@@ -26,9 +26,9 @@
             
             <tag> Markdown </tag>
             
-            <tag> 速查 </tag>
-            
             <tag> 语法 </tag>
+            
+            <tag> 速查 </tag>
             
         </tags>
       
@@ -55,13 +55,13 @@
       
         <tags>
             
-            <tag> hexo </tag>
+            <tag> git </tag>
             
             <tag> 教程 </tag>
             
-            <tag> git </tag>
-            
             <tag> 新电脑 </tag>
+            
+            <tag> hexo </tag>
             
             <tag> 迁移 </tag>
             
@@ -92,9 +92,9 @@
             
             <tag> GitHub </tag>
             
-            <tag> 教程 </tag>
-            
             <tag> git </tag>
+            
+            <tag> 教程 </tag>
             
             <tag> 新电脑 </tag>
             
@@ -177,9 +177,9 @@
       
         <tags>
             
-            <tag> Flask </tag>
-            
             <tag> Markdown </tag>
+            
+            <tag> Flask </tag>
             
             <tag> 开源 </tag>
             
@@ -519,9 +519,9 @@
       
         <tags>
             
-            <tag> obsidian </tag>
-            
             <tag> git </tag>
+            
+            <tag> obsidian </tag>
             
             <tag> 同步 </tag>
             
@@ -889,11 +889,11 @@
       
         <tags>
             
+            <tag> 教程 </tag>
+            
             <tag> linux </tag>
             
             <tag> 基础命令 </tag>
-            
-            <tag> 教程 </tag>
             
         </tags>
       
@@ -953,9 +953,9 @@
             
             <tag> hexo </tag>
             
-            <tag> 命令 </tag>
-            
             <tag> 速查 </tag>
+            
+            <tag> 命令 </tag>
             
         </tags>
       

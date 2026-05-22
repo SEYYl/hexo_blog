@@ -46,9 +46,9 @@
     
     <category term="Markdown" scheme="https://blog.helijike.eu.org/tags/Markdown/"/>
     
-    <category term="速查" scheme="https://blog.helijike.eu.org/tags/%E9%80%9F%E6%9F%A5/"/>
-    
     <category term="语法" scheme="https://blog.helijike.eu.org/tags/%E8%AF%AD%E6%B3%95/"/>
+    
+    <category term="速查" scheme="https://blog.helijike.eu.org/tags/%E9%80%9F%E6%9F%A5/"/>
     
   </entry>
   
@@ -78,13 +78,13 @@
     <category term="Hexo" scheme="https://blog.helijike.eu.org/categories/%E6%95%99%E7%A8%8B/Hexo/"/>
     
     
-    <category term="hexo" scheme="https://blog.helijike.eu.org/tags/hexo/"/>
+    <category term="git" scheme="https://blog.helijike.eu.org/tags/git/"/>
     
     <category term="教程" scheme="https://blog.helijike.eu.org/tags/%E6%95%99%E7%A8%8B/"/>
     
-    <category term="git" scheme="https://blog.helijike.eu.org/tags/git/"/>
-    
     <category term="新电脑" scheme="https://blog.helijike.eu.org/tags/%E6%96%B0%E7%94%B5%E8%84%91/"/>
+    
+    <category term="hexo" scheme="https://blog.helijike.eu.org/tags/hexo/"/>
     
     <category term="迁移" scheme="https://blog.helijike.eu.org/tags/%E8%BF%81%E7%A7%BB/"/>
     
@@ -118,9 +118,9 @@
     
     <category term="GitHub" scheme="https://blog.helijike.eu.org/tags/GitHub/"/>
     
-    <category term="教程" scheme="https://blog.helijike.eu.org/tags/%E6%95%99%E7%A8%8B/"/>
-    
     <category term="git" scheme="https://blog.helijike.eu.org/tags/git/"/>
+    
+    <category term="教程" scheme="https://blog.helijike.eu.org/tags/%E6%95%99%E7%A8%8B/"/>
     
     <category term="新电脑" scheme="https://blog.helijike.eu.org/tags/%E6%96%B0%E7%94%B5%E8%84%91/"/>
     
@@ -203,9 +203,9 @@
     <category term="工具" scheme="https://blog.helijike.eu.org/categories/%E5%B7%A5%E5%85%B7/"/>
     
     
-    <category term="Flask" scheme="https://blog.helijike.eu.org/tags/Flask/"/>
-    
     <category term="Markdown" scheme="https://blog.helijike.eu.org/tags/Markdown/"/>
+    
+    <category term="Flask" scheme="https://blog.helijike.eu.org/tags/Flask/"/>
     
     <category term="开源" scheme="https://blog.helijike.eu.org/tags/%E5%BC%80%E6%BA%90/"/>
     
@@ -540,9 +540,9 @@
     <category term="工具" scheme="https://blog.helijike.eu.org/categories/%E6%95%99%E7%A8%8B/%E5%B7%A5%E5%85%B7/"/>
     
     
-    <category term="obsidian" scheme="https://blog.helijike.eu.org/tags/obsidian/"/>
-    
     <category term="git" scheme="https://blog.helijike.eu.org/tags/git/"/>
+    
+    <category term="obsidian" scheme="https://blog.helijike.eu.org/tags/obsidian/"/>
     
     <category term="同步" scheme="https://blog.helijike.eu.org/tags/%E5%90%8C%E6%AD%A5/"/>
     
