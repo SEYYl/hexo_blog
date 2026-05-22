@@ -4930,6 +4930,11 @@ span.tags-punctuation i {
 #more-tags-btn:hover {
   background: var(--efu-main);
 }
+.card-visitor .card-content {
+  min-height: unset !important;
+  height: unset !important;
+  padding: 1rem 1.2rem;
+}
 #console {
   display: -webkit-box;
   display: -moz-box;
