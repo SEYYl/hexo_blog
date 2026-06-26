@@ -139,9 +139,9 @@
     
     <category term="Markdown" scheme="https://blog.helijike.eu.org/tags/Markdown/"/>
     
-    <category term="语法" scheme="https://blog.helijike.eu.org/tags/%E8%AF%AD%E6%B3%95/"/>
-    
     <category term="速查" scheme="https://blog.helijike.eu.org/tags/%E9%80%9F%E6%9F%A5/"/>
+    
+    <category term="语法" scheme="https://blog.helijike.eu.org/tags/%E8%AF%AD%E6%B3%95/"/>
     
   </entry>
   
@@ -171,13 +171,13 @@
     <category term="Hexo" scheme="https://blog.helijike.eu.org/categories/%E6%95%99%E7%A8%8B/Hexo/"/>
     
     
-    <category term="git" scheme="https://blog.helijike.eu.org/tags/git/"/>
+    <category term="hexo" scheme="https://blog.helijike.eu.org/tags/hexo/"/>
     
     <category term="教程" scheme="https://blog.helijike.eu.org/tags/%E6%95%99%E7%A8%8B/"/>
     
-    <category term="新电脑" scheme="https://blog.helijike.eu.org/tags/%E6%96%B0%E7%94%B5%E8%84%91/"/>
+    <category term="git" scheme="https://blog.helijike.eu.org/tags/git/"/>
     
-    <category term="hexo" scheme="https://blog.helijike.eu.org/tags/hexo/"/>
+    <category term="新电脑" scheme="https://blog.helijike.eu.org/tags/%E6%96%B0%E7%94%B5%E8%84%91/"/>
     
     <category term="迁移" scheme="https://blog.helijike.eu.org/tags/%E8%BF%81%E7%A7%BB/"/>
     
@@ -211,9 +211,9 @@
     
     <category term="GitHub" scheme="https://blog.helijike.eu.org/tags/GitHub/"/>
     
-    <category term="git" scheme="https://blog.helijike.eu.org/tags/git/"/>
-    
     <category term="教程" scheme="https://blog.helijike.eu.org/tags/%E6%95%99%E7%A8%8B/"/>
+    
+    <category term="git" scheme="https://blog.helijike.eu.org/tags/git/"/>
     
     <category term="新电脑" scheme="https://blog.helijike.eu.org/tags/%E6%96%B0%E7%94%B5%E8%84%91/"/>
     
@@ -224,9 +224,9 @@
     <link href="https://blog.helijike.eu.org/posts/c4d8e6b2.html"/>
     <id>https://blog.helijike.eu.org/posts/c4d8e6b2.html</id>
     <published>2026-05-19T16:50:00.000Z</published>
-    <updated>2026-05-20T10:18:18.560Z</updated>
+    <updated>2026-06-26T17:38:10.092Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="Hexo-博客上传同步指南"><a href="#Hexo-博客上传同步指南" class="headerlink" title="Hexo 博客上传同步指南"></a>Hexo 博客上传同步指南</h1><blockquote><p>我的博客分两个仓库：</p><ul><li><a href="https://github.com/SEYYl/hexo_blog-source"><code>hexo_blog-source</code></a> — 存源码（文章、主题、配置）</li><li><a href="https://github.com/SEYYl/hexo_blog"><code>hexo_blog</code></a> — 存生成后的静态文件（部署到 Pages）</li></ul></blockquote><p>每次写完文章，要同步两个地方。</p><hr><h2 id="写完后要做的事"><a href="#写完后要做的事" class="headerlink" title="写完后要做的事"></a>写完后要做的事</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 生成静态文件</span></span><br><span class="line">hexo g</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 本地预览（可选）</span></span><br><span class="line">hexo s</span><br><span class="line"><span class="comment"># 打开 http://localhost:4000 看看效果</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 部署到 Pages（推送 public 到 hexo_blog）</span></span><br><span class="line">hexo d</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 推送源码到 hexo_blog-source</span></span><br><span class="line">git add -A</span><br><span class="line">git commit -m <span class="string">&quot;新文章：xxx&quot;</span></span><br><span class="line">git push origin main</span><br></pre></td></tr></table></figure><hr><h2 id="流程拆解"><a href="#流程拆解" class="headerlink" title="流程拆解"></a>流程拆解</h2><h3 id="hexo-g-—-生成"><a href="#hexo-g-—-生成" class="headerlink" title="hexo g — 生成"></a><code>hexo g</code> — 生成</h3><p>把 Markdown 文章编译成 HTML，输出到 <code>public/</code> 目录。</p><h3 id="hexo-d-—-部署"><a href="#hexo-d-—-部署" class="headerlink" title="hexo d — 部署"></a><code>hexo d</code> — 部署</h3><p>把 <code>public/</code> 目录推送到 <code>hexo_blog</code> 仓库（已在 <code>_config.yml</code> 中配置好），Cloudflare Pages 检测到更新后自动部署。</p><h3 id="git-push-origin-main-—-保存源码"><a href="#git-push-origin-main-—-保存源码" class="headerlink" title="git push origin main — 保存源码"></a><code>git push origin main</code> — 保存源码</h3><p>把源文件（文章、图片、配置等）推送到 <code>hexo_blog-source</code>，防止丢了。</p><hr><h2 id="只用记住这四行"><a href="#只用记住这四行" class="headerlink" title="只用记住这四行"></a>只用记住这四行</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">hexo g          <span class="comment"># 生成</span></span><br><span class="line">hexo d          <span class="comment"># 部署到 Pages</span></span><br><span class="line">git add -A      <span class="comment"># 收集源码改动</span></span><br><span class="line">git commit -m <span class="string">&quot;新文章&quot;</span>  <span class="comment"># 打包</span></span><br><span class="line">git push origin main    <span class="comment"># 推送到源码仓库</span></span><br></pre></td></tr></table></figure><blockquote><p>顺序不能乱：先 <code>hexo g &amp;&amp; hexo d</code>，再 <code>git push</code>。</p></blockquote><hr><h2 id="补：从源码仓库恢复博客"><a href="#补：从源码仓库恢复博客" class="headerlink" title="补：从源码仓库恢复博客"></a>补：从源码仓库恢复博客</h2><p>换了电脑或重装系统后：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/SEYYl/hexo_blog-source.git</span><br><span class="line"><span class="built_in">cd</span> hexo_blog-source</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure><p>然后就能继续写文章了。</p>]]></content>
+    <content type="html"><![CDATA[<h1 id="Hexo-博客上传同步指南"><a href="#Hexo-博客上传同步指南" class="headerlink" title="Hexo 博客上传同步指南"></a>Hexo 博客上传同步指南</h1><blockquote><p>我的博客分两个仓库：</p><ul><li><a href="https://github.com/SEYYl/hexo_blog-source"><code>hexo_blog-source</code></a> — 存源码（文章、主题、配置）</li><li><a href="https://github.com/SEYYl/hexo_blog"><code>hexo_blog</code></a> — 存生成后的静态文件（部署到 Pages）</li></ul></blockquote><p>每次写完文章，要同步两个地方。</p><hr><h2 id="写完后要做的事"><a href="#写完后要做的事" class="headerlink" title="写完后要做的事"></a>写完后要做的事</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 生成静态文件</span></span><br><span class="line">hexo g</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 本地预览（可选）</span></span><br><span class="line">hexo s</span><br><span class="line"><span class="comment"># 打开 http://localhost:4000 看看效果</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 部署到 Pages（推送 public 到 hexo_blog）</span></span><br><span class="line">hexo d</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 推送源码到 hexo_blog-source</span></span><br><span class="line">git add -A</span><br><span class="line">git commit -m <span class="string">&quot;新文章：xxx&quot;</span></span><br><span class="line">git push origin <span class="built_in">source</span></span><br></pre></td></tr></table></figure><hr><h2 id="流程拆解"><a href="#流程拆解" class="headerlink" title="流程拆解"></a>流程拆解</h2><h3 id="hexo-g-—-生成"><a href="#hexo-g-—-生成" class="headerlink" title="hexo g — 生成"></a><code>hexo g</code> — 生成</h3><p>把 Markdown 文章编译成 HTML，输出到 <code>public/</code> 目录。</p><h3 id="hexo-d-—-部署"><a href="#hexo-d-—-部署" class="headerlink" title="hexo d — 部署"></a><code>hexo d</code> — 部署</h3><p>把 <code>public/</code> 目录推送到 <code>hexo_blog</code> 仓库（已在 <code>_config.yml</code> 中配置好），Cloudflare Pages 检测到更新后自动部署。</p><h3 id="git-push-origin-source-—-保存源码"><a href="#git-push-origin-source-—-保存源码" class="headerlink" title="git push origin source — 保存源码"></a><code>git push origin source</code> — 保存源码</h3><p>把源文件（文章、图片、配置等）推送到 <code>hexo_blog-source</code>（<code>source</code> 分支），防止丢了。</p><blockquote><p>⚠️ 源码在 <code>source</code> 分支上，不要写成 <code>main</code>。</p></blockquote><hr><h2 id="只用记住这四行"><a href="#只用记住这四行" class="headerlink" title="只用记住这四行"></a>只用记住这四行</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">hexo g          <span class="comment"># 生成</span></span><br><span class="line">hexo d          <span class="comment"># 部署到 Pages</span></span><br><span class="line">git add -A      <span class="comment"># 收集源码改动</span></span><br><span class="line">git commit -m <span class="string">&quot;新文章&quot;</span>  <span class="comment"># 打包</span></span><br><span class="line">git push origin <span class="built_in">source</span>    <span class="comment"># 推送到源码仓库（source 分支）</span></span><br></pre></td></tr></table></figure><blockquote><p>顺序不能乱：先 <code>hexo g &amp;&amp; hexo d</code>，再 <code>git push</code>。</p></blockquote><hr><h2 id="补：从源码仓库恢复博客"><a href="#补：从源码仓库恢复博客" class="headerlink" title="补：从源码仓库恢复博客"></a>补：从源码仓库恢复博客</h2><p>换了电脑或重装系统后：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 注意拉 source 分支，不是 main</span></span><br><span class="line">git <span class="built_in">clone</span> -b <span class="built_in">source</span> https://github.com/SEYYl/hexo_blog-source.git</span><br><span class="line"><span class="built_in">cd</span> hexo_blog-source</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure><p>然后就能继续写文章了。</p>]]></content>
     
     
       
@@ -240,11 +240,11 @@
     <category term="教程" scheme="https://blog.helijike.eu.org/categories/%E6%95%99%E7%A8%8B/"/>
     
     
+    <category term="Hexo" scheme="https://blog.helijike.eu.org/tags/Hexo/"/>
+    
     <category term="Git" scheme="https://blog.helijike.eu.org/tags/Git/"/>
     
     <category term="GitHub" scheme="https://blog.helijike.eu.org/tags/GitHub/"/>
-    
-    <category term="Hexo" scheme="https://blog.helijike.eu.org/tags/Hexo/"/>
     
   </entry>
   
@@ -296,9 +296,9 @@
     <category term="工具" scheme="https://blog.helijike.eu.org/categories/%E5%B7%A5%E5%85%B7/"/>
     
     
-    <category term="Markdown" scheme="https://blog.helijike.eu.org/tags/Markdown/"/>
-    
     <category term="Flask" scheme="https://blog.helijike.eu.org/tags/Flask/"/>
+    
+    <category term="Markdown" scheme="https://blog.helijike.eu.org/tags/Markdown/"/>
     
     <category term="开源" scheme="https://blog.helijike.eu.org/tags/%E5%BC%80%E6%BA%90/"/>
     
@@ -435,9 +435,9 @@
     <category term="教程" scheme="https://blog.helijike.eu.org/categories/%E6%95%99%E7%A8%8B/"/>
     
     
-    <category term="Git" scheme="https://blog.helijike.eu.org/tags/Git/"/>
-    
     <category term="Hexo" scheme="https://blog.helijike.eu.org/tags/Hexo/"/>
+    
+    <category term="Git" scheme="https://blog.helijike.eu.org/tags/Git/"/>
     
     <category term="踩坑" scheme="https://blog.helijike.eu.org/tags/%E8%B8%A9%E5%9D%91/"/>
     
@@ -603,9 +603,9 @@
     <category term="教程" scheme="https://blog.helijike.eu.org/categories/%E6%95%99%E7%A8%8B/"/>
     
     
-    <category term="Git" scheme="https://blog.helijike.eu.org/tags/Git/"/>
-    
     <category term="Hexo" scheme="https://blog.helijike.eu.org/tags/Hexo/"/>
+    
+    <category term="Git" scheme="https://blog.helijike.eu.org/tags/Git/"/>
     
     <category term="踩坑" scheme="https://blog.helijike.eu.org/tags/%E8%B8%A9%E5%9D%91/"/>
     
