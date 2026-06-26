@@ -4,6 +4,101 @@
   
     
     <entry>
+      <title>系统代理 vs TUN 模式：到底差在哪里？一文彻底搞懂</title>
+      <link href="/posts/system-proxy-vs-tun.html"/>
+      <url>/posts/system-proxy-vs-tun.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="系统代理-vs-TUN-模式：到底差在哪里？一文彻底搞懂"><a href="#系统代理-vs-TUN-模式：到底差在哪里？一文彻底搞懂" class="headerlink" title="系统代理 vs TUN 模式：到底差在哪里？一文彻底搞懂"></a>系统代理 vs TUN 模式：到底差在哪里？一文彻底搞懂</h1><p>很多人在使用 Clash、V2Ray、Sing-box、Nekobox 等代理工具时都会遇到同一个问题：</p><p><strong>明明代理已经开启，浏览器能正常访问 Google、YouTube，但游戏、桌面客户端、某些软件却完全无法联网。</strong></p><p>这是为什么？今天这篇文章就用最通俗易懂的方式，把<strong>系统代理</strong>和<strong>TUN 模式</strong>的本质区别讲清楚，帮助你快速选择合适的工作模式。</p><hr><h2 id="一、核心区别：流量拦截的层次不同"><a href="#一、核心区别：流量拦截的层次不同" class="headerlink" title="一、核心区别：流量拦截的层次不同"></a>一、核心区别：流量拦截的层次不同</h2><p>代理工具的工作模式，本质上决定了它能在哪个层面”接管”你的网络流量。</p><h3 id="1-系统代理模式（System-Proxy）——“礼貌型”代理"><a href="#1-系统代理模式（System-Proxy）——“礼貌型”代理" class="headerlink" title="1. 系统代理模式（System Proxy）——“礼貌型”代理"></a>1. 系统代理模式（System Proxy）——“礼貌型”代理</h3><p><strong>工作原理</strong>：</p><p>代理客户端在操作系统设置中（Windows 注册表、macOS 网络偏好设置等）声明一个代理地址和端口。只有<strong>主动遵守系统代理设置</strong>的应用程序才会把流量发送给它。</p><p><strong>典型表现</strong>：</p><ul><li>Chrome、Edge、Firefox 等主流浏览器会自动读取并使用。</li><li>支持 HTTP/SOCKS5 代理的软件也能正常工作。</li><li>大部分命令行工具（如 curl、git）可以通过环境变量配置。</li></ul><p><strong>优点</strong>：</p><ul><li>配置简单，几乎零学习成本</li><li>资源占用低，速度更快</li><li>延迟通常更小</li></ul><p><strong>缺点</strong>：</p><ul><li>很多软件<strong>完全无视</strong>系统代理（尤其是游戏、Electron 客户端、Steam、Epic Games 等）</li><li>一般只支持 TCP，不支持 UDP（打游戏、语音聊天、视频会议容易出问题）</li><li>分流规则只能对”听话”的软件生效</li></ul><p><strong>比喻</strong>：你在公司门口贴了一张”请把文件交给我”的告示，只有听话的员工会照做，其他人直接从后门走了。</p><h3 id="2-TUN-模式（虚拟网卡模式）——“强制型”代理"><a href="#2-TUN-模式（虚拟网卡模式）——“强制型”代理" class="headerlink" title="2. TUN 模式（虚拟网卡模式）——“强制型”代理"></a>2. TUN 模式（虚拟网卡模式）——“强制型”代理</h3><p><strong>工作原理</strong>：</p><p>代理工具创建一个<strong>虚拟网卡</strong>（TUN/TAP 设备），然后修改系统路由表，让所有（或指定）的网络数据包先经过这张虚拟网卡。代理程序在底层对数据包进行解析、匹配规则、加密转发。</p><p><strong>典型表现</strong>：</p><ul><li>几乎所有软件的流量都会被接管，不管它是否支持代理设置</li><li>支持 TCP + UDP 全协议</li><li>游戏、系统更新、桌面客户端全部走代理</li></ul><p><strong>优点</strong>：</p><ul><li>真正的全局代理效果</li><li>UDP 支持良好，游戏延迟更稳定</li><li>分流规则对全系统生效</li></ul><p><strong>缺点</strong>：</p><ul><li>需要管理员/root 权限</li><li>资源占用稍高，可能有轻微额外延迟</li><li>配置不当容易导致全网断连</li><li>极少数游戏的反作弊系统可能会检测虚拟网卡</li></ul><p><strong>比喻</strong>：你在公司门口设立了强制安检通道，所有人（包括不想配合的）都必须经过检查。</p><hr><h2 id="二、实际使用场景推荐"><a href="#二、实际使用场景推荐" class="headerlink" title="二、实际使用场景推荐"></a>二、实际使用场景推荐</h2><div class="table-container"><table><thead><tr><th>使用场景</th><th>推荐模式</th><th>推荐理由</th></tr></thead><tbody><tr><td>日常刷网页、ChatGPT、API 调用</td><td>系统代理</td><td>够快、够简单</td></tr><tr><td>玩游戏、用客户端软件</td><td>TUN 模式</td><td>全局覆盖 + UDP 支持</td></tr><tr><td>混合使用（部分走代理、部分直连）</td><td>系统代理 + 规则</td><td>灵活省资源</td></tr><tr><td>需要极致全局、多设备共享</td><td>TUN / 透明代理</td><td>最彻底（适合软路由）</td></tr><tr><td>对速度和低延迟极致敏感</td><td>系统代理优先</td><td>轻量无感</td></tr></tbody></table></div><hr><h2 id="三、常见问题快速排查"><a href="#三、常见问题快速排查" class="headerlink" title="三、常见问题快速排查"></a>三、常见问题快速排查</h2><ol><li><strong>浏览器能上，外服游戏上不去</strong> → 切换到 TUN 模式。</li><li><strong>TUN 模式下部分网站打不开</strong> → 检查分流规则、尝试关闭 GVisor 栈，或临时切回系统代理。</li><li><strong>开启 TUN 后整个网络断掉</strong> → 路由冲突，检查虚拟网卡设置，重启客户端即可恢复。</li><li><strong>权限问题</strong> → Windows 建议以管理员身份运行，或安装为系统服务；macOS/Linux 需要 sudo。</li><li><strong>进阶方案</strong>：Proxifier（按进程规则代理） + 系统代理组合使用，可实现更精细控制。</li></ol><hr><h2 id="四、总结"><a href="#四、总结" class="headerlink" title="四、总结"></a>四、总结</h2><p><strong>系统代理</strong>是轻量、依赖合作的”君子协议”；<strong>TUN 模式</strong>是霸道、底层强制的”全局接管”。</p><p>理解了二者的本质区别，你就不会再被”开了代理却没效果”困扰。选择哪种模式，取决于你的实际需求：<strong>日常轻度使用选系统代理，需要彻底全局就上 TUN</strong>。</p><hr><blockquote><p><strong>参考视频</strong>：Bilibili 搜索《系统代理和 TUN，到底差在哪？》（UP 主：飞行认知），短短 3 分 44 秒，动画演示非常清晰，建议配合观看。</p></blockquote>]]></content>
+      
+      
+      <categories>
+          
+          <category> 技术 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 代理 </tag>
+            
+            <tag> 网络 </tag>
+            
+            <tag> Clash </tag>
+            
+            <tag> TUN </tag>
+            
+            <tag> 翻墙 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>英特尔 CPU 全系列解析（i3/i5/i7/i9/Ultra）</title>
+      <link href="/posts/intel-cpu-guide.html"/>
+      <url>/posts/intel-cpu-guide.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="英特尔-CPU-全系列解析（i3-i5-i7-i9-Ultra）-CPU‑Z-截图速读与选购要点"><a href="#英特尔-CPU-全系列解析（i3-i5-i7-i9-Ultra）-CPU‑Z-截图速读与选购要点" class="headerlink" title="英特尔 CPU 全系列解析（i3/i5/i7/i9/Ultra）+ CPU‑Z 截图速读与选购要点"></a>英特尔 CPU 全系列解析（i3/i5/i7/i9/Ultra）+ CPU‑Z 截图速读与选购要点</h1><blockquote><p>从 i3 到 Ultra，一张图看懂英特尔 CPU 产品线布局。</p></blockquote><hr><h2 id="1-入门级：酷睿-i3"><a href="#1-入门级：酷睿-i3" class="headerlink" title="1. 入门级：酷睿 i3"></a>1. 入门级：酷睿 i3</h2><p>酷睿 i3 面向基础计算与轻度多任务。</p><ul><li><strong>核心数常见范围</strong>：4–6 核（视代际而定）</li><li><strong>适合人群/场景</strong>：网页浏览、视频观看、Office、轻度网游</li><li><strong>不太适合</strong>：长时间渲染、重度生产力、现代 3A 大作高画质</li></ul><hr><h2 id="2-中端主流：酷睿-i5"><a href="#2-中端主流：酷睿-i5" class="headerlink" title="2. 中端主流：酷睿 i5"></a>2. 中端主流：酷睿 i5</h2><p>酷睿 i5 是主流”甜点位”，在性能与价格之间更均衡。</p><ul><li><strong>核心数常见范围</strong>：6–14 核</li><li><strong>适合人群/场景</strong>：主流游戏、编程、轻度到中度的视频/图片处理</li></ul><blockquote><p>💡 <strong>选购提示：型号 + 代际同样重要</strong></p><p>CPU 性能不仅看 i3/i5/i7/i9，还与”代数”强相关。新一代 i3 可能接近或超过旧一代 i5。优先在预算内选择更新代际的产品。</p></blockquote><hr><h2 id="3-高性能：酷睿-i7"><a href="#3-高性能：酷睿-i7" class="headerlink" title="3. 高性能：酷睿 i7"></a>3. 高性能：酷睿 i7</h2><p>酷睿 i7 适合需要更强多任务与生产力的人群。</p><ul><li><strong>核心数常见范围</strong>：8–20 核</li><li><strong>适合人群/场景</strong>：内容创作、多开大型软件、游戏 + 录制/直播</li></ul><hr><h2 id="4-旗舰级：酷睿-i9"><a href="#4-旗舰级：酷睿-i9" class="headerlink" title="4. 旗舰级：酷睿 i9"></a>4. 旗舰级：酷睿 i9</h2><p>酷睿 i9 面向专业工作负载与发烧级玩家。</p><ul><li><strong>核心数常见范围</strong>：16–24 核</li><li><strong>适合人群/场景</strong>：3D 建模、4K 视频剪辑、大型工程、顶级游戏配置</li><li><strong>注意</strong>：对普通用户可能存在”性能过剩”，同时对散热/供电要求更高</li></ul><hr><h2 id="5-未来趋势：酷睿-Ultra"><a href="#5-未来趋势：酷睿-Ultra" class="headerlink" title="5. 未来趋势：酷睿 Ultra"></a>5. 未来趋势：酷睿 Ultra</h2><p>酷睿 Ultra 的一大亮点是集成 <strong>NPU（神经处理单元）</strong>，用于加速 AI 相关任务。</p><ul><li><strong>NPU 适用方向</strong>：如达芬奇、Photoshop 等软件中的 AI 生成/增强功能</li><li><strong>意义</strong>：更智能的本地 AI 体验、更高能效</li></ul><hr><h2 id="6-CPU-后缀含义速查"><a href="#6-CPU-后缀含义速查" class="headerlink" title="6. CPU 后缀含义速查"></a>6. CPU 后缀含义速查</h2><p>不同后缀代表不同功耗/定位/功能特性：</p><div class="table-container"><table><thead><tr><th>后缀</th><th>含义</th></tr></thead><tbody><tr><td>U</td><td>低功耗、续航优先，常见于轻薄本</td></tr><tr><td>F</td><td>无核显（需独显），通常更便宜</td></tr><tr><td>T</td><td>低功耗台式机版本，温度更低</td></tr><tr><td>H</td><td>高性能移动端（游戏本常见），功耗/发热更高</td></tr><tr><td>K</td><td>支持超频（更看重散热与主板供电）</td></tr><tr><td>KF</td><td>支持超频 + 无核显（通常比 K 更便宜）</td></tr></tbody></table></div><hr><h2 id="7-其他系列"><a href="#7-其他系列" class="headerlink" title="7. 其他系列"></a>7. 其他系列</h2><p>除酷睿系列外，还有面向不同市场的产品线：</p><ul><li><strong>博锐（vPro）</strong>：面向企业管理与安全需求（如 AMT、内存加密等）</li><li><strong>灵动</strong>：超低功耗平台，面向小型/便携设备与行业终端</li><li><strong>赛扬 / 奔腾</strong>：传统入门级系列（现已停产）</li><li><strong>至强（Xeon）</strong>：面向工作站与服务器，核心数多、适合并行工作负载</li></ul><hr><h2 id="8-选购小结"><a href="#8-选购小结" class="headerlink" title="8. 选购小结"></a>8. 选购小结</h2><ul><li>明确用途：办公/学习、主流游戏、创作生产力、专业工作站</li><li>同预算优先看：<strong>代际 + 实际核心/线程 + 散热/功耗平台匹配</strong></li><li>结合整机：主板、显卡、内存、散热与电源配置同样关键</li></ul><hr><h2 id="9-附：如何查看-CPU-生产日期"><a href="#9-附：如何查看-CPU-生产日期" class="headerlink" title="9. 附：如何查看 CPU 生产日期"></a>9. 附：如何查看 CPU 生产日期</h2><p>要查看处理器的生产日期，通常可以通过以下 3 种途径：<strong>看 CPU 表面标识</strong>、<strong>系统命令行查询</strong>、或<strong>第三方硬件检测软件</strong>。</p><h3 id="Intel-CPU（BATCH-FPO）"><a href="#Intel-CPU（BATCH-FPO）" class="headerlink" title="Intel CPU（BATCH / FPO）"></a>Intel CPU（BATCH / FPO）</h3><p>找到 CPU 表面的 <strong>BATCH 码（FPO）</strong>，通常由字母和数字组成。</p><p><strong>常见编码理解方式</strong>：</p><ul><li>第 1 个字母：产地（如 <strong>X</strong>=越南、<strong>L</strong>=马来西亚、<strong>V</strong>=中国成都）</li><li>第 2 位数字：生产年份（如 <strong>2</strong>=2022 年）</li><li>第 3–4 位数字：生产周数（如 <strong>32</strong>=第 32 周，约 8 月）</li></ul><blockquote><p>例：<code>L232XXXX</code> 表示该 CPU 于 <strong>2022 年第 32 周</strong>在<strong>马来西亚</strong>生产。</p></blockquote><h3 id="AMD-CPU（四位日期码）"><a href="#AMD-CPU（四位日期码）" class="headerlink" title="AMD CPU（四位日期码）"></a>AMD CPU（四位日期码）</h3><p>CPU 表面通常会印有 4 位数字（如 <code>1923</code>）：</p><ul><li>前两位：生产年份（19=2019 年）</li><li>后两位：生产周数（23=第 23 周）</li></ul><blockquote><p>例：<code>1923</code> 表示该 CPU 于 <strong>2019 年第 23 周</strong>生产。</p></blockquote><h3 id="通过系统命令查看"><a href="#通过系统命令查看" class="headerlink" title="通过系统命令查看"></a>通过系统命令查看</h3><p><strong>Windows：</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wmic cpu get manufacturing <span class="built_in">date</span></span><br></pre></td></tr></table></figure></p><p><strong>Linux：</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo dmidecode -t processor</span><br></pre></td></tr></table></figure><br>在输出中查找 <code>Serial Number</code> 或 <code>Version</code> 字段，其中可能包含日期编码。</p><hr><h2 id="10-附：CPU-Z-截图速读指南"><a href="#10-附：CPU-Z-截图速读指南" class="headerlink" title="10. 附：CPU-Z 截图速读指南"></a>10. 附：CPU-Z 截图速读指南</h2><p>下面按 CPU-Z 常见页签，逐一解读各页面关键信息。</p><h3 id="处理器（CPU）页"><a href="#处理器（CPU）页" class="headerlink" title="处理器（CPU）页"></a>处理器（CPU）页</h3><p><img src="/img/英特尔CPU全系列解析/cpu.png" alt="CPU-Z 处理器页"></p><ul><li><strong>看什么</strong>：Name/Specification（型号）、Code Name（代号/架构）、Package（接口）、Cores/Threads（核心/线程）、Core Speed（实时频率）、TDP（功耗级别提示）</li><li><strong>这张截图显示</strong>：<ul><li>Intel Core <strong>Ultra 5</strong>，代号 <strong>Arrow Lake</strong></li><li><strong>Socket 1851 LGA（LGA1851）</strong> 平台</li><li>核心结构 <strong>6P + 4E</strong>，总 <strong>10 核 / 10 线程</strong></li><li>当时实时频率约 <strong>4.8 GHz</strong>（倍频 x48，总线 100 MHz）</li><li>TDP 显示 <strong>64W</strong></li></ul></li></ul><blockquote><p>⚠️ CPU-Z 通常看不到 Intel 的”批次/生产周（FPO/BATCH）”，生产日期需看 CPU 顶盖刻字或外盒标签。</p></blockquote><h3 id="主板（Mainboard）页"><a href="#主板（Mainboard）页" class="headerlink" title="主板（Mainboard）页"></a>主板（Mainboard）页</h3><p><img src="/img/英特尔CPU全系列解析/mainboard.png" alt="CPU-Z 主板页"></p><ul><li><strong>看什么</strong>：Manufacturer/Model（主板品牌型号）、Chipset（芯片组）、BIOS Version/Date（BIOS 版本与日期）、Graphic Interface（显卡插槽的当前工作通道与速率）</li><li><strong>这张截图显示</strong>：<ul><li>主板：<strong>ASUS EX-B860M-V5（Rev 1.xx）</strong></li><li>芯片组：<strong>Intel B860（Arrow Lake 平台）</strong></li><li>BIOS：<strong>1802</strong>，日期 <strong>09/22/2025</strong></li><li>显卡接口：当前 <strong>x8 / 8.0 GT/s</strong>，最大支持 <strong>x16 / 32.0 GT/s</strong></li></ul></li></ul><blockquote><p>💡 “当前 x8 / 8.0 GT/s”表示空闲或省电状态，负载上来后会自动升速。</p></blockquote><h3 id="内存（Memory）页"><a href="#内存（Memory）页" class="headerlink" title="内存（Memory）页"></a>内存（Memory）页</h3><p><img src="/img/英特尔CPU全系列解析/memory.png" alt="CPU-Z 内存页"></p><ul><li><strong>看什么</strong>：Type（DDR4/DDR5）、Size（容量）、Channel（通道）、DRAM Frequency（内存实际频率；DDR 标称要 ×2）、Timings（CL/tRCD/tRP/tRAS）</li><li><strong>这张截图显示</strong>：<ul><li><strong>DDR5 32GB</strong></li><li>Channel：<strong>2 × 32-bit</strong>（DDR5 单条内部是 2×32-bit 子通道）</li><li>DRAM Frequency 约 <strong>2397 MHz</strong> → 标称约 <strong>DDR5-4800</strong></li><li>时序约 <strong>CL40-39-39-77</strong></li></ul></li></ul><blockquote><p>⚠️ 内存运行在 DDR5-4800（JEDEC 默认档），SPD 显示支持 6000，说明 XMP/EXPO 尚未开启。</p></blockquote><h3 id="SPD-页"><a href="#SPD-页" class="headerlink" title="SPD 页"></a>SPD 页</h3><p><img src="/img/英特尔CPU全系列解析/spd.png" alt="CPU-Z SPD 页"></p><ul><li><strong>看什么</strong>：Module Size（单条容量）、Manufacturer（厂商）、Max Bandwidth（SPD 标称带宽档）、Profiles（XMP/EXPO 频率与电压/时序）</li><li><strong>这张截图显示</strong>：<ul><li>内存条厂商：<strong>Kingston（金士顿）</strong>，颗粒：<strong>SK Hynix</strong></li><li>支持 <strong>EXPO / XMP 3.0</strong></li><li>配置表有 <strong>DDR5-6000（3000 MHz）</strong> 档位，电压约 <strong>1.350V</strong></li></ul></li></ul><h3 id="显卡（Graphics）页"><a href="#显卡（Graphics）页" class="headerlink" title="显卡（Graphics）页"></a>显卡（Graphics）页</h3><p><img src="/img/英特尔CPU全系列解析/graphics.png" alt="CPU-Z 显卡页"></p><ul><li><strong>看什么</strong>：显卡名称、GPU 代号、显存类型/容量/位宽、当前频率</li><li><strong>这张截图显示</strong>：<ul><li>显卡：<strong>NVIDIA GeForce RTX 5060（七彩虹 Colorful）</strong></li><li>显存：约 <strong>8GB</strong>，类型 <strong>GDDR7</strong>，位宽 <strong>128-bit</strong></li><li>频率在桌面空闲状态偏低（正常省电）</li></ul></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 技术 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> CPU </tag>
+            
+            <tag> 英特尔 </tag>
+            
+            <tag> 硬件 </tag>
+            
+            <tag> 选购指南 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>网络工程基础知识核心笔记</title>
+      <link href="/posts/network-basics-notes.html"/>
+      <url>/posts/network-basics-notes.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="网络工程基础知识核心笔记"><a href="#网络工程基础知识核心笔记" class="headerlink" title="网络工程基础知识核心笔记"></a>网络工程基础知识核心笔记</h1><blockquote><p>从 IP 地址到 TCP/UDP，一份面向入门的网络工程核心知识梳理，适合复习与面试准备。</p></blockquote><hr><h2 id="IP-地址、子网掩码与子网划分"><a href="#IP-地址、子网掩码与子网划分" class="headerlink" title="IP 地址、子网掩码与子网划分"></a>IP 地址、子网掩码与子网划分</h2><h3 id="IP-地址"><a href="#IP-地址" class="headerlink" title="IP 地址"></a>IP 地址</h3><p>IP 地址是网络中设备的唯一标识，如同网购的精准收货地址，确保数据包在全球几十亿设备中准确找到目标设备（手机、电脑、服务器等）。</p><p>分为两种类型：</p><ul><li><strong>公网 IP</strong>：由运营商分配，全球唯一的”门牌号”，整个互联网都可识别。</li><li><strong>私网 IP</strong>：通常以 <code>192.168</code> 开头，相当于局域网内的”房间号”，仅在局域网内部有效。</li></ul><h3 id="子网掩码"><a href="#子网掩码" class="headerlink" title="子网掩码"></a>子网掩码</h3><p>子网掩码是 IP 地址的”分隔符”，用于区分地址中的网络位和主机位。</p><p>最常见的子网掩码是 <code>255.255.255.0</code>，其含义是：IP 地址的前三段为<strong>网络位</strong>，最后一段为<strong>主机位</strong>。</p><h3 id="子网划分"><a href="#子网划分" class="headerlink" title="子网划分"></a>子网划分</h3><p>子网划分是将大网段拆分为多个互相隔离的小网段（子网）的过程。</p><p>例如，<code>192.168.1.0</code> 网段可容纳 254 台设备。若所有设备共处同一网段，易导致<strong>广播泛滥</strong>，引发网络卡顿和安全问题。通过子网划分，每个子网独立管理设备、互不干扰，既能提升网络效率，又能增强安全性。</p><hr><h2 id="上网必备的三大协议"><a href="#上网必备的三大协议" class="headerlink" title="上网必备的三大协议"></a>上网必备的三大协议</h2><h3 id="ARP-协议"><a href="#ARP-协议" class="headerlink" title="ARP 协议"></a>ARP 协议</h3><p>所有通信设备都有全球唯一的 <strong>MAC 地址</strong>，数据包在局域网内最终通过 MAC 地址定位设备。<strong>ARP 协议的作用是通过 IP 地址查询对应设备的 MAC 地址</strong>，是内网设备通信的基础。</p><p><strong>示例：</strong> 电脑需向同局域网的打印机（IP 为 <code>192.168.1.10</code>）发送文件时，会在局域网内广播询问——</p><blockquote><p>“谁是 192.168.1.10，请回复你的 MAC 地址”</p></blockquote><p>打印机收到后回复自身 MAC 地址，电脑将其缓存，后续通信可直接使用该 MAC 地址，无需重复广播。</p><h3 id="DHCP-协议"><a href="#DHCP-协议" class="headerlink" title="DHCP 协议"></a>DHCP 协议</h3><p>DHCP 协议相当于<strong>“自动分配地址的物业”</strong>，能自动为联网设备分配 IP 地址、网关、DNS 等上网参数。</p><ul><li>无需管理员手动设置</li><li>自动避免 IP 地址冲突</li></ul><p>手机连接 Wi-Fi 时，DHCP 会自动完成所有参数配置，用户无需关心底层细节。</p><h3 id="DNS-协议"><a href="#DNS-协议" class="headerlink" title="DNS 协议"></a>DNS 协议</h3><p>DNS 协议被称为<strong>“互联网的查询台”</strong>。</p><p>用户输入的网址（如 <code>www.baidu.com</code>）是人类可理解的字符，而电脑只识别数字 IP 地址。DNS 的功能就是将网址<strong>翻译成对应的 IP 地址</strong>。</p><p>没有 DNS 的世界——你得记住所有网站的数字 IP 才能上网。</p><hr><h2 id="交换机与路由器"><a href="#交换机与路由器" class="headerlink" title="交换机与路由器"></a>交换机与路由器</h2><h3 id="交换机"><a href="#交换机" class="headerlink" title="交换机"></a>交换机</h3><blockquote><p>局域网内的 <strong>“内部快递员”</strong></p></blockquote><ul><li>仅负责<strong>同一网段</strong>（同一”小区”）内的设备数据转发</li><li>基于 <strong>MAC 地址</strong>定位设备</li><li>只在局域网内工作，注重转发效率</li></ul><h3 id="路由器"><a href="#路由器" class="headerlink" title="路由器"></a>路由器</h3><blockquote><p><strong>“跨网络的全国快递分拣中心”</strong></p></blockquote><ul><li>负责<strong>跨网段、跨城市</strong>的数据包转发</li><li>基于 <strong>IP 地址</strong>寻找最优路径</li><li>用户能刷抖音、访问外网，都依靠路由器将数据”一跳一跳”发送到全球各地，并将结果返回</li></ul><p><strong>总结：</strong> 同网段内网通信靠交换机，跨网段访问互联网靠路由器。</p><hr><h2 id="数据传输的两大核心模式：TCP-与-UDP"><a href="#数据传输的两大核心模式：TCP-与-UDP" class="headerlink" title="数据传输的两大核心模式：TCP 与 UDP"></a>数据传输的两大核心模式：TCP 与 UDP</h2><h3 id="TCP（传输控制协议）"><a href="#TCP（传输控制协议）" class="headerlink" title="TCP（传输控制协议）"></a>TCP（传输控制协议）</h3><p><strong>核心特点：可靠优先，哪怕慢一点</strong></p><p>工作机制：</p><ol><li><strong>三次握手建立连接</strong>：<code>&quot;你准备好了吗？&quot; → &quot;准备好了。&quot; → &quot;那我开始发了。&quot;</code></li><li><strong>编号确认</strong>：发送时对每个数据包编号，接收方收到后回复确认（如”收到 1，请发 2”）</li><li><strong>自动重传</strong>：若出现丢包，TCP 会自动重传</li><li><strong>四次挥手断开连接</strong>：数据传输结束后优雅关闭</li></ol><p><strong>适用场景：</strong> 微信发文件、浏览网页、接收邮件等——这些场景不允许数据丢失。</p><h3 id="UDP（用户数据报协议）"><a href="#UDP（用户数据报协议）" class="headerlink" title="UDP（用户数据报协议）"></a>UDP（用户数据报协议）</h3><p><strong>核心特点：快速优先，可靠性较低</strong></p><p>工作方式可比喻为<strong>“广场喊话”</strong>——</p><blockquote><p>无需握手建立连接，发送方直接发送数据，不要求接收方确认，也不进行丢包重传。</p></blockquote><p>打个比方：像”三秒后有一百个包裹扔下来，你们自己接，接不到算球”。因此 UDP <strong>速度极快但可靠性低</strong>。</p><p><strong>适用场景：</strong> 刷抖音、实时游戏、视频会议等——对延迟敏感、偶尔卡顿可接受的场景。</p><hr><h2 id="速查总表"><a href="#速查总表" class="headerlink" title="速查总表"></a>速查总表</h2><div class="table-container"><table><thead><tr><th>概念</th><th>关键作用</th><th>类比</th></tr></thead><tbody><tr><td>IP 地址</td><td>设备唯一标识</td><td>收货地址</td></tr><tr><td>子网掩码</td><td>区分网络位/主机位</td><td>地址分隔符</td></tr><tr><td>ARP</td><td>IP → MAC 地址查询</td><td>内网寻人广播</td></tr><tr><td>DHCP</td><td>自动分配网络参数</td><td>物业自动配钥匙</td></tr><tr><td>DNS</td><td>域名 → IP 解析</td><td>互联网查询台</td></tr><tr><td>交换机</td><td>同网段数据转发</td><td>内部快递员</td></tr><tr><td>路由器</td><td>跨网段数据转发</td><td>全国分拣中心</td></tr><tr><td>TCP</td><td>可靠传输</td><td>挂号信（有回执）</td></tr><tr><td>UDP</td><td>快速传输</td><td>广场喊话（不保证）</td></tr></tbody></table></div><hr>]]></content>
+      
+      
+      <categories>
+          
+          <category> 教程 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 网络工程 </tag>
+            
+            <tag> 笔记 </tag>
+            
+            <tag> TCP/IP </tag>
+            
+            <tag> 基础 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Markdown 语法速查指南</title>
       <link href="/posts/e1ca28e.html"/>
       <url>/posts/e1ca28e.html</url>
@@ -26,9 +121,9 @@
             
             <tag> Markdown </tag>
             
-            <tag> 速查 </tag>
-            
             <tag> 语法 </tag>
+            
+            <tag> 速查 </tag>
             
         </tags>
       
@@ -55,13 +150,13 @@
       
         <tags>
             
-            <tag> hexo </tag>
-            
             <tag> git </tag>
             
             <tag> 教程 </tag>
             
             <tag> 新电脑 </tag>
+            
+            <tag> hexo </tag>
             
             <tag> 迁移 </tag>
             
@@ -177,9 +272,9 @@
       
         <tags>
             
-            <tag> Flask </tag>
-            
             <tag> Markdown </tag>
+            
+            <tag> Flask </tag>
             
             <tag> 开源 </tag>
             
@@ -953,9 +1048,9 @@
             
             <tag> hexo </tag>
             
-            <tag> 命令 </tag>
-            
             <tag> 速查 </tag>
+            
+            <tag> 命令 </tag>
             
         </tags>
       
