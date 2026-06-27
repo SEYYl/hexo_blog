@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>OpenClaw 基础使用流程（新手极简版）</title>
+      <link href="/posts/openclaw-basic-guide.html"/>
+      <url>/posts/openclaw-basic-guide.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="OpenClaw-基础使用流程（新手极简版）"><a href="#OpenClaw-基础使用流程（新手极简版）" class="headerlink" title="OpenClaw 基础使用流程（新手极简版）"></a>OpenClaw 基础使用流程（新手极简版）</h1><p>一份去繁就简的 OpenClaw 开箱指南，只保留最核心、最不踩坑的操作步骤。</p><hr><h2 id="🟢-第一步：安装"><a href="#🟢-第一步：安装" class="headerlink" title="🟢 第一步：安装"></a>🟢 第一步：安装</h2><p>OpenClaw 基于 Node.js。打开终端，运行：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g openclaw</span><br></pre></td></tr></table></figure><p>安装完成后验证：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">openclaw --version</span><br><span class="line"><span class="comment"># 输出如：OpenClaw 2026.6.10</span></span><br></pre></td></tr></table></figure><hr><h2 id="🔵-第二步：启动聊天"><a href="#🔵-第二步：启动聊天" class="headerlink" title="🔵 第二步：启动聊天"></a>🔵 第二步：启动聊天</h2><p>装好后的第一件事：直接聊。OpenClaw 会自动引导你完成模型配置。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openclaw chat</span><br></pre></td></tr></table></figure><p>第一次运行会进入配置引导，按提示：</p><ol><li><strong>Workspace directory</strong> → 回车（默认路径）</li><li><strong>Configure model/auth now?</strong> → 选 <code>Yes</code></li><li><strong>Model/auth provider</strong> → 选 <code>More…</code>，手动输入你的模型提供商（如 <code>deepseek</code>）</li><li><strong>Enter API key</strong> → 粘贴密钥</li></ol><p>完成后进入聊天界面，底部状态栏显示：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">agent main | deepseek/deepseek-v4-flash | think high | tokens 87k/1.0m</span><br></pre></td></tr></table></figure><hr><h2 id="🟡-第三步：网页版模式"><a href="#🟡-第三步：网页版模式" class="headerlink" title="🟡 第三步：网页版模式"></a>🟡 第三步：网页版模式</h2><p>OpenClaw 也提供了网页版（WebChat），体验更直观：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openclaw gateway start</span><br></pre></td></tr></table></figure><p>浏览器打开：<code>http://127.0.0.1:18789/</code></p><p>如果想开机自启：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">openclaw gateway install   <span class="comment"># 安装 systemd 服务</span></span><br><span class="line">systemctl --user start openclaw-gateway.service</span><br></pre></td></tr></table></figure><p>如果配置了语音（Microsoft TTS 等），网页版还支持语音输入和 TTS 朗读。</p><hr><h2 id="🟣-第四步：常用斜杠命令"><a href="#🟣-第四步：常用斜杠命令" class="headerlink" title="🟣 第四步：常用斜杠命令"></a>🟣 第四步：常用斜杠命令</h2><p>在聊天界面中，以 <code>/</code> 开头的命令：</p><div class="table-container"><table><thead><tr><th>命令</th><th>作用</th></tr></thead><tbody><tr><td><code>/exit</code></td><td>退出聊天界面</td></tr><tr><td><code>/clear</code></td><td>清屏（对话内容还在）</td></tr><tr><td><code>/auth &lt;provider&gt;</code></td><td>原地刷新密钥</td></tr><tr><td><code>/status</code></td><td>查看当前 session 状态</td></tr><tr><td><code>/talk</code></td><td>切换语音模式（需先配置 TTS）</td></tr></tbody></table></div><hr><h2 id="🟠-第五步：用技能扩展能力"><a href="#🟠-第五步：用技能扩展能力" class="headerlink" title="🟠 第五步：用技能扩展能力"></a>🟠 第五步：用技能扩展能力</h2><p>OpenClaw 真正的威力在<strong>技能系统（Skills）</strong>。技能分两类：</p><ul><li><strong>内建技能</strong>：npm 包自带</li><li><strong>插件技能</strong>：<code>~/.openclaw/plugin-skills/</code>，社区或自建</li></ul><h3 id="安装社区技能"><a href="#安装社区技能" class="headerlink" title="安装社区技能"></a>安装社区技能</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx skills add &lt;作者&gt;/&lt;仓库名&gt;</span><br></pre></td></tr></table></figure><h3 id="推荐安装"><a href="#推荐安装" class="headerlink" title="推荐安装"></a>推荐安装</h3><div class="table-container"><table><thead><tr><th>技能</th><th>作用</th></tr></thead><tbody><tr><td><strong>obsidian-wiki</strong></td><td>让 AI 自动维护你的 Obsidian 知识库</td></tr><tr><td><strong>frontend-design</strong></td><td>UI 设计辅助</td></tr><tr><td><strong>nuwa-skill</strong></td><td>15+ 人物视角技能（乔布斯、芒格、费曼等）</td></tr></tbody></table></div><h3 id="创建自己的技能"><a href="#创建自己的技能" class="headerlink" title="创建自己的技能"></a>创建自己的技能</h3><p>只需一个目录 + 一个 <code>SKILL.md</code> 文件：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -p ~/.openclaw/plugin-skills/my-skill/</span><br></pre></td></tr></table></figure><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># my-skill/SKILL.md</span></span><br><span class="line"></span><br><span class="line"><span class="section">## 技能说明</span></span><br><span class="line"></span><br><span class="line">告诉 AI 在什么场景下触发这个技能。</span><br></pre></td></tr></table></figure><p>重启对话即生效，不需要重启 OpenClaw。</p><hr><h2 id="🔴-第六步：配置说明"><a href="#🔴-第六步：配置说明" class="headerlink" title="🔴 第六步：配置说明"></a>🔴 第六步：配置说明</h2><p>OpenClaw 的配置集中在两个文件：</p><div class="table-container"><table><thead><tr><th>文件</th><th>作用</th></tr></thead><tbody><tr><td><code>~/.openclaw/openclaw.json</code></td><td>全局配置（模型、代理、插件）</td></tr><tr><td><code>~/.openclaw/auth-profiles.json</code></td><td>密钥认证信息</td></tr></tbody></table></div><p><strong>不要手动编辑</strong> <code>openclaw.json</code> 的密钥字段——密钥统一走 <code>auth-profiles.json</code>。</p><hr><h2 id="💡-日常工作流"><a href="#💡-日常工作流" class="headerlink" title="💡 日常工作流"></a>💡 日常工作流</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">终端 → openclaw chat（或浏览器 WebChat）</span><br><span class="line">↓</span><br><span class="line">开始对话</span><br><span class="line">↓</span><br><span class="line">处理完 → /wiki-update 把知识存入 Obsidian</span><br><span class="line">↓</span><br><span class="line">/exit 退出</span><br></pre></td></tr></table></figure><hr><h2 id="⚠️-常见踩坑"><a href="#⚠️-常见踩坑" class="headerlink" title="⚠️ 常见踩坑"></a>⚠️ 常见踩坑</h2><div class="table-container"><table><thead><tr><th>现象</th><th>原因</th><th>解决</th></tr></thead><tbody><tr><td><code>Too many arguments</code></td><td>给 <code>openclaw chat</code> 传了参数</td><td>直接 <code>openclaw chat</code>，不加任何参数</td></tr><tr><td>密钥无效</td><td>过期或没配置</td><td><code>/auth deepseek</code> 刷新</td></tr><tr><td>网页版打不开</td><td>Gateway 没启动</td><td>先跑 <code>openclaw gateway start</code></td></tr><tr><td>语音报错</td><td>TTS 没配</td><td>在 <code>openclaw.json</code> 的 <code>messages.tts</code> 配置</td></tr></tbody></table></div><hr><p>以上就是 OpenClaw 最纯净、最基础的使用流程。祝聊得愉快 🚀</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 教程 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 教程 </tag>
+            
+            <tag> OpenClaw </tag>
+            
+            <tag> AI </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>系统代理 vs TUN 模式：到底差在哪里？一文彻底搞懂</title>
       <link href="/posts/system-proxy-vs-tun.html"/>
       <url>/posts/system-proxy-vs-tun.html</url>
@@ -121,9 +150,9 @@
             
             <tag> Markdown </tag>
             
-            <tag> 速查 </tag>
-            
             <tag> 语法 </tag>
+            
+            <tag> 速查 </tag>
             
         </tags>
       
@@ -150,13 +179,13 @@
       
         <tags>
             
-            <tag> hexo </tag>
+            <tag> git </tag>
             
             <tag> 教程 </tag>
             
-            <tag> git </tag>
-            
             <tag> 新电脑 </tag>
+            
+            <tag> hexo </tag>
             
             <tag> 迁移 </tag>
             
@@ -187,9 +216,9 @@
             
             <tag> GitHub </tag>
             
-            <tag> 教程 </tag>
-            
             <tag> git </tag>
+            
+            <tag> 教程 </tag>
             
             <tag> 新电脑 </tag>
             
@@ -216,11 +245,11 @@
       
         <tags>
             
-            <tag> Hexo </tag>
-            
             <tag> Git </tag>
             
             <tag> GitHub </tag>
+            
+            <tag> Hexo </tag>
             
         </tags>
       
@@ -272,9 +301,9 @@
       
         <tags>
             
-            <tag> Flask </tag>
-            
             <tag> Markdown </tag>
+            
+            <tag> Flask </tag>
             
             <tag> 开源 </tag>
             
@@ -415,9 +444,9 @@
       
         <tags>
             
-            <tag> Hexo </tag>
-            
             <tag> Git </tag>
+            
+            <tag> Hexo </tag>
             
             <tag> 踩坑 </tag>
             
@@ -583,9 +612,9 @@
       
         <tags>
             
-            <tag> Hexo </tag>
-            
             <tag> Git </tag>
+            
+            <tag> Hexo </tag>
             
             <tag> 踩坑 </tag>
             
@@ -984,11 +1013,11 @@
       
         <tags>
             
+            <tag> 教程 </tag>
+            
             <tag> linux </tag>
             
             <tag> 基础命令 </tag>
-            
-            <tag> 教程 </tag>
             
         </tags>
       
@@ -1048,9 +1077,9 @@
             
             <tag> hexo </tag>
             
-            <tag> 命令 </tag>
-            
             <tag> 速查 </tag>
+            
+            <tag> 命令 </tag>
             
         </tags>
       
